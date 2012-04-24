@@ -260,7 +260,7 @@ FModule.prototype.renderStyles = function(){
     $j('head').append(elem);
 };
 
-function Menu()
+function FMenu()
 {
     var container = $j('<ul>');
     container.addClass('fj_menuPanel');
@@ -485,7 +485,7 @@ function FApplication(client_params)
             log.trace(message);
         };
         var user = new FUser(client_params);
-        var menu = new Menu();
+        var menu = new FMenu();
         var manager = new FModuleManager();
 
         /* Run */
