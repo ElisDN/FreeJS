@@ -1,11 +1,3 @@
-// ==UserScript==
-// @name        FreeFs
-// @description free-lance.ru interface patch client
-// @namespace   http://freejs.elisdn.ru/
-// @include     http://www.free-lance.ru/
-// @include     http://www.free-lance.ru/*
-// ==/UserScript
-
 /*
  * FreeJS (free-lance.ru interface patch)
  * Author: Eliseev Dmitry
@@ -13,7 +5,6 @@
  * Accaunt: http://free-lance.ru/users/ElisDN
  * Email: mail@elisdn.ru
  */
-
 
 $j = jQuery.noConflict();
 
@@ -32,6 +23,14 @@ function FLog()
 
 function FStorage()
 {
+    function parse(val){
+        var value = val;
+        if (val == 'true') value = true;
+        if (val == 'false') value = false;
+        if (val === null) value = '';
+        return value;
+    }
+
     function Construct()
     {
         this.set = function(key, value){
@@ -42,15 +41,14 @@ function FStorage()
                 window.localStorage.setItem(key, value);
             }
         };
+
         this.get = function(key){
             if (key){
                 var value = window.localStorage.getItem(key);
-                if (value == 'true') value = true;
-                if (value == 'false') value = false;
-                if (value === null) value = '';
-                return value;
+                return parse(value);
             }
         };
+
         this.has = function(key){
             if (key){
                 var value = window.localStorage.getItem(key);
@@ -59,68 +57,111 @@ function FStorage()
                 return false;
             }
             return true;
-        }
+        };
+
+        this.setOnce = function(key, value){
+            if (key){
+                if (this.hasOnce(key)){
+                    window.sessionStorage.removeItem(key);
+                }
+                window.sessionStorage.setItem(key, value);
+            }
+        };
+
+        this.getOnce = function(key){
+            if (key){
+                var value = window.sessionStorage.getItem(key);
+                return parse(value);
+            }
+        };
+
+        this.hasOnce = function(key){
+            if (key){
+                var value = window.sessionStorage.getItem(key);
+                if (value === null) return false;
+            } else {
+                return false;
+            }
+            return true;
+        };
+
     }
     return new Construct();
 }
 
-function FConfig()
+function FConfig(storage_driver, options_list)
 {
+    var storage = storage_driver;
+    var options = options_list;
+
     function Construct()
     {
-        this.params = [];
-        this.storage = null;
         this.onError = function(message){};
 
         this.init = function(){
             if (!this.get('hash')){
-                for (var p in this.params){
+                for (var p in options){
                     this.set(p, true);
                 }
                 this.set('hash', Math.floor(Math.random()*1000000));
             }
         };
 
-        this.getLabel = function(key){
-            return typeof(this.params[key]) != 'undefined' ? this.params[key] : '';
+        this.getOptionLabel = function(key){
+            return typeof(options[key]) != 'undefined' ? options[key] : '';
         };
 
         this.get = function(key){
             if (key){
-                return this.storage.get('config_'+key);
+                return storage.get('config_'+key);
             } else {
-                this.onError('Storage key for GET is empty');
+                this.onError('Storage key for Config::get() is empty');
                 return false;
             }
         };
 
         this.set = function(key, val){
             if (key){
-                this.storage.set('config_'+key, val);
+                storage.set('config_'+key, val);
             } else {
-                this.onError('Storage key for SET is empty');
+                this.onError('Storage key for Config::set() is empty');
             }
         };
 
-        this.getAll = function(){
-            return this.params;
+        this.getOnce = function(key){
+            if (key){
+                return storage.getOnce('config_'+key);
+            } else {
+                this.onError('Storage key for Config::get() is empty');
+                return false;
+            }
         };
+
+        this.setOnce = function(key, val){
+            if (key){
+                storage.setOnce('config_'+key, val);
+            } else {
+                this.onError('Storage key for Config::setOnce() is empty');
+            }
+        };
+
+        this.getOptions = function(){
+            return options;
+        };
+
+        this.init();
     }
     return new Construct();
 }
 
-function FUser()
+function FUser(config)
 {
-    var params = [];
+    var params = config;
     var protecteds = [];
 
     function Construct()
     {
         this.onError = function(message){};
-
-        this.init = function(){
-            params = fj_config;
-        };
 
         this.get = function(key){
             if (key){
@@ -198,7 +239,7 @@ function FModule()
 {
     this.condition = function(){return false};
     this.action = function(){};
-    this.styles = [];
+    this.module_styles = [];
 }
 
 FModule.prototype.exec = function(){
@@ -209,13 +250,13 @@ FModule.prototype.exec = function(){
 };
 
 FModule.prototype.registerCss = function(data){
-    this.styles.push(data);
+    this.module_styles.push(data);
 };
 
 FModule.prototype.renderStyles = function(){
     var elem = $j('<style>');
     elem.attr('type', 'text/css');
-    elem.html(this.styles.join("\n"));
+    elem.html(this.module_styles.join("\n"));
     $j('head').append(elem);
 };
 
@@ -279,163 +320,175 @@ function Menu()
     return new Construct();
 }
 
-function FApplication()
+function Smiles()
+{
+    var smile_list = {
+        ':)':'smiley.gif',
+        '=)':'lipsrsealed.gif',
+        '8(':'shocked.gif',
+        ':P':'tongue.gif',
+        '?(':'huh.gif',
+        'O:-)': 'aa.gif',
+        ':-)': 'ab.gif',
+        ':-(': 'ac.gif',
+        ';-)': 'ad.gif',
+        ':-P': 'ae.gif',
+        '8-)': 'af.gif',
+        ':D': 'ag.gif',
+        ':-D': 'ag.gif',
+        ':-[': 'ah.gif',
+        '=-O': 'ai.gif',
+        ':-*': 'aj.gif',
+        ':-\'(': 'ak.gif',
+        ':-X': 'al.gif',
+        '>:o': 'am.gif',
+        ':-|': 'an.gif',
+        ':-\\': 'ao.gif',
+        '*смеюсь*': 'ap.gif',
+        ']:->': 'aq.gif',
+        '[:-}': 'ar.gif',
+        '*kissed*': 'as.gif',
+        ':-!': 'at.gif',
+        '*засыпаю*': 'au.gif',
+        '*stop*': 'av.gif',
+        '*целую*': 'aw.gif',
+        '@}->--': 'ax.gif',
+        '*классно*': 'ay.gif',
+        '*drink*': 'az.gif',
+        '*сердце*': 'ba.gif',
+        '@=': 'bb.gif',
+        '*help*': 'bc.gif',
+        '\\m/': 'bd.gif',
+        '%-)': 'be.gif',
+        ' ok ': 'bf.gif',
+        '*wassup*': 'bg.gif',
+        '*извиняюсь*': 'bh.gif',
+        '*bravo*': 'bi.gif',
+        '*rofl*': 'bj.gif',
+        '*пардон*': 'bk.gif',
+        '*нет!*': 'bl.gif',
+        '*crazy*': 'bm.gif',
+        '*не знаю*': 'bn.gif',
+        '*танцую*': 'bo.gif',
+        '*yahoo*': 'bp.gif',
+        '*acute*': 'bq.gif',
+        '*бе-бе*': 'br.gif',
+        '*bye*': 'bs.gif',
+        '*бьюсь ап стену*': 'bt.gif',
+        '*я счастлив*': 'bu.gif',
+        'lol!': 'bv.gif',
+        '*scratch*': 'bw.gif',
+        '*yeees!*': 'bx.gif',
+        '*polling*': 'by.gif',
+        '*boss*': 'bz.gif',
+        '*sarcastic*': 'ca.gif',
+        '*boast*': 'cb.gif',
+        '*вот так*': 'cc.gif',
+        '*db*': 'cd.gif',
+        '*ха-ха*': 'ce.gif',
+        '*shout*': 'cf.gif',
+        '*ништяк*': 'cg.gif',
+        '[censored]': 'ch.gif',
+        '*search*': 'ci.gif',
+        '*выпендриваюсь*': 'cj.gif',
+        '*чудо*': 'ck.gif',
+        '*skull*': 'cl.gif',
+        '*убегаю*': 'cm.gif',
+        '*пью йад*': 'cn.gif',
+        '*mnjam*': 'co.gif',
+        '*чё так*': 'cp.gif',
+        '^^': 'cq.gif',
+        '*готово*': 'cr.gif',
+        '*обнимаю*': 'cs.gif',
+        '*notsofast*': 'ct.gif',
+        '*фу*': 'cu.gif',
+        '*реву*': 'cv.gif',
+        '*глажу по голове*': 'cw.gif',
+        '*преклоняюсь*': 'cx.gif',
+        '*обиделся*': 'cy.gif',
+        '*дай пять!*': 'cz.gif',
+        '*подмигиваю*': 'da.gif',
+        '*какой джигит*': 'db.gif',
+        'x-)': 'dc.gif',
+        '*byebye*': 'dd.gif',
+        '*пожалуйста*': 'de.gif',
+        '*yes*': 'df.gif',
+        '*я в ударе*': 'dg.gif',
+        '*ужас*': 'di.gif',
+        '*злюсь*': 'dj.gif',
+        '*дружба*': 'dk.gif',
+        '*punish*': 'dl.gif',
+        '*задумался*': 'dm.gif',
+        '*ни в жизнь*': 'dn.gif',
+        '*напеваю*': 'do.gif',
+        '*зубрю*': 'dp.gif',
+        '*жарко*': 'dr.gif',
+        '*this*': 'ds.gif',
+        '*эврика*': 'dt.gif',
+        '*показываю язык*': 'du.gif',
+        '*гадаю*': 'dw.gif',
+        '*в расчёте*': 'dx.gif',
+        '*жестоко наказываю*': 'dz.gif',
+        '*жмурюсь*': 'ei.gif',
+        '*ага*': 'eb.gif',
+        '*в трансе*': 'ec.gif',
+        '*обиделась*': 'eu.gif',
+        '*люблю*': 'fi.gif',
+        '*Вы мне нравитесь*': 'fk.gif',
+        '*давай дружить*': 'fl.gif',
+        '*демпер*': 'fm.gif',
+        '*баян*': 'fx.gif',
+        '*победитель*': 'hs.gif'
+    };
+
+    function Construct()
+    {
+        this.getAssoc = function(){
+            return smile_list;
+        }
+    }
+
+    return new Construct();
+}
+
+function FApplication(client_params)
 {
 
     function str_replace(text, search, replace) {
         return text.split(search).join(replace);
     }
 
-    function Construct()
+    function Construct(client_params)
     {
-        var scriptVersion = '2.0.0';
+        var scriptVersion = '2.0';
         var clientLastVersion = '2.0';
 
-        var smiles = {
-            ':)':'smiley.gif',
-            '=)':'lipsrsealed.gif',
-            '8(':'shocked.gif',
-            ':P':'tongue.gif',
-            '?(':'huh.gif',
-            'O:-)': 'aa.gif',
-            ':-)': 'ab.gif',
-            ':-(': 'ac.gif',
-            ';-)': 'ad.gif',
-            ':-P': 'ae.gif',
-            '8-)': 'af.gif',
-            ':D': 'ag.gif',
-            ':-D': 'ag.gif',
-            ':-[': 'ah.gif',
-            '=-O': 'ai.gif',
-            ':-*': 'aj.gif',
-            ':-\'(': 'ak.gif',
-            ':-X': 'al.gif',
-            '>:o': 'am.gif',
-            ':-|': 'an.gif',
-            ':-\\': 'ao.gif',
-            '*смеюсь*': 'ap.gif',
-            ']:->': 'aq.gif',
-            '[:-}': 'ar.gif',
-            '*kissed*': 'as.gif',
-            ':-!': 'at.gif',
-            '*засыпаю*': 'au.gif',
-            '*stop*': 'av.gif',
-            '*целую*': 'aw.gif',
-            '@}->--': 'ax.gif',
-            '*классно*': 'ay.gif',
-            '*drink*': 'az.gif',
-            '*сердце*': 'ba.gif',
-            '@=': 'bb.gif',
-            '*help*': 'bc.gif',
-            '\\m/': 'bd.gif',
-            '%-)': 'be.gif',
-            ' ok ': 'bf.gif',
-            '*wassup*': 'bg.gif',
-            '*извиняюсь*': 'bh.gif',
-            '*bravo*': 'bi.gif',
-            '*rofl*': 'bj.gif',
-            '*пардон*': 'bk.gif',
-            '*нет!*': 'bl.gif',
-            '*crazy*': 'bm.gif',
-            '*не знаю*': 'bn.gif',
-            '*танцую*': 'bo.gif',
-            '*yahoo*': 'bp.gif',
-            '*acute*': 'bq.gif',
-            '*бе-бе*': 'br.gif',
-            '*bye*': 'bs.gif',
-            '*бьюсь ап стену*': 'bt.gif',
-            '*я счастлив*': 'bu.gif',
-            'lol!': 'bv.gif',
-            '*scratch*': 'bw.gif',
-            '*yeees!*': 'bx.gif',
-            '*polling*': 'by.gif',
-            '*boss*': 'bz.gif',
-            '*sarcastic*': 'ca.gif',
-            '*boast*': 'cb.gif',
-            '*вот так*': 'cc.gif',
-            '*db*': 'cd.gif',
-            '*ха-ха*': 'ce.gif',
-            '*shout*': 'cf.gif',
-            '*ништяк*': 'cg.gif',
-            '[censored]': 'ch.gif',
-            '*search*': 'ci.gif',
-            '*выпендриваюсь*': 'cj.gif',
-            '*чудо*': 'ck.gif',
-            '*skull*': 'cl.gif',
-            '*убегаю*': 'cm.gif',
-            '*пью йад*': 'cn.gif',
-            '*mnjam*': 'co.gif',
-            '*чё так*': 'cp.gif',
-            '^^': 'cq.gif',
-            '*готово*': 'cr.gif',
-            '*обнимаю*': 'cs.gif',
-            '*notsofast*': 'ct.gif',
-            '*фу*': 'cu.gif',
-            '*реву*': 'cv.gif',
-            '*глажу по голове*': 'cw.gif',
-            '*преклоняюсь*': 'cx.gif',
-            '*обиделся*': 'cy.gif',
-            '*дай пять!*': 'cz.gif',
-            '*подмигиваю*': 'da.gif',
-            '*какой джигит*': 'db.gif',
-            'x-)': 'dc.gif',
-            '*byebye*': 'dd.gif',
-            '*пожалуйста*': 'de.gif',
-            '*yes*': 'df.gif',
-            '*я в ударе*': 'dg.gif',
-            '*ужас*': 'di.gif',
-            '*злюсь*': 'dj.gif',
-            '*дружба*': 'dk.gif',
-            '*punish*': 'dl.gif',
-            '*задумался*': 'dm.gif',
-            '*ни в жизнь*': 'dn.gif',
-            '*напеваю*': 'do.gif',
-            '*зубрю*': 'dp.gif',
-            '*жарко*': 'dr.gif',
-            '*this*': 'ds.gif',
-            '*эврика*': 'dt.gif',
-            '*показываю язык*': 'du.gif',
-            '*гадаю*': 'dw.gif',
-            '*в расчёте*': 'dx.gif',
-            '*жестоко наказываю*': 'dz.gif',
-            '*жмурюсь*': 'ei.gif',
-            '*ага*': 'eb.gif',
-            '*в трансе*': 'ec.gif',
-            '*обиделась*': 'eu.gif',
-            '*люблю*': 'fi.gif',
-            '*Вы мне нравитесь*': 'fk.gif',
-            '*давай дружить*': 'fl.gif',
-            '*демпер*': 'fm.gif',
-            '*баян*': 'fx.gif',
-            '*победитель*': 'hs.gif'
-        };
+        /* Init */
 
         var log = new FLog();
         var storage = new FStorage();
-        var config = new FConfig();
-        config.storage = storage;
-        config.onError = function(message){
-            log.trace(message);
-        };
-        config.params = {
+        var config = new FConfig(storage, {
             modifyUserbar:'Изменение шапки',
             hideBlogs: 'Скрытие блогов',
             answerTemplates: 'Заготовки ответов на проекты',
             nonReadedHighlight: 'Подсветка сообщений и проектов',
             BBCodeBar: 'ВВ-панель для многострочных полей',
-            profileGallery: 'Просмотр портфолио в режиме галереи',
+            profileGallery: 'Галерея в портфолио',
             Smiles: 'Смайлики в блогах',
             checkMessages: 'Оповещение о новых сообщениях',
             highlightCode: 'Подсветка синтаксиса программного кода в блогах',
             visualAnchors: 'Маркировка комментариев в блогах',
             highlightGuests: 'Подсветка посетителей в статистике',
-            noPRO: 'Вкладка "Не для PRO" для неPRO пользователей',
+            noPRO: 'Вкладка "Не для PRO" для неPRO пользователей'
+        });
+        config.onError = function(message){
+            log.trace(message);
         };
-        config.init();
-        var user = new FUser();
-        user.init();
+        var user = new FUser(client_params);
         var menu = new Menu();
         var manager = new FModuleManager();
+
+        /* Run */
 
         this.run = function(){
 
@@ -601,7 +654,7 @@ function FApplication()
                                 <a target='_blank' href='http://freejs.elisdn.ru/feedback'>Обратная связь</a><br />\
                                 <a target='_blank' href='http://freejs.elisdn.ru/thanks'>Благодарности</a><br />\
                                 <a target='_blank' href='http://freejs.elisdn.ru/offers'>Предложения</a><br />\
-                                <a target='_blank' href='http://freejs.elisdn.ru/support'>Поддержка</a>\
+                                <a target='_blank' href='http://freejs.elisdn.ru/support'>Поддержка</a><br />\
                                 <a target='_blank' href='http://freejs.elisdn.ru/author'>Автор</a>\
                             </td></tr>\
                             <tr><td>\
@@ -626,7 +679,6 @@ function FApplication()
             {
                 var module = this;
                 var data = storage.get(this.storageid);
-                log.trace('Start module');
 
                 this.registerCss(this.css);
 
@@ -637,11 +689,13 @@ function FApplication()
                 }
 
                 var optionlist = [];
-                for (var key in config.params) {
+
+                var params = config.getOptions();
+                for (var key in params) {
                     if (typeof(key) == 'string') {
                         optionlist.push({
                             'id': key,
-                            'label': config.getLabel(key),
+                            'label': config.getOptionLabel(key),
                             'classname': config.get(key) ? 'on' : ''
                         });
                     }
@@ -692,7 +746,7 @@ function FApplication()
 
                     hideoptions = !hideoptions;
 
-                    config.get('hideoptions', hideoptions);
+                    config.set('hideoptions', hideoptions);
 
                     if (hideoptions) {
                         $j('.fj_sel').fadeOut(400, function() {
@@ -710,14 +764,14 @@ function FApplication()
 
 
             /* #########################################################
-             * Modify positions of UserBar items
+             * Модификация панели пользователя
              */
 
             var modifyUserbar = new FModule();
 
             modifyUserbar.condition = function()
             {
-                return config.get('modifyUserbar');
+                return config.get('modifyUserbar') && user.isLogged;
             };
 
             modifyUserbar.userbar_css = "\
@@ -911,7 +965,6 @@ function FApplication()
             modifyUserbar.action = function()
             {
                 var module = this;
-                log.trace('Start module modifyUserbar');
 
                 this.registerCss(this.userbar_css);
 
@@ -925,7 +978,7 @@ function FApplication()
 
                 $j('.b-userbar__toplist').append(
                     $j.tmpl(this.usercontent_tpl, {
-                        content: user.get('mybarcontent')
+                        content: user.get('barContent')
                     })
                 );
                 this.registerCss(this.usercontent_css);
@@ -967,7 +1020,9 @@ function FApplication()
 
             manager.add(modifyUserbar);
 
-            // #########################################
+            /* #########################################################
+             * Скрытие блогов
+             */
 
             var hideBlogs = new FModule();
 
@@ -1115,9 +1170,8 @@ function FApplication()
 
             hideBlogs.action = function(){
 
-                log.trace('Start module hideBlogs');
-
-                var hiddenblogs = config.get('hidden_blogs').split(',');
+                var hiddenblogs = config.getOnce('hidden_blogs');
+                if (hiddenblogs) hiddenblogs = hiddenblogs.split(',');
 
                 function isHidden(id)
                 {
@@ -1136,7 +1190,7 @@ function FApplication()
                         }
                         newhiddens.push(id);
                         hiddenblogs = newhiddens;
-                        config.set('hidden_blogs', hiddenblogs.join(','));
+                        config.setOnce('hidden_blogs', hiddenblogs.join(','));
                     }
                 }
 
@@ -1148,12 +1202,12 @@ function FApplication()
                             if (typeof(hiddenblogs[k]) == 'string' && hiddenblogs[k] != id) newhiddens.push(hiddenblogs[k]);
                         }
                         hiddenblogs = newhiddens;
-                        config.set('hidden_blogs', hiddenblogs.join(','));
+                        config.setOnce('hidden_blogs', hiddenblogs.join(','));
                     }
                 }
                 function clearHidden()
                 {
-                    config.set('hidden_blogs', '');
+                    config.setOnce('hidden_blogs', '');
                 }
 
                 var links = [];
@@ -1292,8 +1346,8 @@ function FApplication()
 
             manager.add(hideBlogs);
 
-            /* #####################################
-             * Add personal templates in the Projects
+            /* #########################################################
+             * Заготовки ответов на проекты
              */
 
             var answerTemplates = new FModule();
@@ -1308,10 +1362,10 @@ function FApplication()
                 var textarea = $j('#ps_text');
 
                 var templates = '';
-                var mycard = user.get('templates').split('||');
+                var mycard = user.get('answerTemplates').split('||');
 
                 for (var i=0; i<mycard.length; i++){
-                    templates += (i+1)+') <a class="addcard" href="#">'+mycard[i]+'<a/><br />';
+                    templates += (i+1)+') <a class="addcard" href="#">'+(mycard[i].split('|').join("\n"))+'<a/><br />';
                 }
                 textarea.parent().append('<p>Вставить заготовку:<br /><br />'+templates+'</p>');
                 $j('.addcard').click(function(){
@@ -1322,7 +1376,9 @@ function FApplication()
 
             manager.add(answerTemplates);
 
-            // #####################################
+            /* #########################################################
+             * Подстветка непрочитанных диалогов
+             */
 
             var highlightContacts = new FModule();
 
@@ -1385,7 +1441,9 @@ function FApplication()
 
             manager.add(highlightContacts);
 
-            // #####################################
+            /* #########################################################
+             * Подсветка элементов на странице Проекты
+             */
 
             var highlightProjects = new FModule();
 
@@ -1443,8 +1501,9 @@ function FApplication()
 
             manager.add(highlightProjects);
 
-
-            // #####################################
+            /* #########################################################
+             * Панель BBCode
+             */
 
             var bbCodeBar = new FModule();
 
@@ -1452,13 +1511,11 @@ function FApplication()
             {
                 return config.get('BBCodeBar') && (
                     location.href.match(/\/contacts\/\?from\=/) ||
-                        location.href.match(/\/blogs\//) ||
-                        location.href.match(/\/commune\//) ||
-                        location.href.match(/\/defile\//) ||
-                        location.href.match(/\/projects\//) ||
-                        location.href.match(/\/setup\/portfolio/) ||
-                        location.href.match(/\/articles\//)
-                    );
+                    location.href.match(/\/blogs\//) ||
+                    location.href.match(/\/defile\//) ||
+                    location.href.match(/\/projects\//) ||
+                    location.href.match(/\/setup\/portfolio/)
+                );
             };
 
             bbCodeBar.panel_tpl = "\
@@ -1585,17 +1642,20 @@ function FApplication()
 
                 function getPanel()
                 {
-                    var smilelist = [];
+                    var items = [];
 
-                    for (var k in smiles){
-                        smilelist.push({
+                    var smiles = new Smiles();
+                    var smilelist = smiles.getAssoc();
+
+                    for (var k in list){
+                        items.push({
                             text:k,
-                            file:smiles[k]
+                            file:smilelist[k]
                         });
                     }
 
                     return $j.tmpl(module.panel_tpl, {
-                        smiles:smilelist
+                        smiles:items
                     });
                 }
 
@@ -1694,15 +1754,6 @@ function FApplication()
 
                     });
 
-                    $j('.fj_clocklabel').unbind('click');
-                    $j('.fj_clocklabel').click(function(){
-                        var text = clearnl($j(textfield).val());
-                        var s1 = text.substring(0,selStart);
-                        var s3 = text.substring(selEnd);
-                        $j(textfield).val(s1 + $j(this).text() + ' ' + s3);
-                        textfield.selectionStart = selEnd + ($j(this).text() + ' ').length;
-                    });
-
                 }
 
                 function initCancelButton(){
@@ -1726,7 +1777,9 @@ function FApplication()
 
             manager.add(bbCodeBar);
 
-            // ###############################################
+            /* #########################################################
+             * Смайлики в блогах
+             */
 
             var blogSmiles = new FModule();
 
@@ -1746,12 +1799,16 @@ function FApplication()
             blogSmiles.action = function()
             {
                 this.registerCss(this.css);
+
+                var smiles = new Smiles();
+                var smilelist = smiles.getAssoc();
+
                 $j('.blog-one-cnt').each(function()
                 {
                     var elem = $j(this);
                     var text = elem.html();
-                    for (var key in smiles) {
-                        text = str_replace(text, key, '<img class="fj_smile" src="http://freejs.elisdn.ru/images/smiles/'+smiles[key]+'" alt="*'+key+'" title="'+key+'" />');
+                    for (var key in smilelist) {
+                        text = str_replace(text, key, '<img class="fj_smile" src="http://freejs.elisdn.ru/images/smiles/'+smilelist[key]+'" alt="*'+key+'" title="'+key+'" />');
                         text = text.replace(/<a([^<>]*)<img[^>]*>([^>]*)>/g, '<a$1$2>');
                         text = text.replace(/<img([^<>]*)<img[^>]*>([^>]*)>/g, '<img$1$2>');
                     }
@@ -1761,7 +1818,9 @@ function FApplication()
 
             manager.add(blogSmiles);
 
-            // ################################
+            /* #########################################################
+             * Галерея в портфолио фрилансера
+             */
 
             var profileGallery = new FModule();
 
@@ -1988,7 +2047,9 @@ function FApplication()
 
             manager.add(profileGallery);
 
-            // ####################################
+            /* #########################################################
+             * Оповещение о новых сообщениях
+             */
 
             var checkMessages = new FModule();
 
@@ -2039,7 +2100,9 @@ function FApplication()
 
             manager.add(checkMessages);
 
-            // ####################################
+            /* #########################################################
+             * Цитирование комментариев в блогах
+             */
 
             var citeBlogs = new FModule();
 
@@ -2078,7 +2141,9 @@ function FApplication()
 
             manager.add(citeBlogs);
 
-            // ##################################
+            /* #########################################################
+             * Подсветка синтаксиса программного кода и маркировка комментариев в блогах
+             */
 
             var codeHighlight = new FModule();
 
@@ -2235,7 +2300,8 @@ function FApplication()
 
                 if (config.get('visualAnchors')) {
 
-                    var lightlist = config.get('ligthing_comments').split(',');
+                    var lightlist = config.get('ligthing_comments');
+                    if (lightlist) lightlist = lightlist.split(',');
 
                     function isLighten(id)
                     {
@@ -2320,7 +2386,9 @@ function FApplication()
 
             manager.add(codeHighlight);
 
-            // ##################################################
+            /* #########################################################
+             * Скрытие кнопок соцсетей под открытым постом блога
+             */
 
             var hideShareInBlogs = new FModule();
 
@@ -2341,7 +2409,9 @@ function FApplication()
 
             manager.add(hideShareInBlogs);
 
-            // ##################################################
+            /* #########################################################
+             * Подсветка юзерпиков на странице посетителей статистики
+             */
 
             var highlightGuests = new FModule();
 
@@ -2402,7 +2472,9 @@ function FApplication()
 
             manager.add(highlightGuests);
 
-            // ##################################################
+            /* #########################################################
+             * Преобразование ленты проектов «Только для PRO« в «Не для PRO»
+             */
 
             var noPRO = new FModule();
 
@@ -2444,17 +2516,8 @@ function FApplication()
         }
 
     }
-    return new Construct();
+    return new Construct(client_params);
 }
 
-if (
-    location.href.match(/^https?:\/\/www.free\-lance\.ru/) &&
-    !location.href.match(/iframe/) &&
-    !location.href.match(/upload/) &&
-    !location.href.match(/inframe/) &&
-    !location.href.match(/share\.php/) &&
-    !location.href.match(/share\.php/)
-){
-    var FreeJS = new FApplication();
-    FreeJS.run();
-}
+var FreeJS = new FApplication(typeof fj_config != 'undefined' ? fj_config : {});
+FreeJS.run();
