@@ -641,7 +641,7 @@ jQuery.noConflict();
 			return result;
 		}
 
-        var scriptVersion = '2.0.1';
+        var scriptVersion = '2.0.2';
         var clientLastVersion = '2.0';
 
         /* Init */
@@ -1831,7 +1831,7 @@ jQuery.noConflict();
                     var smiles = new Smiles();
                     var smilelist = smiles.getAssoc();
 
-                    for (var k in list){
+                    for (var k in smilelist){
                         items.push({
                             text:k,
                             file:smilelist[k]
