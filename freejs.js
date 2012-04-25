@@ -1703,7 +1703,7 @@ jQuery.noConflict();
             };
 
             bbCodeBar.panel_tpl = "\
-                <div class='fj_bbcode' style='float:left;position:relative'>\
+                <div class='fj_bbcode'>\
                     <input type='button' value='b' />\
                     <input type='button' value='i' />\
                     <input type='button' value='p' />\
@@ -1758,6 +1758,10 @@ jQuery.noConflict();
                     background:-webkit-linear-gradient(#fff, #ddd);\
                     background:-o-linear-gradient(#fff, #ddd);\
                 }\
+				.fj_bbcode {\
+					float:left;\
+					position:relative;\
+				}\
                 .fj_smilePanel {\
                     width:98%;\
                     background:#fff;\
