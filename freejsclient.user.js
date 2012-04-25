@@ -68,7 +68,7 @@
         registerScript(params);
 
         registerScriptFile('https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
-        registerScriptFile('http://freejs.elisdn.ru/js/v2/server/freejs.js');
+        registerScriptFile('http://freejs.elisdn.ru/js/freejs.js');
     };
 
     FreeJS(fj_config);
