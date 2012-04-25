@@ -613,7 +613,7 @@ jQuery.noConflict();
 			return result;
 		}
 
-        var scriptVersion = '2.0';
+        var scriptVersion = '2.0.1';
         var clientLastVersion = '2.0';
 
         /* Init */
