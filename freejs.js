@@ -641,7 +641,7 @@ jQuery.noConflict();
 			return result;
 		}
 
-        var scriptVersion = '2.0.1';
+        var scriptVersion = '2.0.2';
         var clientLastVersion = '2.0';
 
         /* Init */
