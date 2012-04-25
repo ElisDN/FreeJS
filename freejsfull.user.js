@@ -1773,6 +1773,9 @@ jQuery.noConflict();
                     background:-webkit-linear-gradient(#fff, #ddd);\
                     background:-o-linear-gradient(#fff, #ddd);\
                 }\
+				.b-textarea {\
+					overflow:auto !important;\
+					}\
 				.fj_bbcode {\
 					float:left;\
 					position:relative;\
