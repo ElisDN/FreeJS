@@ -51,27 +51,28 @@ jQuery.noConflict();
 	var Log = function()
 	{
         /**
+         * Logging messages
          * @method trace
          * @param {String} message
          */
-		this.trace = function(message){
-			console.log(message);
-		}
+        this.trace = function(message){
+            console.log(message);
+        }
 	};
 
     /**
      * Store configuration parameters in permanent/session storage
      * @class Storage
      */
-	var Storage = function()
-	{
-		this._parse = function(val){
-			var value = val;
-			if (val == 'true') value = true;
-			if (val == 'false') value = false;
-			if (val === null) value = '';
-			return value;
-		};
+    var Storage = function()
+    {
+        this._parse = function(val){
+            var value = val;
+            if (val == 'true') value = true;
+            if (val == 'false') value = false;
+            if (val === null) value = '';
+            return value;
+        };
 
         /**
          * Write parameter in permanent storage
@@ -165,7 +166,7 @@ jQuery.noConflict();
             return true;
         };
 
-	};
+};
 
     /**
      * Manage configuration parameters

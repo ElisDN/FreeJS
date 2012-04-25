@@ -65,30 +65,31 @@ jQuery.noConflict();
      * Manage debug messages
      * @class Log
      */
-	var Log = function()
-	{
+    var Log = function()
+    {
         /**
+         * Logging messages
          * @method trace
          * @param {String} message
          */
-		this.trace = function(message){
-			console.log(message);
-		}
-	};
+        this.trace = function(message){
+            console.log(message);
+        }
+    };
 
     /**
      * Store configuration parameters in permanent/session storage
      * @class Storage
      */
-	var Storage = function()
-	{
-		this._parse = function(val){
-			var value = val;
-			if (val == 'true') value = true;
-			if (val == 'false') value = false;
-			if (val === null) value = '';
-			return value;
-		};
+    var Storage = function()
+    {
+        this._parse = function(val){
+            var value = val;
+            if (val == 'true') value = true;
+            if (val == 'false') value = false;
+            if (val === null) value = '';
+            return value;
+        };
 
         /**
          * Write parameter in permanent storage
@@ -182,7 +183,7 @@ jQuery.noConflict();
             return true;
         };
 
-	};
+    };
 
     /**
      * Manage configuration parameters
@@ -190,8 +191,8 @@ jQuery.noConflict();
      * @param {Storage} storage_driver
      * @param options_list
      */
-	var Config = function(storage_driver, options_list)
-	{
+    var Config = function(storage_driver, options_list)
+    {
         this._storage = storage_driver;
         this._options = options_list;
 
@@ -293,7 +294,7 @@ jQuery.noConflict();
         };
 
         this.init();
-	};
+    };
 
     /**
      * Read client parameters and user status
@@ -301,7 +302,7 @@ jQuery.noConflict();
      * @param config (mixed)
      */
     var User = function(config)
-	{
+    {
         this._protecteds = [];
         this._params = config;
 
@@ -377,15 +378,15 @@ jQuery.noConflict();
             return this._protecteds['ispro'];
         };
 
-	};
+    };
 
     /**
      * Manage modules
      * @class ModuleManager
      */
-	var ModuleManager = function()
-	{
-		this._modules = [];
+    var ModuleManager = function()
+    {
+        this._modules = [];
 
         /**
          * Add module in queue
@@ -403,82 +404,82 @@ jQuery.noConflict();
                 this._modules[i].exec();
             }
         };
-	};
+    };
 
     /**
      * Module base class
      * @class Module
      */
     var Module = function ()
-	{
-		this.condition = function(){return false};
-		this.action = function(){};
-		this._styles = [];
-	};
+    {
+        this.condition = function(){return false};
+        this.action = function(){};
+        this._styles = [];
+    };
 
-	Module.prototype.exec = function(){
-		if (this.condition()){
-			this.action();
-			this.renderStyles();
-		}
-	};
+    Module.prototype.exec = function(){
+        if (this.condition()){
+            this.action();
+            this.renderStyles();
+        }
+    };
 
-	Module.prototype.registerCss = function(data){
-		this._styles.push(data);
-	};
+    Module.prototype.registerCss = function(data){
+        this._styles.push(data);
+    };
 
-	Module.prototype.renderStyles = function(){
-		var elem = $('<style>');
-		elem.attr('type', 'text/css');
-		elem.html(this._styles.join("\n"));
-		$('head').append(elem);
-	};
+    Module.prototype.renderStyles = function(){
+        var elem = $('<style>');
+        elem.attr('type', 'text/css');
+        elem.html(this._styles.join("\n"));
+        $('head').append(elem);
+    };
 
     /**
      * Menu manager
      * @class Menu
      */
     var Menu = function ()
-	{
-		this._container = $('<ul>');
+    {
+        this._container = $('<ul>');
 
-		this._container.addClass('fj_menuPanel');
-		$('body').prepend(this._container);
+        this._container.addClass('fj_menuPanel');
+        $('body').prepend(this._container);
 
-		$('head').append("\
-			<style type='text/css'>\
-				.fj_menuPanel {\
-					position:fixed;\
-					right:0;\
-					top:0;\
-					z-index:500;\
-					cursor:pointer;\
-					margin:0;\
-					padding:0\
-					list-style:none;\
-					}\
-				.fj_menuPanel li {\
-					display:inline-block;\
-					float:left;\
-					margin:0 !important;\
-					padding:6px 10px;\
-					border-left:#fff 1px solid;\
-					font-size:8pt;\
-					color:#fff;\
-					background:#6a6;\
-					text-align:center;\
-					cursor:pointer;\
-					}\
-				.fj_menuPanel p {\
-					margin:0;\
-					padding:0;\
-					}\
-				.fj_menuPanel a {\
-					color:#fff !important;\
-					text-decoration:none;\
-					}\
-			</style>\
-		");
+        $('head').append("\
+        <style type='text/css'>\
+            .fj_menuPanel {\
+                position:fixed;\
+                right:0;\
+                top:0;\
+                z-index:500;\
+                cursor:pointer;\
+                margin:0;\
+                padding:0\
+                list-style:none;\
+                }\
+            .fj_menuPanel li {\
+                display:inline-block;\
+                float:left;\
+                margin:0 !important;\
+                padding:6px 10px;\
+                border-left:#fff 1px solid;\
+                font-size:8pt;\
+                color:#fff;\
+                background:#6a6;\
+                text-align:center;\
+                cursor:pointer;\
+                }\
+            .fj_menuPanel p {\
+                margin:0;\
+                padding:0;\
+                }\
+            .fj_menuPanel a {\
+                color:#fff !important;\
+                text-decoration:none;\
+                }\
+        </style>\
+    ");
 
         /**
          * Add element
@@ -492,7 +493,7 @@ jQuery.noConflict();
             li.html(elem.content);
             this._container.append(li);
         };
-	};
+    };
 
     /**
      * Menu element base class
@@ -515,131 +516,131 @@ jQuery.noConflict();
      * Smiles collection
      * @class Smiles
      */
-	var Smiles = function()
-	{
-		this._smile_list = {
-			':)':'smiley.gif',
-			'=)':'lipsrsealed.gif',
-			'8(':'shocked.gif',
-			':P':'tongue.gif',
-			'?(':'huh.gif',
-			'O:-)': 'aa.gif',
-			':-)': 'ab.gif',
-			':-(': 'ac.gif',
-			';-)': 'ad.gif',
-			':-P': 'ae.gif',
-			'8-)': 'af.gif',
-			':D': 'ag.gif',
-			':-D': 'ag.gif',
-			':-[': 'ah.gif',
-			'=-O': 'ai.gif',
-			':-*': 'aj.gif',
-			':-\'(': 'ak.gif',
-			':-X': 'al.gif',
-			'>:o': 'am.gif',
-			':-|': 'an.gif',
-			':-\\': 'ao.gif',
-			'*смеюсь*': 'ap.gif',
-			']:->': 'aq.gif',
-			'[:-}': 'ar.gif',
-			'*kissed*': 'as.gif',
-			':-!': 'at.gif',
-			'*засыпаю*': 'au.gif',
-			'*stop*': 'av.gif',
-			'*целую*': 'aw.gif',
-			'@}->--': 'ax.gif',
-			'*классно*': 'ay.gif',
-			'*drink*': 'az.gif',
-			'*сердце*': 'ba.gif',
-			'@=': 'bb.gif',
-			'*help*': 'bc.gif',
-			'\\m/': 'bd.gif',
-			'%-)': 'be.gif',
-			' ok ': 'bf.gif',
-			'*wassup*': 'bg.gif',
-			'*извиняюсь*': 'bh.gif',
-			'*bravo*': 'bi.gif',
-			'*rofl*': 'bj.gif',
-			'*пардон*': 'bk.gif',
-			'*нет!*': 'bl.gif',
-			'*crazy*': 'bm.gif',
-			'*не знаю*': 'bn.gif',
-			'*танцую*': 'bo.gif',
-			'*yahoo*': 'bp.gif',
-			'*acute*': 'bq.gif',
-			'*бе-бе*': 'br.gif',
-			'*bye*': 'bs.gif',
-			'*бьюсь ап стену*': 'bt.gif',
-			'*я счастлив*': 'bu.gif',
-			'lol!': 'bv.gif',
-			'*scratch*': 'bw.gif',
-			'*yeees!*': 'bx.gif',
-			'*polling*': 'by.gif',
-			'*boss*': 'bz.gif',
-			'*sarcastic*': 'ca.gif',
-			'*boast*': 'cb.gif',
-			'*вот так*': 'cc.gif',
-			'*db*': 'cd.gif',
-			'*ха-ха*': 'ce.gif',
-			'*shout*': 'cf.gif',
-			'*ништяк*': 'cg.gif',
-			'[censored]': 'ch.gif',
-			'*search*': 'ci.gif',
-			'*выпендриваюсь*': 'cj.gif',
-			'*чудо*': 'ck.gif',
-			'*skull*': 'cl.gif',
-			'*убегаю*': 'cm.gif',
-			'*пью йад*': 'cn.gif',
-			'*mnjam*': 'co.gif',
-			'*чё так*': 'cp.gif',
-			'^^': 'cq.gif',
-			'*готово*': 'cr.gif',
-			'*обнимаю*': 'cs.gif',
-			'*notsofast*': 'ct.gif',
-			'*фу*': 'cu.gif',
-			'*реву*': 'cv.gif',
-			'*глажу по голове*': 'cw.gif',
-			'*преклоняюсь*': 'cx.gif',
-			'*обиделся*': 'cy.gif',
-			'*дай пять!*': 'cz.gif',
-			'*подмигиваю*': 'da.gif',
-			'*какой джигит*': 'db.gif',
-			'x-)': 'dc.gif',
-			'*byebye*': 'dd.gif',
-			'*пожалуйста*': 'de.gif',
-			'*yes*': 'df.gif',
-			'*я в ударе*': 'dg.gif',
-			'*ужас*': 'di.gif',
-			'*злюсь*': 'dj.gif',
-			'*дружба*': 'dk.gif',
-			'*punish*': 'dl.gif',
-			'*задумался*': 'dm.gif',
-			'*ни в жизнь*': 'dn.gif',
-			'*напеваю*': 'do.gif',
-			'*зубрю*': 'dp.gif',
-			'*жарко*': 'dr.gif',
-			'*this*': 'ds.gif',
-			'*эврика*': 'dt.gif',
-			'*показываю язык*': 'du.gif',
-			'*гадаю*': 'dw.gif',
-			'*в расчёте*': 'dx.gif',
-			'*жестоко наказываю*': 'dz.gif',
-			'*жмурюсь*': 'ei.gif',
-			'*ага*': 'eb.gif',
-			'*в трансе*': 'ec.gif',
-			'*обиделась*': 'eu.gif',
-			'*люблю*': 'fi.gif',
-			'*Вы мне нравитесь*': 'fk.gif',
-			'*давай дружить*': 'fl.gif',
-			'*демпер*': 'fm.gif',
-			'*баян*': 'fx.gif',
-			'*победитель*': 'hs.gif'
-		};
+    var Smiles = function()
+    {
+        this._smile_list = {
+            ':)':'smiley.gif',
+            '=)':'lipsrsealed.gif',
+            '8(':'shocked.gif',
+            ':P':'tongue.gif',
+            '?(':'huh.gif',
+            'O:-)': 'aa.gif',
+            ':-)': 'ab.gif',
+            ':-(': 'ac.gif',
+            ';-)': 'ad.gif',
+            ':-P': 'ae.gif',
+            '8-)': 'af.gif',
+            ':D': 'ag.gif',
+            ':-D': 'ag.gif',
+            ':-[': 'ah.gif',
+            '=-O': 'ai.gif',
+            ':-*': 'aj.gif',
+            ':-\'(': 'ak.gif',
+            ':-X': 'al.gif',
+            '>:o': 'am.gif',
+            ':-|': 'an.gif',
+            ':-\\': 'ao.gif',
+            '*смеюсь*': 'ap.gif',
+            ']:->': 'aq.gif',
+            '[:-}': 'ar.gif',
+            '*kissed*': 'as.gif',
+            ':-!': 'at.gif',
+            '*засыпаю*': 'au.gif',
+            '*stop*': 'av.gif',
+            '*целую*': 'aw.gif',
+            '@}->--': 'ax.gif',
+            '*классно*': 'ay.gif',
+            '*drink*': 'az.gif',
+            '*сердце*': 'ba.gif',
+            '@=': 'bb.gif',
+            '*help*': 'bc.gif',
+            '\\m/': 'bd.gif',
+            '%-)': 'be.gif',
+            ' ok ': 'bf.gif',
+            '*wassup*': 'bg.gif',
+            '*извиняюсь*': 'bh.gif',
+            '*bravo*': 'bi.gif',
+            '*rofl*': 'bj.gif',
+            '*пардон*': 'bk.gif',
+            '*нет!*': 'bl.gif',
+            '*crazy*': 'bm.gif',
+            '*не знаю*': 'bn.gif',
+            '*танцую*': 'bo.gif',
+            '*yahoo*': 'bp.gif',
+            '*acute*': 'bq.gif',
+            '*бе-бе*': 'br.gif',
+            '*bye*': 'bs.gif',
+            '*бьюсь ап стену*': 'bt.gif',
+            '*я счастлив*': 'bu.gif',
+            'lol!': 'bv.gif',
+            '*scratch*': 'bw.gif',
+            '*yeees!*': 'bx.gif',
+            '*polling*': 'by.gif',
+            '*boss*': 'bz.gif',
+            '*sarcastic*': 'ca.gif',
+            '*boast*': 'cb.gif',
+            '*вот так*': 'cc.gif',
+            '*db*': 'cd.gif',
+            '*ха-ха*': 'ce.gif',
+            '*shout*': 'cf.gif',
+            '*ништяк*': 'cg.gif',
+            '[censored]': 'ch.gif',
+            '*search*': 'ci.gif',
+            '*выпендриваюсь*': 'cj.gif',
+            '*чудо*': 'ck.gif',
+            '*skull*': 'cl.gif',
+            '*убегаю*': 'cm.gif',
+            '*пью йад*': 'cn.gif',
+            '*mnjam*': 'co.gif',
+            '*чё так*': 'cp.gif',
+            '^^': 'cq.gif',
+            '*готово*': 'cr.gif',
+            '*обнимаю*': 'cs.gif',
+            '*notsofast*': 'ct.gif',
+            '*фу*': 'cu.gif',
+            '*реву*': 'cv.gif',
+            '*глажу по голове*': 'cw.gif',
+            '*преклоняюсь*': 'cx.gif',
+            '*обиделся*': 'cy.gif',
+            '*дай пять!*': 'cz.gif',
+            '*подмигиваю*': 'da.gif',
+            '*какой джигит*': 'db.gif',
+            'x-)': 'dc.gif',
+            '*byebye*': 'dd.gif',
+            '*пожалуйста*': 'de.gif',
+            '*yes*': 'df.gif',
+            '*я в ударе*': 'dg.gif',
+            '*ужас*': 'di.gif',
+            '*злюсь*': 'dj.gif',
+            '*дружба*': 'dk.gif',
+            '*punish*': 'dl.gif',
+            '*задумался*': 'dm.gif',
+            '*ни в жизнь*': 'dn.gif',
+            '*напеваю*': 'do.gif',
+            '*зубрю*': 'dp.gif',
+            '*жарко*': 'dr.gif',
+            '*this*': 'ds.gif',
+            '*эврика*': 'dt.gif',
+            '*показываю язык*': 'du.gif',
+            '*гадаю*': 'dw.gif',
+            '*в расчёте*': 'dx.gif',
+            '*жестоко наказываю*': 'dz.gif',
+            '*жмурюсь*': 'ei.gif',
+            '*ага*': 'eb.gif',
+            '*в трансе*': 'ec.gif',
+            '*обиделась*': 'eu.gif',
+            '*люблю*': 'fi.gif',
+            '*Вы мне нравитесь*': 'fk.gif',
+            '*давай дружить*': 'fl.gif',
+            '*демпер*': 'fm.gif',
+            '*баян*': 'fx.gif',
+            '*победитель*': 'hs.gif'
+        };
 
         this.getAssoc = function(){
             return this._smile_list;
         }
-	};
+    };
 
     /**
      * Main FreeJS application
@@ -647,16 +648,16 @@ jQuery.noConflict();
      * @param client_params (mixed)
      */
     var Application = function(client_params)
-	{
-		function str_replace(text, search, replace) {
-			return text.split(search).join(replace);
-		}
-		
-		function str_repeat(str, count) {
-			var result = '';
-			while(count--) result += str;
-			return result;
-		}
+    {
+        function str_replace(text, search, replace) {
+            return text.split(search).join(replace);
+        }
+
+        function str_repeat(str, count) {
+            var result = '';
+            while(count--) result += str;
+            return result;
+        }
 
         var scriptVersion = '2.0.3';
         var clientLastVersion = '2.0';
@@ -698,180 +699,180 @@ jQuery.noConflict();
             };
 
             controlPanel.css = "\
-                a {\
-                    outline:none !important\
-                    }\
-                .freejsblock {\
-                    position:absolute;\
-                    overflow:hidden;\
-                    z-index:100;\
-                    left:0;\
-                    top:0;\
-                    width:385px;\
-                    border-right:#aaa 1px solid;\
-                    border-bottom:#aaa 1px solid;\
-                    background:#fff;\
-                    display:none;\
-                    color: #666666;\
-                    font-family: tahoma, arial, helvetica, sans-serif;\
-                    font-size: 11px;\
-                    font-weight: 400;\
-                    }\
-                .freejsblock .border {\
-                    border-right:#aaa 1px dotted;\
-                    }\
-                .freejspanel {\
-                    width:386px;\
-                    float:left;\
-                    padding-bottom:1000px;\
-                    margin-bottom:-1000px;\
-                    }\
-                .freejsblock hr {\
-                    border:none;\
-                    border-bottom:#ccc 1px solid;\
-                    }\
-                .freejsblock ul {\
-                    width:346px;\
-                    padding:0;\
-                    list-style:none;\
-                    margin:0 0 10px 0;\
-                    }\
-                .freejsblock p, .freejsblock table {\
-                    margin:0 0 10px 0;\
-                    }\
-                .freejsblock p {\
-                    line-height:10pt !important;\
+            a {\
+                outline:none !important\
                 }\
-                .freejsblock ul.fj_sel li {\
-                    margin:2px 0 !important;\
-                    padding:0 !important;\
-                    width:346px;\
-                    height:30px;\
-                    border:none;\
-                    background:#fff url('http://www.free-lance.ru/images/sprite-inform.png') 0 0 no-repeat;\
-                    color:#333;\
-                    cursor:pointer;\
-                    }\
-                .freejsblock ul.fj_sel li label {\
-                    display:block;\
-                    width:300px;\
-                    padding:8px 0 0 30px; \
-                    margin:0;\
-                    cursor:pointer;\
-                    }\
-                .freejsblock ul.fj_sel li.on {\
-                    background:#fff url('http://www.free-lance.ru/images/sprite-inform.png') 0 center no-repeat;\
-                    }\
-                .freejspadd {\
-                    padding:20px 20px 10px 20px;\
-                    }\
-                .freejsblock a {\
-                    font-size:8pt !important;\
-                    font-weight:normal !important;\
-                    padding:0 !important;\
-                    color:#666 !important;\
-                    text-decoration:underline !important;\
-                    }\
-                .freejsblock a:hover {\
-                    color:#09c !important;\
-                    }\
-                .freejsblock h1, .freejsblock h2, .freejsblock h3 {\
-                    padding:0 !important;\
-                    font-weight:normal !important;\
-                    text-decoration:none !important;\
-                    color:#666 !important;\
-                    }\
-                .freejsblock h1 {\
-                    font-size:16pt !important;\
-                    margin:6px 0 10px 0 !important;\
-                    }\
-                .freejsblock h1 a {\
-                    font-size:16pt !important;\
-                    text-decoration:none !important;\
-                    color:#666 !important;\
-                    }\
-                .freejsblock h1 a:hover {\
-                    color:#666 !important;\
-                    }\
-                .freejsblock h2 {\
-                    font-size:14pt !important;\
-                    margin:0 0 16px 0 !important;\
-                    color:#666 !important;\
-                    }\
-                .freejsblock h2 a {\
-                    font-size:14pt !important;\
-                    line-height:100%;\
-                    text-decoration:none !important;\
-                    color:#666 !important;\
-                    }\
-                .freejsblock h2 a:hover {\
-                    color:#09c !important;\
-                    }\
-                .freejslink {\
-                    position:absolute;\
-                    z-index:101;\
-                    left:20px;\
-                    top:0;\
-                    cursor:pointer;\
-                    width:90px;\
-                    height:30px;\
-                    padding:0;\
+            .freejsblock {\
+                position:absolute;\
+                overflow:hidden;\
+                z-index:100;\
+                left:0;\
+                top:0;\
+                width:385px;\
+                border-right:#aaa 1px solid;\
+                border-bottom:#aaa 1px solid;\
+                background:#fff;\
+                display:none;\
+                color: #666666;\
+                font-family: tahoma, arial, helvetica, sans-serif;\
+                font-size: 11px;\
+                font-weight: 400;\
                 }\
-                .freejslink img {\
-                    margin:0 20px !important;\
+            .freejsblock .border {\
+                border-right:#aaa 1px dotted;\
                 }\
-                .freejsblock .paramItem .div {\
-                    float:left;\
-                    margin:0 20px 0 4px;\
+            .freejspanel {\
+                width:386px;\
+                float:left;\
+                padding-bottom:1000px;\
+                margin-bottom:-1000px;\
                 }\
-                ";
+            .freejsblock hr {\
+                border:none;\
+                border-bottom:#ccc 1px solid;\
+                }\
+            .freejsblock ul {\
+                width:346px;\
+                padding:0;\
+                list-style:none;\
+                margin:0 0 10px 0;\
+                }\
+            .freejsblock p, .freejsblock table {\
+                margin:0 0 10px 0;\
+                }\
+            .freejsblock p {\
+                line-height:10pt !important;\
+            }\
+            .freejsblock ul.fj_sel li {\
+                margin:2px 0 !important;\
+                padding:0 !important;\
+                width:346px;\
+                height:30px;\
+                border:none;\
+                background:#fff url('http://www.free-lance.ru/images/sprite-inform.png') 0 0 no-repeat;\
+                color:#333;\
+                cursor:pointer;\
+                }\
+            .freejsblock ul.fj_sel li label {\
+                display:block;\
+                width:300px;\
+                padding:8px 0 0 30px; \
+                margin:0;\
+                cursor:pointer;\
+                }\
+            .freejsblock ul.fj_sel li.on {\
+                background:#fff url('http://www.free-lance.ru/images/sprite-inform.png') 0 center no-repeat;\
+                }\
+            .freejspadd {\
+                padding:20px 20px 10px 20px;\
+                }\
+            .freejsblock a {\
+                font-size:8pt !important;\
+                font-weight:normal !important;\
+                padding:0 !important;\
+                color:#666 !important;\
+                text-decoration:underline !important;\
+                }\
+            .freejsblock a:hover {\
+                color:#09c !important;\
+                }\
+            .freejsblock h1, .freejsblock h2, .freejsblock h3 {\
+                padding:0 !important;\
+                font-weight:normal !important;\
+                text-decoration:none !important;\
+                color:#666 !important;\
+                }\
+            .freejsblock h1 {\
+                font-size:16pt !important;\
+                margin:6px 0 10px 0 !important;\
+                }\
+            .freejsblock h1 a {\
+                font-size:16pt !important;\
+                text-decoration:none !important;\
+                color:#666 !important;\
+                }\
+            .freejsblock h1 a:hover {\
+                color:#666 !important;\
+                }\
+            .freejsblock h2 {\
+                font-size:14pt !important;\
+                margin:0 0 16px 0 !important;\
+                color:#666 !important;\
+                }\
+            .freejsblock h2 a {\
+                font-size:14pt !important;\
+                line-height:100%;\
+                text-decoration:none !important;\
+                color:#666 !important;\
+                }\
+            .freejsblock h2 a:hover {\
+                color:#09c !important;\
+                }\
+            .freejslink {\
+                position:absolute;\
+                z-index:101;\
+                left:20px;\
+                top:0;\
+                cursor:pointer;\
+                width:90px;\
+                height:30px;\
+                padding:0;\
+            }\
+            .freejslink img {\
+                margin:0 20px !important;\
+            }\
+            .freejsblock .paramItem .div {\
+                float:left;\
+                margin:0 20px 0 4px;\
+            }\
+            ";
 
             controlPanel.panel_tpl = "\
-                <div class='freejsblock' style='display:none'>\
-                    <div class='freejspanel border'>\
-                        <div class='freejspadd'>\
-                            <p style='float:right; margin-right:1px'><a target='_blank' href='http://free-lance.ru/users/ElisDN'><img src='http://freejs.elisdn.ru/images/avatar.jpg' width='50px' height='50px' alt='ElisDN' /></a></p>\
-                            <h1><a target='_blank' href='http://freejs.elisdn.ru'><img style='margin:0 -3px -4px -3px;' src='http://freejs.elisdn.ru/images/logo.png' alt='FreeJS' />v${scriptVersion}</a></h1>\
-                            <p><span class='fj_link' style='color:#09c;border-bottom:#09c 1px dotted;cursor:pointer'>Показать опции</span></p>\
-                                <ul class='fj_sel'>\
-                                    {{each optionlist}}\
-                                    <li id='${id}' class='${classname}'><label>${label}</label></li>\
-                                    {{/each}}\
-                                </ul>\
-                            <table cellspacing='0' cellpadding='0' style='width:100%'>\
-                            </td><td valign='top' colspan='2'>\
-                            </td>\
-                            </tr><tr>\
-                            <td valign='top' width='50%'>\
-                                <a target='_blank' href='http://freejs.elisdn.ru'>Официальный сайт</a><br />\
-                                <a target='_blank' href='http://freejs.elisdn.ru/features'>Опции скрипта</a><br />\
-                                <a target='_blank' href='http://freejs.elisdn.ru/updates'>Обновления</a><br />\
-                                <a target='_blank' href='http://freejs.elisdn.ru/news'>Новости</a><br />\
-                                <a target='_blank' href='http://freejs.elisdn.ru/faq'>FAQ</a>\
-                            </td><td valign='top'>\
-                                <a target='_blank' href='http://freejs.elisdn.ru/feedback'>Обратная связь</a><br />\
-                                <a target='_blank' href='http://freejs.elisdn.ru/thanks'>Благодарности</a><br />\
-                                <a target='_blank' href='http://freejs.elisdn.ru/offers'>Предложения</a><br />\
-                                <a target='_blank' href='http://freejs.elisdn.ru/support'>Поддержка</a><br />\
-                                <a target='_blank' href='http://freejs.elisdn.ru/author'>Автор</a>\
-                            </td></tr>\
-                            <tr><td>\
-                                <br />Версия скрипта: ${scriptVersion}\
-                            </td><td>\
-                                <br />Версия клиента: ${clientVersion}<br />\
-                                 {{if clientVersion != clientLastVersion}}\
-                                 Новый клиент: ${clientLastVersion}<br /><a style='color:#f00 !important' href='http://freejs.elisdn.ru/download'>Обновить клиент</a>\
-                                 {{/if}}\
-                            </td></tr>\
-                            </table>\
-                        </div>\
+            <div class='freejsblock' style='display:none'>\
+                <div class='freejspanel border'>\
+                    <div class='freejspadd'>\
+                        <p style='float:right; margin-right:1px'><a target='_blank' href='http://free-lance.ru/users/ElisDN'><img src='http://freejs.elisdn.ru/images/avatar.jpg' width='50px' height='50px' alt='ElisDN' /></a></p>\
+                        <h1><a target='_blank' href='http://freejs.elisdn.ru'><img style='margin:0 -3px -4px -3px;' src='http://freejs.elisdn.ru/images/logo.png' alt='FreeJS' />v${scriptVersion}</a></h1>\
+                        <p><span class='fj_link' style='color:#09c;border-bottom:#09c 1px dotted;cursor:pointer'>Показать опции</span></p>\
+                            <ul class='fj_sel'>\
+                                {{each optionlist}}\
+                                <li id='${id}' class='${classname}'><label>${label}</label></li>\
+                                {{/each}}\
+                            </ul>\
+                        <table cellspacing='0' cellpadding='0' style='width:100%'>\
+                        </td><td valign='top' colspan='2'>\
+                        </td>\
+                        </tr><tr>\
+                        <td valign='top' width='50%'>\
+                            <a target='_blank' href='http://freejs.elisdn.ru'>Официальный сайт</a><br />\
+                            <a target='_blank' href='http://freejs.elisdn.ru/features'>Опции скрипта</a><br />\
+                            <a target='_blank' href='http://freejs.elisdn.ru/updates'>Обновления</a><br />\
+                            <a target='_blank' href='http://freejs.elisdn.ru/news'>Новости</a><br />\
+                            <a target='_blank' href='http://freejs.elisdn.ru/faq'>FAQ</a>\
+                        </td><td valign='top'>\
+                            <a target='_blank' href='http://freejs.elisdn.ru/feedback'>Обратная связь</a><br />\
+                            <a target='_blank' href='http://freejs.elisdn.ru/thanks'>Благодарности</a><br />\
+                            <a target='_blank' href='http://freejs.elisdn.ru/offers'>Предложения</a><br />\
+                            <a target='_blank' href='http://freejs.elisdn.ru/support'>Поддержка</a><br />\
+                            <a target='_blank' href='http://freejs.elisdn.ru/author'>Автор</a>\
+                        </td></tr>\
+                        <tr><td>\
+                            <br />Версия скрипта: ${scriptVersion}\
+                        </td><td>\
+                            <br />Версия клиента: ${clientVersion}<br />\
+                             {{if clientVersion != clientLastVersion}}\
+                             Новый клиент: ${clientLastVersion}<br /><a style='color:#f00 !important' href='http://freejs.elisdn.ru/download'>Обновить клиент</a>\
+                             {{/if}}\
+                        </td></tr>\
+                        </table>\
                     </div>\
-                    <div style='clear:both'></div>\
                 </div>\
-                <div class='freejslink'>\
-                    <img src='http://freejs.elisdn.ru/images/spacer.gif' alt='FreeJS' />\
-                </div>\
-                ";
+                <div style='clear:both'></div>\
+            </div>\
+            <div class='freejslink'>\
+                <img src='http://freejs.elisdn.ru/images/spacer.gif' alt='FreeJS' />\
+            </div>\
+            ";
 
             controlPanel.action = function()
             {
@@ -973,188 +974,188 @@ jQuery.noConflict();
             };
 
             modifyUserbar.userbar_css = "\
-                .n-hr .n-hr-in a {\
-                    font-size:13px;\
-                }\
-                .b-userbar {\
-                    position:relative;\
-                    z-index:5\
-                }\
-                .b-userbar__top {\
-                    position:relative;\
-                    overflow:visible\
-                }\
-                .b-userbar, .b-userbar__top * {\
-                    font-weight:normal\
-                }\
-                li.b-userbar__login {\
-                    position:absolute;\
-                    z-index:10\
-                }\
-                li.b-userbar__login .login {\
-                    font-weight:normal !important;\
-                }\
-                #mb-account {\
-                    position:absolute;\
-                    left:414px;\
-                    top:6px;\
-                    border:none\
-                }\
-                li.b-userbar__drafts{\
-                    position:absolute;\
-                    left:382px;\
-                    top:36px;\
-                    border:none\
-                }\
-                li.b-userbar__services {\
-                    position:absolute;\
-                    left:630px;\
-                    top:36px;\
-                    border:none\
-                }\
-                li.b-userbar__pro {\
-                    position:absolute;\
-                    left:745px;\
-                    top:39px;\
-                    width:106px;\
-                    text-align:center;\
-                    padding-right:0;\
-                    border:none\
-                }\
-                li.b-userbar__pro-left {\
-                    position:absolute;\
-                    left:750px;\
-                    top:39px;\
-                    width:106px;\
-                    text-align:center;\
-                    padding-right:0;\
-                    border:none\
-                }\
-                li.b-userbar__projects {\
-                    position:absolute;\
-                    left:160px;\
-                    top:41px;\
-                    border:none\
-                }\
-                li.b-userbar__projects span {\
-                    font-weight:normal !important\
-                }\
-                li.b-userbar__projects span a {\
-                    font-weight:normal !important\
-                }\
-                li.b-userbar__account {\
-                    position:absolute;\
-                    left:492px;\
-                    top:41px;\
-                    width:150px;\
-                    border:none\
-                }\
-                li.b-userbar__account span a strong{\
-                    font-weight:normal !important\
-                }\
-                li.b-userbar__sbr {\
-                    position:absolute;\
-                    left:360px;\
-                    top:7px;\
-                    border:none\
-                }\
-                li.b-userbar__stat{\
-                    position:absolute;\
-                    left:270px;\
-                    top:36px;\
-                    border:none\
-                }\
-                li.b-userbar__message {\
-                    position:absolute;\
-                    left:14px;\
-                    top:36px;\
-                    border:none\
-                }\
-                ";
-
-            modifyUserbar.usercontent_tpl = "\
-                <li class='personal_bar'>{{html content}}</li>\
-                ";
-
-            modifyUserbar.usercontent_css = "\
-                .personal_bar {\
-                    position:absolute;\
-                    left:160px;\
-                    top:10px;\
-                    border:none;\
-                }\
-                .personal_bar a {\
-                    color:#333;\
-                    text-decoration:underline;\
-                }\
-                ";
-
-            modifyUserbar.search_tpl = "\
-                <div class='personal_search'>\
-                    <form action='/search/' name='search_frm' method='get'>\
-                        <input type='hidden' name='type' value='works' />\
-                        <input type='hidden' name='action' value='search' />\
-                        <input type='text' name='search_string' maxlength='100' value='' />\
-                        <button type='submit'>Go!</button>\
-                    </form>\
-                </div>\
-                ";
-
-            modifyUserbar.search_css = "\
-                .personal_search{\
-                    position:absolute;\
-                    left:600px;\
-                    top:8px;\
-                }\
-                .personal_search input {\
-                    width:140px;\
-                }\
-                .personal_search button {\
-                    text-decoration:none;\
-                    border:none;\
-                    cursor:pointer;\
-                    background:transparent;\
-                }\
-                ";
-
-            modifyUserbar.font_tpl = "\
-                <div class='personal_fontsize'>\
-                    <select name='myfont' class='myfont'>\
-                        <option value='8'>8pt</option>\
-                        <option value='9'>9pt</option>\
-                        <option value='10'>10pt</option>>\
-                        <option value='11'>11pt</option>\
-                        <option value='12'>12pt</option>\
-                    </select>\
-                </div>\
+            .n-hr .n-hr-in a {\
+                font-size:13px;\
+            }\
+            .b-userbar {\
+                position:relative;\
+                z-index:5\
+            }\
+            .b-userbar__top {\
+                position:relative;\
+                overflow:visible\
+            }\
+            .b-userbar, .b-userbar__top * {\
+                font-weight:normal\
+            }\
+            li.b-userbar__login {\
+                position:absolute;\
+                z-index:10\
+            }\
+            li.b-userbar__login .login {\
+                font-weight:normal !important;\
+            }\
+            #mb-account {\
+                position:absolute;\
+                left:414px;\
+                top:6px;\
+                border:none\
+            }\
+            li.b-userbar__drafts{\
+                position:absolute;\
+                left:382px;\
+                top:36px;\
+                border:none\
+            }\
+            li.b-userbar__services {\
+                position:absolute;\
+                left:630px;\
+                top:36px;\
+                border:none\
+            }\
+            li.b-userbar__pro {\
+                position:absolute;\
+                left:745px;\
+                top:39px;\
+                width:106px;\
+                text-align:center;\
+                padding-right:0;\
+                border:none\
+            }\
+            li.b-userbar__pro-left {\
+                position:absolute;\
+                left:750px;\
+                top:39px;\
+                width:106px;\
+                text-align:center;\
+                padding-right:0;\
+                border:none\
+            }\
+            li.b-userbar__projects {\
+                position:absolute;\
+                left:160px;\
+                top:41px;\
+                border:none\
+            }\
+            li.b-userbar__projects span {\
+                font-weight:normal !important\
+            }\
+            li.b-userbar__projects span a {\
+                font-weight:normal !important\
+            }\
+            li.b-userbar__account {\
+                position:absolute;\
+                left:492px;\
+                top:41px;\
+                width:150px;\
+                border:none\
+            }\
+            li.b-userbar__account span a strong{\
+                font-weight:normal !important\
+            }\
+            li.b-userbar__sbr {\
+                position:absolute;\
+                left:360px;\
+                top:7px;\
+                border:none\
+            }\
+            li.b-userbar__stat{\
+                position:absolute;\
+                left:270px;\
+                top:36px;\
+                border:none\
+            }\
+            li.b-userbar__message {\
+                position:absolute;\
+                left:14px;\
+                top:36px;\
+                border:none\
+            }\
             ";
 
+            modifyUserbar.usercontent_tpl = "\
+            <li class='personal_bar'>{{html content}}</li>\
+            ";
+
+            modifyUserbar.usercontent_css = "\
+            .personal_bar {\
+                position:absolute;\
+                left:160px;\
+                top:10px;\
+                border:none;\
+            }\
+            .personal_bar a {\
+                color:#333;\
+                text-decoration:underline;\
+            }\
+            ";
+
+            modifyUserbar.search_tpl = "\
+            <div class='personal_search'>\
+                <form action='/search/' name='search_frm' method='get'>\
+                    <input type='hidden' name='type' value='works' />\
+                    <input type='hidden' name='action' value='search' />\
+                    <input type='text' name='search_string' maxlength='100' value='' />\
+                    <button type='submit'>Go!</button>\
+                </form>\
+            </div>\
+            ";
+
+            modifyUserbar.search_css = "\
+            .personal_search{\
+                position:absolute;\
+                left:600px;\
+                top:8px;\
+            }\
+            .personal_search input {\
+                width:140px;\
+            }\
+            .personal_search button {\
+                text-decoration:none;\
+                border:none;\
+                cursor:pointer;\
+                background:transparent;\
+            }\
+            ";
+
+            modifyUserbar.font_tpl = "\
+            <div class='personal_fontsize'>\
+                <select name='myfont' class='myfont'>\
+                    <option value='8'>8pt</option>\
+                    <option value='9'>9pt</option>\
+                    <option value='10'>10pt</option>>\
+                    <option value='11'>11pt</option>\
+                    <option value='12'>12pt</option>\
+                </select>\
+            </div>\
+        ";
+
             modifyUserbar.font_css = "\
-                .personal_fontsize {\
-                    position:absolute;\
-                    left:795px;\
-                    top:8px;\
-                }\
-                .personal_fontsize select {\
-                    width:50px;\
-                }\
-                .font8pt {font-size: 8pt !important}\
-                .font8pt div {font-size: 8pt}\
-                .font9pt {font-size: 9pt !important}\
-                .font9pt div {font-size: 9pt}\
-                .font10pt {font-size: 10pt !important}\
-                .font10pt div {font-size: 10pt}\
-                .font11pt {font-size: 11pt !important}\
-                .font11pt div {font-size: 11pt}\
-                .font12pt {font-size: 12pt !important}\
-                .font12pt div {font-size: 12pt}\
-                ";
+            .personal_fontsize {\
+                position:absolute;\
+                left:795px;\
+                top:8px;\
+            }\
+            .personal_fontsize select {\
+                width:50px;\
+            }\
+            .font8pt {font-size: 8pt !important}\
+            .font8pt div {font-size: 8pt}\
+            .font9pt {font-size: 9pt !important}\
+            .font9pt div {font-size: 9pt}\
+            .font10pt {font-size: 10pt !important}\
+            .font10pt div {font-size: 10pt}\
+            .font11pt {font-size: 11pt !important}\
+            .font11pt div {font-size: 11pt}\
+            .font12pt {font-size: 12pt !important}\
+            .font12pt div {font-size: 12pt}\
+            ";
 
             modifyUserbar.lenta_tpl = "\
-                <li class='b-menu__item b-menu__item_first'>\
-                    <a class='b-menu__link' href='/lenta/'>Лента</a>\
-                </li>\
-                ";
+            <li class='b-menu__item b-menu__item_first'>\
+                <a class='b-menu__link' href='/lenta/'>Лента</a>\
+            </li>\
+            ";
 
             modifyUserbar.condition = function() {
                 return config.get('modifyUserbar');
@@ -1228,141 +1229,141 @@ jQuery.noConflict();
             };
 
             hideBlogs.slider_tpl = "\
-            <div class='myblogslinks' >\
-                <div class='flt-out flt-show'>\
-                    <b class='b1'></b>\
-                    <b class='b2'></b>\
-                    <div class='flt-bar'>\
-                        <a href='javascript: void(0);' class='flt-tgl-lnk2'>Развернуть</a>\
-                        <h3>Скрытые блоги <span id='flt-hide-cnt'></span></h3>\
-                    </div>\
-                    <div class='flt-cnt' id='flt-hide-content' style='display:none;'>\
-                        <div class='flt-block flt-b-fc flt-b-lc'>\
-                            <div class='flt-ppc-div'>\
-                                <ul class='flt-ppc' id='hidelinklist'>\
-                                    {{each links}}\
-                                    <li{{if hidden}} style='display:none'{{/if}}>&bull; &nbsp; <a class='showblog' rel='${id}' href='#${id}'>${title}</a></li>\
-                                    {{/each}}\
-                                </ul>\
-                            </div>\
-                            <div class='flt-ppc-opt'><a href='javascript: void();' class='flt-lnk showallblogs'>Восстановить все</a></div>\
-                        </div>\
-                    </div>\
-                    <b class='b2'></b>\
-                    <b class='b1'></b>\
+        <div class='myblogslinks' >\
+            <div class='flt-out flt-show'>\
+                <b class='b1'></b>\
+                <b class='b2'></b>\
+                <div class='flt-bar'>\
+                    <a href='javascript: void(0);' class='flt-tgl-lnk2'>Развернуть</a>\
+                    <h3>Скрытые блоги <span id='flt-hide-cnt'></span></h3>\
                 </div>\
+                <div class='flt-cnt' id='flt-hide-content' style='display:none;'>\
+                    <div class='flt-block flt-b-fc flt-b-lc'>\
+                        <div class='flt-ppc-div'>\
+                            <ul class='flt-ppc' id='hidelinklist'>\
+                                {{each links}}\
+                                <li{{if hidden}} style='display:none'{{/if}}>&bull; &nbsp; <a class='showblog' rel='${id}' href='#${id}'>${title}</a></li>\
+                                {{/each}}\
+                            </ul>\
+                        </div>\
+                        <div class='flt-ppc-opt'><a href='javascript: void();' class='flt-lnk showallblogs'>Восстановить все</a></div>\
+                    </div>\
+                </div>\
+                <b class='b2'></b>\
+                <b class='b1'></b>\
             </div>\
-            ";
+        </div>\
+        ";
 
             hideBlogs.slider_css = "\
-                .myblogslinks a {\
-                    outline:none !important;\
+            .myblogslinks a {\
+                outline:none !important;\
+            }\
+            .flt-out{\
+                padding: 0 0 2px 0;\
+                margin: 0 0 15px 0;\
+                height:1%;\
+            }\
+            .flt-out .b1, .flt-out .b2{\
+                border-left: 1px solid #F2F2F2;\
+                border-right: 1px solid #F2F2F2;\
+                background: #E6E6E5;\
+            }\
+            .flt-bar{\
+                padding: 4px 15px 4px;\
+                color: #4d4d4d;\
+                background: #E6E6E5;\
+            }\
+            .flt-bar h3, .flt-bar h4{\
+                font-size: 100%;\
+                display:inline-block;\
+                margin:0;\
+                padding:0;\
+            }\
+            .flt-tgl-lnk2{\
+                text-decoration:none !important;\
+                color:#666 !important;\
+                background:url(http://free-lance.ru/images/dot_666.png) repeat-x bottom left;\
+            }\
+            .flt-tgl-lnk2:link, .flt-tgl-lnk2:visited{\
+                float:right;\
+                text-decoration:none;\
+                background:url(http://free-lance.ru/images/dot_666.png) repeat-x bottom left;\
+                color:#666 !important;\
+            }\
+            .flt-tgl-lnk2:hover{\
+                text-decoration:none;\
+                color:#6BB24B !important;\
+                background:url(http://free-lance.ru/images/dot_green.png) repeat-x bottom left;\
+            }\
+            .flt-lnk{\
+                text-decoration:none !important;\
+                background:url(http://free-lance.ru/images/dot_666.png) repeat-x bottom left;\
+                color:#666 !important;\
+                font-weight:400;\
+            }\
+            .flt-lnk:link, .flt-lnk:visited{\
+                text-decoration:none !important;\
+                background:url(http://free-lance.ru/images/dot_666.png) repeat-x bottom left;\
+                color:#666 !important;\
+            }\
+            .flt-lnk:hover{\
+                text-decoration:none !important;\
+                color:#6BB24B !important;\
+                background:url(http://free-lance.ru/images/dot_green.png) repeat-x bottom left;\
+            }\
+            .flt-cnt{\
+                background: #F0EFED;\
+                overflow:hidden;\
+                position:relative;\
+                display:none;\
+            }\
+            .flt-show .flt-cnt{\
+                display:block;\
+            }\
+            .flt-block{\
+                border-top: 1px solid #fff;\
+                border-bottom: 1px solid #C5C5C5;\
+                padding: 15px;\
+            }\
+            .flt-block:after{\
+                content:'.';\
+                display:block;\
+                overflow:hidden;\
+                clear:both;\
+                height: 0;\
+                visibility:hidden;\
+            }\
+            .flt-b-fc{\
+                border-top: none !important;\
                 }\
-                .flt-out{\
-                    padding: 0 0 2px 0;\
-                    margin: 0 0 15px 0;\
-                    height:1%;\
-                }\
-                .flt-out .b1, .flt-out .b2{\
-                    border-left: 1px solid #F2F2F2;\
-                    border-right: 1px solid #F2F2F2;\
-                    background: #E6E6E5;\
-                }\
-                .flt-bar{\
-                    padding: 4px 15px 4px;\
-                    color: #4d4d4d;\
-                    background: #E6E6E5;\
-                }\
-                .flt-bar h3, .flt-bar h4{\
-                    font-size: 100%;\
-                    display:inline-block;\
-                    margin:0;\
-                    padding:0;\
-                }\
-                .flt-tgl-lnk2{\
-                    text-decoration:none !important;\
-                    color:#666 !important;\
-                    background:url(http://free-lance.ru/images/dot_666.png) repeat-x bottom left;\
-                }\
-                .flt-tgl-lnk2:link, .flt-tgl-lnk2:visited{\
-                    float:right;\
-                    text-decoration:none;\
-                    background:url(http://free-lance.ru/images/dot_666.png) repeat-x bottom left;\
-                    color:#666 !important;\
-                }\
-                .flt-tgl-lnk2:hover{\
-                    text-decoration:none;\
-                    color:#6BB24B !important;\
-                    background:url(http://free-lance.ru/images/dot_green.png) repeat-x bottom left;\
-                }\
-                .flt-lnk{\
-                    text-decoration:none !important;\
-                    background:url(http://free-lance.ru/images/dot_666.png) repeat-x bottom left;\
-                    color:#666 !important;\
-                    font-weight:400;\
-                }\
-                .flt-lnk:link, .flt-lnk:visited{\
-                    text-decoration:none !important;\
-                    background:url(http://free-lance.ru/images/dot_666.png) repeat-x bottom left;\
-                    color:#666 !important;\
-                }\
-                .flt-lnk:hover{\
-                    text-decoration:none !important;\
-                    color:#6BB24B !important;\
-                    background:url(http://free-lance.ru/images/dot_green.png) repeat-x bottom left;\
-                }\
-                .flt-cnt{\
-                    background: #F0EFED;\
-                    overflow:hidden;\
-                    position:relative;\
-                    display:none;\
-                }\
-                .flt-show .flt-cnt{\
-                    display:block;\
-                }\
-                .flt-block{\
-                    border-top: 1px solid #fff;\
-                    border-bottom: 1px solid #C5C5C5;\
-                    padding: 15px;\
-                }\
-                .flt-block:after{\
-                    content:'.';\
-                    display:block;\
-                    overflow:hidden;\
-                    clear:both;\
-                    height: 0;\
-                    visibility:hidden;\
-                }\
-                .flt-b-fc{\
-                    border-top: none !important;\
-                    }\
-                .flt-b-lc{\
-                    border-bottom: none !important;\
-                    margin: 0 !important;\
-                }\
-                .flt-ppc{\
-                    margin: 0 0 17px 0 !important;\
-                    padding: 0 !important;\
-                    list-style: none !important;\
-                }\
-                .flt-ppc-opt{\
-                    float:left;\
-                }\
-                .flt-ppc li{\
-                    line-height:115%;\
-                    margin: 0 0 10px 6px !important;\
-                }\
-                .flt-block .flt-lbl{\
-                    display:block;\
-                    width: 150px;\
-                    font-weight:900;\
-                    float:left;\
-                    padding: 3px 0 0 0;\
-                }\
-                .showblog {\
-                    margin-right:6px;\
-                }\
-            ";
+            .flt-b-lc{\
+                border-bottom: none !important;\
+                margin: 0 !important;\
+            }\
+            .flt-ppc{\
+                margin: 0 0 17px 0 !important;\
+                padding: 0 !important;\
+                list-style: none !important;\
+            }\
+            .flt-ppc-opt{\
+                float:left;\
+            }\
+            .flt-ppc li{\
+                line-height:115%;\
+                margin: 0 0 10px 6px !important;\
+            }\
+            .flt-block .flt-lbl{\
+                display:block;\
+                width: 150px;\
+                font-weight:900;\
+                float:left;\
+                padding: 3px 0 0 0;\
+            }\
+            .showblog {\
+                margin-right:6px;\
+            }\
+        ";
 
             hideBlogs.action = function(){
 
@@ -1587,43 +1588,43 @@ jQuery.noConflict();
             };
 
             highlightContacts.css = "\
-                .new_message {\
-                    background:#fff;\
-                }\
-                .new_message > td:first-child {\
-                    border-left:#6BBB40 2px solid;\
-                    border-top:#6BBB40 1px solid;\
-                    border-bottom:#2E97BE 1px solid;\
-                    padding:8px 3px !important;\
-                    background:#E0F8D3;\
-                    border-radius:6px 0 0 6px;\
-                }\
-                .new_message > td:last-child {\
-                    border-right:#6BBB40 2px solid;\
-                    border-top:#6BBB40 1px solid;\
-                    border-bottom:#6BBB40 1px solid;\
-                    padding:8px 3px !important;\
-                    border-radius:0 6px 6px 0;\
-                }\
-                .nonreaded_message {\
-                    background:#fff;\
-                }\
-                .nonreaded_message > td:first-child {\
-                    border-left:#2E97BE 2px solid;\
-                    border-top:#2E97BE 1px solid;\
-                    border-bottom:#2E97BE 1px solid;\
-                    padding:8px 3px !important;\
-                    background:#D0F2FF;\
-                    border-radius:6px 0 0 6px;\
-                }\
-                .nonreaded_message > td:last-child {\
-                    border-right:#2E97BE 2px solid;\
-                    border-top:#2E97BE 1px solid;\
-                    border-bottom:#2E97BE 1px solid;\
-                    padding:8px 3px !important;\
-                    border-radius:0 6px 6px 0;\
-                }\
-            ";
+            .new_message {\
+                background:#fff;\
+            }\
+            .new_message > td:first-child {\
+                border-left:#6BBB40 2px solid;\
+                border-top:#6BBB40 1px solid;\
+                border-bottom:#2E97BE 1px solid;\
+                padding:8px 3px !important;\
+                background:#E0F8D3;\
+                border-radius:6px 0 0 6px;\
+            }\
+            .new_message > td:last-child {\
+                border-right:#6BBB40 2px solid;\
+                border-top:#6BBB40 1px solid;\
+                border-bottom:#6BBB40 1px solid;\
+                padding:8px 3px !important;\
+                border-radius:0 6px 6px 0;\
+            }\
+            .nonreaded_message {\
+                background:#fff;\
+            }\
+            .nonreaded_message > td:first-child {\
+                border-left:#2E97BE 2px solid;\
+                border-top:#2E97BE 1px solid;\
+                border-bottom:#2E97BE 1px solid;\
+                padding:8px 3px !important;\
+                background:#D0F2FF;\
+                border-radius:6px 0 0 6px;\
+            }\
+            .nonreaded_message > td:last-child {\
+                border-right:#2E97BE 2px solid;\
+                border-top:#2E97BE 1px solid;\
+                border-bottom:#2E97BE 1px solid;\
+                padding:8px 3px !important;\
+                border-radius:0 6px 6px 0;\
+            }\
+        ";
 
             highlightContacts.action = function()
             {
@@ -1652,34 +1653,34 @@ jQuery.noConflict();
             };
 
             highlightProjects.pr_css = "\
-                .project_nonreaded {\
-                    border:#2E97BE 2px solid;\
-                    background:#E4F2F8;\
-                    background:-moz-linear-gradient(100% 100% 90deg, #D1EBF5, #E4F2F8);\
-                    background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#D1EBF5), to(#E4F2F8));\
-                    background:-webkit-linear-gradient(#E4F2F8, #D1EBF5);\
-                    background:-o-linear-gradient(#E4F2F8, #D1EBF5);\
-                    margin:10px 0\
-                }\
-                .project_success {\
-                    border:#6BBB40 2px solid;\
-                    background:#E0F8D3;\
-                    background:-moz-linear-gradient(100% 100% 90deg, #C7FDAA, #E0F8D3);\
-                    background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#C7FDAA), to(#E0F8D3));\
-                    background:-webkit-linear-gradient(#E0F8D3, #C7FDAA);\
-                    background:-o-linear-gradient(#E0F8D3, #C7FDAA);\
-                    margin:10px 0\
-                }\
-                .project_nosuccess {\
-                    border:#f00 2px solid;\
-                    background:#fff0f1;\
-                    background:-moz-linear-gradient(100% 100% 90deg, #ffe7e1, #fff0f1);\
-                    background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffe7e1), to(#fff0f1));\
-                    background:-webkit-linear-gradient(#fff0f1, #ffe7e1);\
-                    background:-o-linear-gradient(#fff0f1, #ffe7e1);\
-                    margin:10px 0\
-                }\
-            ";
+            .project_nonreaded {\
+                border:#2E97BE 2px solid;\
+                background:#E4F2F8;\
+                background:-moz-linear-gradient(100% 100% 90deg, #D1EBF5, #E4F2F8);\
+                background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#D1EBF5), to(#E4F2F8));\
+                background:-webkit-linear-gradient(#E4F2F8, #D1EBF5);\
+                background:-o-linear-gradient(#E4F2F8, #D1EBF5);\
+                margin:10px 0\
+            }\
+            .project_success {\
+                border:#6BBB40 2px solid;\
+                background:#E0F8D3;\
+                background:-moz-linear-gradient(100% 100% 90deg, #C7FDAA, #E0F8D3);\
+                background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#C7FDAA), to(#E0F8D3));\
+                background:-webkit-linear-gradient(#E0F8D3, #C7FDAA);\
+                background:-o-linear-gradient(#E0F8D3, #C7FDAA);\
+                margin:10px 0\
+            }\
+            .project_nosuccess {\
+                border:#f00 2px solid;\
+                background:#fff0f1;\
+                background:-moz-linear-gradient(100% 100% 90deg, #ffe7e1, #fff0f1);\
+                background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffe7e1), to(#fff0f1));\
+                background:-webkit-linear-gradient(#fff0f1, #ffe7e1);\
+                background:-o-linear-gradient(#fff0f1, #ffe7e1);\
+                margin:10px 0\
+            }\
+        ";
 
             highlightProjects.action = function()
             {
@@ -1710,91 +1711,91 @@ jQuery.noConflict();
             {
                 return config.get('BBCodeBar') && (
                     location.href.match(/\/contacts\/\?from\=/) ||
-                    location.href.match(/\/blogs\//) ||
-                    location.href.match(/\/defile\//) ||
-                    location.href.match(/\/projects\//) ||
-                    location.href.match(/\/setup\/portfolio/)
-                );
+                        location.href.match(/\/blogs\//) ||
+                        location.href.match(/\/defile\//) ||
+                        location.href.match(/\/projects\//) ||
+                        location.href.match(/\/setup\/portfolio/)
+                    );
             };
 
             bbCodeBar.panel_tpl = "\
-                <div class='fj_bbcode'>\
-                    <input type='button' value='b' />\
-                    <input type='button' value='i' />\
-                    <input type='button' value='p' />\
-                    <input type='button' value='ul' />\
-                    <input type='button' value='li' />\
-                    <input type='button' value='cut' />\
-                    <input type='button' value='h1' />\
-                    <input type='button' value='s' />\
-                    <input type='button' value='w' style='margin-left:10px' />\
-                    <input type='button' value='&copy;' style='margin-left:10px' />\
-                    <input type='button' value='&euro;' />\
-                    <input type='button' value='&bull;' />\
-                    <input type='button' value='&laquo;&raquo;' />\
-                    <input type='button' value='&#9786;' />\
-                    <div class='fj_smilePanel' style='display:none'>\
-                        {{each smiles}}\
-                        <img class='fj_smileButton' src='http://freejs.elisdn.ru/images/smiles/${file}' alt='${text}' title='${text}' />\
-                        {{/each}}\
-                    </div>\
+            <div class='fj_bbcode'>\
+                <input type='button' value='b' />\
+                <input type='button' value='i' />\
+                <input type='button' value='p' />\
+                <input type='button' value='ul' />\
+                <input type='button' value='li' />\
+                <input type='button' value='cut' />\
+                <input type='button' value='h1' />\
+                <input type='button' value='s' />\
+                <input type='button' value='w' style='margin-left:10px' />\
+                <input type='button' value='&copy;' style='margin-left:10px' />\
+                <input type='button' value='&euro;' />\
+                <input type='button' value='&bull;' />\
+                <input type='button' value='&laquo;&raquo;' />\
+                <input type='button' value='&#9786;' />\
+                <div class='fj_smilePanel' style='display:none'>\
+                    {{each smiles}}\
+                    <img class='fj_smileButton' src='http://freejs.elisdn.ru/images/smiles/${file}' alt='${text}' title='${text}' />\
+                    {{/each}}\
                 </div>\
-                <div style='clear:both'></div><br />\
-            ";
+            </div>\
+            <div style='clear:both'></div><br />\
+        ";
 
             bbCodeBar.panel_css = "\
-                #ov-report {\
-                    width:800px;\
-                    margin:0 0 0 -430px\
+            #ov-report {\
+                width:800px;\
+                margin:0 0 0 -430px\
+            }\
+            .ov-col2 {\
+                width:500px;\
+                float':'right;\
+            }\
+            #complain_fmsg {\
+                width:495px;\
+                height:90px;\
+            }\
+            .fj_bbcode input, .fj_addheight, .fj_delheight {\
+                width:24px;\
+                padding:2px 0;\
+                margin:0 !important;\
+                text-align:center;\
+                float:left;\
+                cursor:pointer;\
+                font-size:11px !important;\
+                border-top:#eee 1px solid;\
+                border-right:#bbb 1px solid;\
+                border-bottom:#bbb 1px solid;\
+                border-left:#ddd 1px solid;\
+                background:#eee;\
+                background:-moz-linear-gradient(100% 100% 90deg, #ddd, #fff);\
+                background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#ddd), to(#fff));\
+                background:-webkit-linear-gradient(#fff, #ddd);\
+                background:-o-linear-gradient(#fff, #ddd);\
+            }\
+            .b-textarea {\
+                overflow:auto !important;\
                 }\
-                .ov-col2 {\
-                    width:500px;\
-                    float':'right;\
-                }\
-                #complain_fmsg {\
-                    width:495px;\
-                    height:90px;\
-                }\
-                .fj_bbcode input, .fj_addheight, .fj_delheight {\
-                    width:24px;\
-                    padding:2px 0;\
-                    margin:0 !important;\
-                    text-align:center;\
-                    float:left;\
-                    cursor:pointer;\
-                    font-size:11px !important;\
-                    border-top:#eee 1px solid;\
-                    border-right:#bbb 1px solid;\
-                    border-bottom:#bbb 1px solid;\
-                    border-left:#ddd 1px solid;\
-                    background:#eee;\
-                    background:-moz-linear-gradient(100% 100% 90deg, #ddd, #fff);\
-                    background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#ddd), to(#fff));\
-                    background:-webkit-linear-gradient(#fff, #ddd);\
-                    background:-o-linear-gradient(#fff, #ddd);\
-                }\
-				.b-textarea {\
-					overflow:auto !important;\
-					}\
-				.fj_bbcode {\
-					float:left;\
-					position:relative;\
-				}\
-                .fj_smilePanel {\
-                    width:98%;\
-                    background:#fff;\
-                    border:#aaa 1px solid;\
-                    padding:4px;\
-                    position:absolute;\
-                    z-index:100;\
-                    right:0;\
-                    top:20px;\
-                    display:none;\
-                }\
-                fj_smileButton {\
-                    cursor:pointer;\
-                }\
-            ";
+            .fj_bbcode {\
+                float:left;\
+                position:relative;\
+            }\
+            .fj_smilePanel {\
+                width:98%;\
+                background:#fff;\
+                border:#aaa 1px solid;\
+                padding:4px;\
+                position:absolute;\
+                z-index:100;\
+                right:0;\
+                top:20px;\
+                display:none;\
+            }\
+            fj_smileButton {\
+                cursor:pointer;\
+            }\
+        ";
 
             bbCodeBar.action = function()
             {
@@ -1995,12 +1996,12 @@ jQuery.noConflict();
             };
 
             blogSmiles.css = "\
-                .fj_smile {\
-                    margin:0;\
-                    display:inline-block;\
-                    vertical-align:middle;\
-                }\
-            ";
+            .fj_smile {\
+                margin:0;\
+                display:inline-block;\
+                vertical-align:middle;\
+            }\
+        ";
 
             blogSmiles.action = function()
             {
@@ -2040,152 +2041,152 @@ jQuery.noConflict();
             };
 
             profileGallery.gallery_tpl = "\
-                <!DOCTYPE html>\
-                <html>\
-                <head>\
-                <meta http-equiv='Content-Type' content='text/html; charset=windows-1251' />\
-                <style type='text/css'>\
-                    html, body {\
-                        width:100% !important;\
-                        height:100% !important;\
-                        margin:0 !important;\
-                        padding:0 !important;\
-                        position:relative;\
-                        overflow:hidden;\
-                        font-family:verdana;\
-                        font-size:14px;\
-                    }\
-                    a img {\
-                        border:#0ad 2px solid;\
-                    }\
-                    a:visited img {\
-                        border:#ccc 2px solid;\
-                    }\
-                    a.active img {\
-                        border:#f00 2px solid;\
-                    }\
-                    a:hover img {\
-                    }\
-                    .gPanel {\
-                        position:fixed;\
-                        z-index:10;\
-                        left:0;\
-                        top:0;\
-                        width:100%;\
-                        height:130px;\
-                        overflow:hidden;\
-                        background:#eee;\
-                        border-bottom:#999 1px solid;\
-                    }\
-                    .gPanelLenta {\
-                        width:10000px;\
-                        position:relative;\
-                        left:35px;\
-                    }\
-                    .gPanelLenta img {\
-                        height:100px;\
-                        margin:12px 0 5px 5px;\
-                        float:left;\
-                    }\
-                    .myarrow {\
-                        position:fixed;\
-                        top:31px;\
-                        z-index:10;\
-                        width:30px;\
-                        height:101px;\
-                        background:#666;\
-                        opacity:0.6;\
-                        cursor:pointer;\
-                    }\
-                    .myarrow label {\
-                        display:block;\
-                        margin-top:40px;\
-                        color:#fff;\
-                        text-align:center;\
-                        cursor:pointer;\
-                    }\
-                    .arleft {\
-                        left:0;\
-                    }\
-                    .arright {\
-                        right:0;\
-                    }\
-                    .myFrame {\
-                        position:absolute;\
-                        z-index:1;\
-                        left:0;\
-                        top:0;\
-                        width:100%;\
-                        height:100%;\
-                    }\
-                    .closeGallery {\
-                        position:fixed;\
-                        overflow:hidden;\
-                        top:0;\
-                        z-index:20;\
-                        width:30px;\
-                        height:30px;\
-                        background:#666;\
-                        opacity:0.6;\
-                        cursor:pointer;\
-                    }\
-                    .closeGallery label {\
-                        display:block;\
-                        margin:0 !important;\
-                        padding:4px 0;\
-                        color:#fff;\
-                        text-align:center;\
-                        cursor:pointer;\
-                    }\
-                    .clleft {\
-                        left:0;\
-                    }\
-                    .clright {\
-                        right:0;\
-                    }\
-                </style>\
-                <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>\
-                <script>\
-                    function fj_Parent(){\
-                        return true;\
-                    }\
-                </script>\
-                </head>\
-                <body>\
-                <div class='gPanel' height='130px'>\
-                    <div id='gPanelLenta' class='gPanelLenta' style='left:35px'>\
-                    {{each gallery}}\
-                    <a target='myFrame' id='lnk_${index}' onclick='showWork(${index})' href='${link}&inframe'><img src='${preview}' /></a>\
-                    {{/each}}\
-                    </div>\
-                    <div class='myarrow arleft'><label>&larr;</label></div>\
-                    <div class='myarrow arright'><label>&rarr;</label></div>\
-                    <div class='closeGallery clleft'><label>x</label></div>\
-                    <div class='closeGallery clright'><label>x</label></div>\
+            <!DOCTYPE html>\
+            <html>\
+            <head>\
+            <meta http-equiv='Content-Type' content='text/html; charset=windows-1251' />\
+            <style type='text/css'>\
+                html, body {\
+                    width:100% !important;\
+                    height:100% !important;\
+                    margin:0 !important;\
+                    padding:0 !important;\
+                    position:relative;\
+                    overflow:hidden;\
+                    font-family:verdana;\
+                    font-size:14px;\
+                }\
+                a img {\
+                    border:#0ad 2px solid;\
+                }\
+                a:visited img {\
+                    border:#ccc 2px solid;\
+                }\
+                a.active img {\
+                    border:#f00 2px solid;\
+                }\
+                a:hover img {\
+                }\
+                .gPanel {\
+                    position:fixed;\
+                    z-index:10;\
+                    left:0;\
+                    top:0;\
+                    width:100%;\
+                    height:130px;\
+                    overflow:hidden;\
+                    background:#eee;\
+                    border-bottom:#999 1px solid;\
+                }\
+                .gPanelLenta {\
+                    width:10000px;\
+                    position:relative;\
+                    left:35px;\
+                }\
+                .gPanelLenta img {\
+                    height:100px;\
+                    margin:12px 0 5px 5px;\
+                    float:left;\
+                }\
+                .myarrow {\
+                    position:fixed;\
+                    top:31px;\
+                    z-index:10;\
+                    width:30px;\
+                    height:101px;\
+                    background:#666;\
+                    opacity:0.6;\
+                    cursor:pointer;\
+                }\
+                .myarrow label {\
+                    display:block;\
+                    margin-top:40px;\
+                    color:#fff;\
+                    text-align:center;\
+                    cursor:pointer;\
+                }\
+                .arleft {\
+                    left:0;\
+                }\
+                .arright {\
+                    right:0;\
+                }\
+                .myFrame {\
+                    position:absolute;\
+                    z-index:1;\
+                    left:0;\
+                    top:0;\
+                    width:100%;\
+                    height:100%;\
+                }\
+                .closeGallery {\
+                    position:fixed;\
+                    overflow:hidden;\
+                    top:0;\
+                    z-index:20;\
+                    width:30px;\
+                    height:30px;\
+                    background:#666;\
+                    opacity:0.6;\
+                    cursor:pointer;\
+                }\
+                .closeGallery label {\
+                    display:block;\
+                    margin:0 !important;\
+                    padding:4px 0;\
+                    color:#fff;\
+                    text-align:center;\
+                    cursor:pointer;\
+                }\
+                .clleft {\
+                    left:0;\
+                }\
+                .clright {\
+                    right:0;\
+                }\
+            </style>\
+            <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>\
+            <script>\
+                function fj_Parent(){\
+                    return true;\
+                }\
+            </script>\
+            </head>\
+            <body>\
+            <div class='gPanel' height='130px'>\
+                <div id='gPanelLenta' class='gPanelLenta' style='left:35px'>\
+                {{each gallery}}\
+                <a target='myFrame' id='lnk_${index}' onclick='showWork(${index})' href='${link}&inframe'><img src='${preview}' /></a>\
+                {{/each}}\
                 </div>\
-                <iframe style='width:100%;height:100%;position:absolute;left:0;top:0;z-index:1' id='myFrame' name='myFrame' src='${firsturl}&inframe'></iframe>'\
-                <script type='text/javascript'>\
-                    jQuery('#lnk_1').addClass('active');\
-                    function showWork(id){\
-                        jQuery('a').removeClass('active');\
-                        jQuery('#lnk_'+id).addClass('active');\
-                        myFrame.location.href = jQuery('#lnk_'+id).attr('href');\
-                        return false;\
-                    }\
-                    jQuery('.closeGallery').click(function(){\
-                        window.location.href = myFrame.location.href.split('&inframe').join('');\
-                        return false;\
-                    });\
-                    jQuery('.arleft').click(function(){\
-                        jQuery('.gPanelLenta').animate({'left':'+=500'},600);\
-                    });\
-                    jQuery('.arright').click(function(){\
-                        jQuery('.gPanelLenta').animate({'left':'-=500'},600);\
-                    });\
-                </script>\
-                </body>\
-                </html>\
-                ";
+                <div class='myarrow arleft'><label>&larr;</label></div>\
+                <div class='myarrow arright'><label>&rarr;</label></div>\
+                <div class='closeGallery clleft'><label>x</label></div>\
+                <div class='closeGallery clright'><label>x</label></div>\
+            </div>\
+            <iframe style='width:100%;height:100%;position:absolute;left:0;top:0;z-index:1' id='myFrame' name='myFrame' src='${firsturl}&inframe'></iframe>'\
+            <script type='text/javascript'>\
+                jQuery('#lnk_1').addClass('active');\
+                function showWork(id){\
+                    jQuery('a').removeClass('active');\
+                    jQuery('#lnk_'+id).addClass('active');\
+                    myFrame.location.href = jQuery('#lnk_'+id).attr('href');\
+                    return false;\
+                }\
+                jQuery('.closeGallery').click(function(){\
+                    window.location.href = myFrame.location.href.split('&inframe').join('');\
+                    return false;\
+                });\
+                jQuery('.arleft').click(function(){\
+                    jQuery('.gPanelLenta').animate({'left':'+=500'},600);\
+                });\
+                jQuery('.arright').click(function(){\
+                    jQuery('.gPanelLenta').animate({'left':'-=500'},600);\
+                });\
+            </script>\
+            </body>\
+            </html>\
+            ";
 
             profileGallery.action = function()
             {
@@ -2358,49 +2359,49 @@ jQuery.noConflict();
             };
 
             codeHighlight.parser_css = "\
-                .blog-one-cnt .fj_pre {\
-                    font-family:'tahoma' !important;\
-                    margin:0 !important;\
-                    padding:0 !important;\
-                    font-weight:normal !important;\
-                    }\
-                .blog-one-cnt .fj_pre .value {\
-                    font-weight:normal !important;\
-                    }\
-                .blog-one-cnt .fj_pre .construct {\
-                    color:#900 !important;\
-                    font-family:'arial' !important;\
-                    font-weight:bold !important;\
-                    font-style:normal !important;\
-                    }\
-                .blog-one-cnt .fj_pre .variable {\
-                    color:#060 !important;\
-                    font-style:normal !important;\
-                    font-weight:normal !important;\
-                    }\
-                .blog-one-cnt .fj_pre .value .variable {\
-                    color:#333 !important;\
-                    }\
-                .blog-one-cnt .fj_pre .tag {\
-                    color:#900 !important;\
-                    font-weight:normal !important;\
-                    }\
-                .blog-one-cnt .fj_pre .function {\
-                    color:#900 !important;\
-                    font-weight:normal !important;\
-                    }\
-                .fj_commlight {\
-                    border:#2E97BE 1px solid !important;\
-                    background:#E4F2F8;\
-                    background:-moz-linear-gradient(100% 100% 90deg, #D1EBF5, #E4F2F8);\
-                    background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#D1EBF5), to(#E4F2F8));\
-                    background:-webkit-linear-gradient(#E4F2F8, #D1EBF5);\
-                    background:-o-linear-gradient(#E4F2F8, #D1EBF5);\
-                    width:954px !important;\
-                    margin:-16px -1px -1px -1px !important;\
-                    padding:15px 0 0 0 !important;\
+            .blog-one-cnt .fj_pre {\
+                font-family:'tahoma' !important;\
+                margin:0 !important;\
+                padding:0 !important;\
+                font-weight:normal !important;\
                 }\
-            ";
+            .blog-one-cnt .fj_pre .value {\
+                font-weight:normal !important;\
+                }\
+            .blog-one-cnt .fj_pre .construct {\
+                color:#900 !important;\
+                font-family:'arial' !important;\
+                font-weight:bold !important;\
+                font-style:normal !important;\
+                }\
+            .blog-one-cnt .fj_pre .variable {\
+                color:#060 !important;\
+                font-style:normal !important;\
+                font-weight:normal !important;\
+                }\
+            .blog-one-cnt .fj_pre .value .variable {\
+                color:#333 !important;\
+                }\
+            .blog-one-cnt .fj_pre .tag {\
+                color:#900 !important;\
+                font-weight:normal !important;\
+                }\
+            .blog-one-cnt .fj_pre .function {\
+                color:#900 !important;\
+                font-weight:normal !important;\
+                }\
+            .fj_commlight {\
+                border:#2E97BE 1px solid !important;\
+                background:#E4F2F8;\
+                background:-moz-linear-gradient(100% 100% 90deg, #D1EBF5, #E4F2F8);\
+                background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#D1EBF5), to(#E4F2F8));\
+                background:-webkit-linear-gradient(#E4F2F8, #D1EBF5);\
+                background:-o-linear-gradient(#E4F2F8, #D1EBF5);\
+                width:954px !important;\
+                margin:-16px -1px -1px -1px !important;\
+                padding:15px 0 0 0 !important;\
+            }\
+        ";
 
             codeHighlight.action = function()
             {
@@ -2425,26 +2426,26 @@ jQuery.noConflict();
                         for (var i=0; i< lines.length; i++){
                             if (
                                 !lines[i].match(/(<|>)/) &&
-                                !lines[i].match(/&lt;((img|br|hr|input|meta|limk|param).*|[^\/]+\/)&gt;/)
-                            ){
+                                    !lines[i].match(/&lt;((img|br|hr|input|meta|limk|param).*|[^\/]+\/)&gt;/)
+                                ){
                                 if (
                                     lines[i].match(/&lt;[\w\d]+.*[^\/]&gt;/) ||
-                                    lines[i].match(/\{/)
-                                ){
+                                        lines[i].match(/\{/)
+                                    ){
                                     indent_nextline++;
                                 }
                                 if (
                                     lines[i].match(/&lt;\/[\w\d]+.*&gt;/) ||
-                                    lines[i].match(/\}/)
-                                ){
+                                        lines[i].match(/\}/)
+                                    ){
                                     indent_curline--;
                                     indent_nextline--;
                                 }
                                 if (
                                     lines[i].match(/&lt;[\w\d]+.*[^\/]&gt;/) &&
-                                    lines[i].match(/&lt;\/[\w\d]+.*&gt;/) &&
-                                    !lines[i].match(/\{/) &&
-                                    !lines[i].match(/\}/)
+                                        lines[i].match(/&lt;\/[\w\d]+.*&gt;/) &&
+                                        !lines[i].match(/\{/) &&
+                                        !lines[i].match(/\}/)
                                     ){
                                     indent_curline++;
                                 }
@@ -2489,11 +2490,11 @@ jQuery.noConflict();
                 {
                     var txt = $(this).find('.blog-one-cnt');
                     $(this).prepend("\
-                        <div class='fj_codeButtons' style='float:right;cursor:pointer;margin-top:-5px;'>\
-                            "+(config.get('visualAnchors') ? "<img class='fj_lightcomment' src='http://freejs.elisdn.ru/images/mark.gif' alt='Подсветка' title='Подсветка комментария' style='opacity:0.1'  />" : '')+"\
-                            "+(config.get('highlightCode') ? "<img class='fj_codehighlight' src='http://freejs.elisdn.ru/images/code.gif' alt='Подсветка' title='Подсветка кода' style='opacity:0.1'  />" : '')+"\
-                        </div>\
-                    ");
+                    <div class='fj_codeButtons' style='float:right;cursor:pointer;margin-top:-5px;'>\
+                        "+(config.get('visualAnchors') ? "<img class='fj_lightcomment' src='http://freejs.elisdn.ru/images/mark.gif' alt='Подсветка' title='Подсветка комментария' style='opacity:0.1'  />" : '')+"\
+                        "+(config.get('highlightCode') ? "<img class='fj_codehighlight' src='http://freejs.elisdn.ru/images/code.gif' alt='Подсветка' title='Подсветка кода' style='opacity:0.1'  />" : '')+"\
+                    </div>\
+                ");
                     var source = txt.html();
                     $(this).append("<div style='display:none' class='fj_commentStorage' title='code'>"+source+"</div>");
                     txt.html('<div class="fj_pre">'+parseCode(source, false)+'</pre>');
@@ -2632,24 +2633,24 @@ jQuery.noConflict();
             };
 
             highlightGuests.userpic_css = "\
-                 span.fj_other, span.fj_catalog {\
-                    display: block;\
-                    width: 8px;\
-                    height: 8px;\
-                    position: absolute;\
-                    right: 0;\
-                    bottom: 0;\
-                    border-left: #fff 1px solid;\
-                    border-top: #fff 1px solid;\
-                    border-radius: 8px 0 0 0;\
-                }\
-                span.fj_other {\
-                    background: #ff6d1b;\
-                }\
-                span.fj_catalog {\
-                    background: #63a545\
-                }\
-            ";
+             span.fj_other, span.fj_catalog {\
+                display: block;\
+                width: 8px;\
+                height: 8px;\
+                position: absolute;\
+                right: 0;\
+                bottom: 0;\
+                border-left: #fff 1px solid;\
+                border-top: #fff 1px solid;\
+                border-radius: 8px 0 0 0;\
+            }\
+            span.fj_other {\
+                background: #ff6d1b;\
+            }\
+            span.fj_catalog {\
+                background: #63a545\
+            }\
+        ";
 
             highlightGuests.action = function()
             {
@@ -2693,9 +2694,9 @@ jQuery.noConflict();
             {
                 return config.get('noPRO') && (
                     location.href.match(/\.ru\/?$/) ||
-                    location.href.match(/\.ru\/\?kind\=\d+/) ||
-                    location.href.match(/\.ru\/\?page\=\d+/)
-                );
+                        location.href.match(/\.ru\/\?kind\=\d+/) ||
+                        location.href.match(/\.ru\/\?page\=\d+/)
+                    );
             };
 
             noPRO.action = function()
@@ -2734,50 +2735,50 @@ jQuery.noConflict();
             };
 
             stylish.css = "\
-                .n-hr {\
-                    margin-bottom:10px;\
-                    height:28px;\
-                    position:relative;\
-                    overflow:hidden;\
-                    border-bottom:#ddd 1px solid;\
-                    }\
-                .n-hr .n-hr-in a {\
-                    font-size:13px;\
-                    }\
-                .main-stat {\
-                    font-size:13px;\
-                    }\
-                .mp-toggler {\
-                    margin-top:-10px;\
-                    }\
-                .btn-300-rubbles, .n-fast, .t-dc, div.mtb, .n-h-promo {\
-                    display:none !important;\
-                    }\
-                .n-hr-in .eff {\
-                    display:none !important;\
-                    }\
-                .n-hr-r {\
-                    margin-right:0 !important;\
-                    }\
-                .left-payed .lp-inf-txt {\
-                    line-height:1.1;\
-                    font-size:11px;\
-                    }\
-                .left-payed .lp-inf-txt strong {\
-                    font-weight:normal;\
-                    color:#999;\
-                    }\
-                .left-payed .lp-user {\
-                    margin:0 !important;\
-                    padding:10px 0 !important;\
-                    }\
-                .top-payed2 h2 {\
-                    display:none;\
-                    }\
-                .b-banner {\
-                    display:none !important; \
+            .n-hr {\
+                margin-bottom:10px;\
+                height:28px;\
+                position:relative;\
+                overflow:hidden;\
+                border-bottom:#ddd 1px solid;\
                 }\
-			";
+            .n-hr .n-hr-in a {\
+                font-size:13px;\
+                }\
+            .main-stat {\
+                font-size:13px;\
+                }\
+            .mp-toggler {\
+                margin-top:-10px;\
+                }\
+            .btn-300-rubbles, .n-fast, .t-dc, div.mtb, .n-h-promo {\
+                display:none !important;\
+                }\
+            .n-hr-in .eff {\
+                display:none !important;\
+                }\
+            .n-hr-r {\
+                margin-right:0 !important;\
+                }\
+            .left-payed .lp-inf-txt {\
+                line-height:1.1;\
+                font-size:11px;\
+                }\
+            .left-payed .lp-inf-txt strong {\
+                font-weight:normal;\
+                color:#999;\
+                }\
+            .left-payed .lp-user {\
+                margin:0 !important;\
+                padding:10px 0 !important;\
+                }\
+            .top-payed2 h2 {\
+                display:none;\
+                }\
+            .b-banner {\
+                display:none !important; \
+            }\
+        ";
 
             stylish.action = function()
             {
@@ -2798,10 +2799,10 @@ jQuery.noConflict();
 
         }
 
-	};
+    };
 
-	var FreeJS = new Application(typeof fj_config != 'undefined' ? fj_config : {});
-	FreeJS.run();
+    var FreeJS = new Application(typeof fj_config != 'undefined' ? fj_config : {});
+    FreeJS.run();
 
 })(jQuery);
 
