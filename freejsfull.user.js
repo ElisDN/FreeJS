@@ -1195,15 +1195,15 @@ jQuery.noConflict();
                 var fontsize = config.get('fontsize');
                 if (!fontsize) fontsize = 8;
 
-                $('.personal_fontsize').val(fontsize);
+                $('.personal_fontsize select').val(fontsize);
                 if (fontsize != 8){
-                    $(fontsize).addClass('font' + fontsize + 'pt');
+                    $(resizable).addClass('font' + fontsize + 'pt');
                     $(skip).css({
                         'font-size': '14pt !important'
                     });
                 }
 
-                $('.personal_fontsize').change(function(){
+                $('.personal_fontsize select').change(function(){
                     for (i = 8; i<13; i++){
                         $(resizable).removeClass('font' + i + 'pt');
                     }
