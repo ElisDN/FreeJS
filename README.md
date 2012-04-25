@@ -26,7 +26,7 @@
 Установка
 --------------------------------------
 
-1. Сохраните к себе файл client/freejsclient.user.js или client/freejsfull.user.js;
+1. Сохраните к себе файл client/freejsclient.user.js или full/freejsfull.user.js;
 2. Откройте его в текстовом редакторе и замените настроки в блоке «Personal settings» на свои;
 3. Подключите скрипт к вашему браузеру.
 
