@@ -642,7 +642,7 @@ jQuery.noConflict();
 			return result;
 		}
 
-        var scriptVersion = '2.0.3';
+        var scriptVersion = '2.0.4';
         var clientLastVersion = '2.0';
 
         /* Init */
@@ -2020,7 +2020,7 @@ jQuery.noConflict();
                     location.href.match(/users/) &&
                     !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
                     !location.href.match(/viewproj\.php/) &&
-                    ($('.tab1 span span').text() == 'Портфолио' || $('.tab1 span span').text() == 'Услуги');
+                    ($('.b-menu__item:first-child span span').text() == 'Портфолио' || $('.b-menu__item:first-child span span').text() == 'Услуги');
             };
 
             profileGallery.gallery_tpl = "\
