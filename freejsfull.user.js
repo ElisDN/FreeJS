@@ -2626,7 +2626,11 @@
                 };
 
                 highlightGuests.userpic_css = "\
-                    span.fj_catalog, span.fj_payeds, span.fj_blogs {\
+                    span.fj_from_catalog,\
+                    span.fj_from_search,\
+                    span.fj_from_payeds,\
+                    span.fj_from_blogs\
+                    {\
                         display: block;\
                         width: 8px;\
                         height: 8px;\
@@ -2637,13 +2641,16 @@
                         border-top: #fff 1px solid;\
                         border-radius: 8px 0 0 0;\
                     }\
-                    span.fj_catalog {\
+                    span.fj_from_catalog {\
                         background: #63a545;\
                     }\
-                    span.fj_payeds {\
+                    span.fj_from_search {\
                         background: #0099cc;\
                     }\
-                    span.fj_blogs {\
+                    span.fj_from_payeds {\
+                        background: #0099cc;\
+                    }\
+                    span.fj_from_blogs {\
                         background: #ff6d1b;\
                     }\
                 ";
@@ -2668,17 +2675,18 @@
                         userpic.find('img').css('display', 'block');
 
                         if (title.match(/Из\sкаталога/)){
-                            userpic.append('<span class="fj_catalog"></span>');
+                            userpic.append('<span class="fj_from_catalog"></span>');
+                        }
+                        if (title.match(/Из\sпоиска/)){
+                            userpic.append('<span class="fj_from_search"></span>');
                         }
                         if (title.match(/С\sплатных\sмест/)){
-                            userpic.append('<span class="fj_payeds"></span>');
+                            userpic.append('<span class="fj_from_payeds"></span>');
                         }
                         if (title.match(/Из\sблогов/)){
-                            userpic.append('<span class="fj_blogs"></span>');
+                            userpic.append('<span class="fj_from_blogs"></span>');
                         }
-
                     });
-
                 };
 
                 manager.add(highlightGuests);
