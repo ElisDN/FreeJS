@@ -1,3 +1,5 @@
+<img src="http://freejs.elisdn.ru/images/logo.png" alt="FreeJS" />
+
 [FreeJS](http://freejs.elisdn.ru) - расширение интерфейса free-lance.ru
 =======================================================================
 
