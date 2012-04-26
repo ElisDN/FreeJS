@@ -652,7 +652,7 @@
                 return result;
             }
 
-            var scriptVersion = '2.0.4';
+            var scriptVersion = '2.0.5';
             var clientLastVersion = '2.0';
 
             /* Init */
@@ -2648,7 +2648,7 @@
                         background: #0099cc;\
                     }\
                     span.fj_from_payeds {\
-                        background: #0099cc;\
+                        background: #63a545;\
                     }\
                     span.fj_from_blogs {\
                         background: #ff6d1b;\
