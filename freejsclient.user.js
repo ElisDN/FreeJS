@@ -19,8 +19,8 @@
     var fj_config = {
         answerTemplates:
             "Готов выполнить за шоколадку.||" +
-            "Email: mail@elisdn.ru||" +
-            "Обращайтесь.|C уважением, Дмитрий!"
+                "Email: mail@elisdn.ru||" +
+                "Обращайтесь.|C уважением, Дмитрий!"
         ,
         barContent: "<a target='_blank' href='http://weather.rambler.ru'>Погода</a> | <a target='_blank' href='http://win.mail.ru/cgi-bin/start'>Почта</a> | <a target='_blank' href='http://bash.org.ru'>Башорг</a>"
     };
@@ -32,8 +32,8 @@
 
     if (!(
         location.href.match(/^https?:\/\/www.free\-lance\.ru/) &&
-        !location.href.match(/inframe/)
-    )) return;
+            !location.href.match(/inframe/)
+        )) return;
 
     var FreeJS = function(config){
 
