@@ -27,14 +27,7 @@
 
 //######################## <Personal settings END> #######################
 
-    var wind;
-
-    if (typeof unsafeWindow != 'undefined'){
-        wind = unsafeWindow;
-    } else {
-        wind = window;
-    }
-
+    var wind = typeof unsafeWindow != 'undefined' ? unsafeWindow : window;
     if (wind.self != wind.top) return;
 
     if (!(
