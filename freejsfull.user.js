@@ -963,7 +963,7 @@
 
                 modifyUserbar.condition = function()
                 {
-                    return config.get('modifyUserbar') && user.isLogged;
+                    return config.get('modifyUserbar') && user.isLogged();
                 };
 
                 modifyUserbar.userbar_css = "\
