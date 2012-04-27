@@ -2396,8 +2396,16 @@
                     }\
                 ";
 
+                codeHighlight.buttons_tpl = "\
+                    <div class='fj_codeButtons' style='float:right;cursor:pointer;margin-top:-5px;'>\
+                        {{if visualAnchorsButton}}<img class='fj_lightcomment' src='http://freejs.elisdn.ru/images/mark.gif' alt='Подсветка' title='Подсветка комментария' style='opacity:0.1'  />{{/if}}\
+                        {{if highlightCodeButton}}<img class='fj_codehighlight' src='http://freejs.elisdn.ru/images/code.gif' alt='Подсветка' title='Подсветка кода' style='opacity:0.1'  />{{/if}}\
+                    </div>\
+                ";
                 codeHighlight.action = function()
                 {
+                    var module = this;
+                    
                     this.registerCss(this.parser_css);
 
                     function parseCode(source, struct){
@@ -2482,12 +2490,10 @@
                     $('.bl_text').each(function()
                     {
                         var txt = $(this).find('.blog-one-cnt');
-                        $(this).prepend("\
-                            <div class='fj_codeButtons' style='float:right;cursor:pointer;margin-top:-5px;'>\
-                                "+(config.get('visualAnchors') ? "<img class='fj_lightcomment' src='http://freejs.elisdn.ru/images/mark.gif' alt='Подсветка' title='Подсветка комментария' style='opacity:0.1'  />" : '')+"\
-                                "+(config.get('highlightCode') ? "<img class='fj_codehighlight' src='http://freejs.elisdn.ru/images/code.gif' alt='Подсветка' title='Подсветка кода' style='opacity:0.1'  />" : '')+"\
-                            </div>\
-                        ");
+                        $(this).prepend($.tmpl(module.buttons_tpl, {
+                            visualAnchorsButton:config.get('visualAnchors'),
+                            highlightCodeButton:config.get('highlightCode')
+                        }));
                         var source = txt.html();
                         $(this).append("<div style='display:none' class='fj_commentStorage' title='code'>"+source+"</div>");
                         txt.html('<div class="fj_pre">'+parseCode(source, false)+'</pre>');
@@ -2586,7 +2592,6 @@
                             }
                         });
                     }
-
                 };
 
                 manager.add(codeHighlight);
