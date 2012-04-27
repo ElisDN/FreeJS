@@ -2671,14 +2671,11 @@ if (typeof jQuery == 'undefined') {
 
                         if (title.match(/Из\sкаталога/)){
                             userpic.append('<span class="fj_from_catalog"></span>');
-                        }
-                        if (title.match(/Из\sпоиска/)){
+                        } else if (title.match(/Из\sпоиска/)){
                             userpic.append('<span class="fj_from_search"></span>');
-                        }
-                        if (title.match(/С\sплатных\sмест/)){
+                        } else if (title.match(/С\sплатных\sмест/)){
                             userpic.append('<span class="fj_from_payeds"></span>');
-                        }
-                        if (title.match(/Из\sблогов/)){
+                        } else if (title.match(/Из\sблогов/)){
                             userpic.append('<span class="fj_from_blogs"></span>');
                         }
                     });
