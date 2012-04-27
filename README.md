@@ -1,6 +1,6 @@
 [<img src="http://freejs.elisdn.ru/images/logo.png" alt="FreeJS" />](http://freejs.elisdn.ru)
 
-Расширение интерфейса free-lance.ru
+Расширение для интерфейса free-lance.ru
 =======================================================================
 
 Пользовательский скрипт (userscript) для расширения возможностей интерфейса сайта [free-lance.ru](http://www.free-lance.ru)
