@@ -2037,7 +2037,7 @@
                     <!DOCTYPE html>\
                     <html>\
                     <head>\
-                    <meta http-equiv='Content-Type' content='text/html; charset=windows-1251' />\
+                    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />\
                     <style type='text/css'>\
                         html, body {\
                             width:100% !important;\
