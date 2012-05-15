@@ -8,27 +8,22 @@
 
 if (typeof jQuery == 'undefined') {
 
-    if (
-        location.href.match(/^https?:\/\/www.free\-lance\.ru/) &&
-            !location.href.match(/iframe/) &&
-            !location.href.match(/share/)
-        ) {
-        var body = document.getElementsByTagName('body')[0];
-        var p = document.createElement('p');
-        p.innerHTML = 'Доступна новая версия FreeJS. Вам необходимо <a target="_blank" href="http://freejs.elisdn.ru/updates/new_75_Obnovleniya-skripta-v2-0.html">обновить клиент для её использования</a>';
-        p.style.background = '#f06';
-        p.style.position = 'fixed';
-        p.style.padding = '10px';
-        p.style.fontFamily = 'arial';
-        p.style.fontSize = '12px';
-        p.style.color = '#fff !important';
-        p.style.width = '100%';
-        p.style.textAlign = 'center';
-        p.style.zIndex = '10';
-        p.style.left = 0;
-        p.style.top = 0;
-        body.appendChild(p);
-    }
+    var body = document.getElementsByTagName('body')[0];
+    var message = document.createElement('p');
+    message.innerHTML = 'Ошибка FreeJS: Библиотека JQuery не загружена. Возможно какое-либо расширение вашего браузера блокирует загрузку с адреса https://ajax.googleapis.com.';
+    message.style.background = '#f06';
+    message.style.position = 'fixed';
+    message.style.margin = '0';
+    message.style.padding = '10px';
+    message.style.fontFamily = 'arial';
+    message.style.fontSize = '12px';
+    message.style.color = '#fff !important';
+    message.style.width = '100%';
+    message.style.textAlign = 'center';
+    message.style.zIndex = '10';
+    message.style.left = 0;
+    message.style.top = 0;
+    body.appendChild(message);
 
 } else {
 
