@@ -1092,9 +1092,9 @@
                             <button type='submit'>Go!</button>\
                         </form>\
                     </div>\
-                    ";
+                ";
 
-                        modifyUserbar.search_css = "\
+                modifyUserbar.search_css = "\
                     .personal_search{\
                         position:absolute;\
                         left:600px;\

@@ -1052,7 +1052,7 @@ if (typeof jQuery == 'undefined') {
                 ";
 
                 modifyUserbar.usercontent_tpl = "\
-                <li class='personal_bar'>{{html content}}</li>\
+                    <li class='personal_bar'>{{html content}}</li>\
                 ";
 
                 modifyUserbar.usercontent_css = "\
@@ -1077,9 +1077,9 @@ if (typeof jQuery == 'undefined') {
                             <button type='submit'>Go!</button>\
                         </form>\
                     </div>\
-                    ";
+                ";
 
-                    modifyUserbar.search_css = "\
+                modifyUserbar.search_css = "\
                     .personal_search{\
                         position:absolute;\
                         left:600px;\
