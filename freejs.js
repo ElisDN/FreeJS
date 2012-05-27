@@ -2134,7 +2134,7 @@ if (typeof jQuery == 'undefined') {
                     <div class='gPanel' height='130px'>\
                         <div id='gPanelLenta' class='gPanelLenta' style='left:35px'>\
                         {{each gallery}}\
-                        <a target='myFrame' id='lnk_${index}' onclick='showWork(${index})' href='${link}&inframe'><img src='${preview}' /></a>\
+                        <a target='myFrame' id='lnk_${index}' onclick='showWork(${index})' href='${link}&inframe' title='${title}'><img src='${preview}' /></a>\
                         {{/each}}\
                         </div>\
                         <div class='myarrow arleft'><label>&larr;</label></div>\
@@ -2185,9 +2185,10 @@ if (typeof jQuery == 'undefined') {
                             linkindex++;
 
                             var image = $(this).find('img');
+                            var title = $(this).attr('title').split("'").join('"');
                             var preview = '';
 
-                            if (typeof image != 'undefined'){
+                            if (image.attr('src')){
                                 preview = image.attr('src');
                             } else {
                                 preview = 'http://freejs.elisdn.ru/images/noimg.png';
@@ -2199,7 +2200,8 @@ if (typeof jQuery == 'undefined') {
                             gallery.push({
                                 index: linkindex,
                                 link: href,
-                                preview: preview
+                                preview: preview,
+                                title: title
                             })
 
                         }
@@ -2390,7 +2392,7 @@ if (typeof jQuery == 'undefined') {
                 codeHighlight.action = function()
                 {
                     var module = this;
-                    
+
                     this.registerCss(this.parser_css);
 
                     function parseCode(source, struct){
