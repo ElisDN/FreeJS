@@ -6,26 +6,7 @@
  * Email: mail@elisdn.ru
  */
 
-if (typeof jQuery == 'undefined') {
-
-    var body = document.getElementsByTagName('body')[0];
-    var message = document.createElement('p');
-    message.innerHTML = 'Ошибка FreeJS: Библиотека JQuery не загружена. Возможно какое-либо расширение вашего браузера блокирует загрузку с адреса https://ajax.googleapis.com.';
-    message.style.background = '#f06';
-    message.style.position = 'fixed';
-    message.style.margin = '0';
-    message.style.padding = '10px';
-    message.style.fontFamily = 'arial';
-    message.style.fontSize = '12px';
-    message.style.color = '#fff !important';
-    message.style.width = '100%';
-    message.style.textAlign = 'center';
-    message.style.zIndex = '10';
-    message.style.left = 0;
-    message.style.top = 0;
-    body.appendChild(message);
-
-} else {
+if (typeof jQuery != 'undefined') {
 
 //######################## <USERSCRIPT CONTENT> #######################
 
