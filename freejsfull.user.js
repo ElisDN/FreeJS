@@ -2735,17 +2735,17 @@
                 manager.add(noPRO);
 
                 /* #########################################################
-                 * Преобразование ленты проектов «Только для PRO« в «Не для PRO»
+                 * Добавочный CSS для сайта
                  */
 
-                var stylish = new Module();
+                var stylize = new Module();
 
-                stylish.condition = function()
+                stylize.condition = function()
                 {
                     return true;
                 };
 
-                stylish.css = "\
+                stylize.css = "\
                     .n-hr {\
                         margin-bottom:10px;\
                         height:28px;\
@@ -2791,7 +2791,7 @@
                     }\
                 ";
 
-                stylish.action = function()
+                stylize.action = function()
                 {
                     this.registerCss(this.css);
 
@@ -2803,7 +2803,7 @@
                     }
                 };
 
-                manager.add(stylish);
+                manager.add(stylize);
 
                 manager.execAll();
             }
