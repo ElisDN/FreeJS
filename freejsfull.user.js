@@ -671,7 +671,8 @@
                 highlightCode: 'Подсветка синтаксиса программного кода в блогах',
                 visualAnchors: 'Маркировка комментариев в блогах',
                 highlightGuests: 'Подсветка посетителей в статистике',
-                noPRO: 'Вкладка "Не для PRO" для неPRO пользователей'
+                noPRO: 'Вкладка "Не для PRO" для неPRO пользователей',
+                customStyle: 'Изменение стиля'
             });
             config.onError = function(message){
                 log.trace(message);
@@ -1244,7 +1245,7 @@
 
                 stylize.condition = function()
                 {
-                    return true;
+                    return config.get('customStyle');
                 };
 
                 stylize.css = "\
