@@ -450,7 +450,7 @@
                         }\
                     .fj_menuPanel li {\
                         display:inline-block;\
-                        float:left;\
+                        float:right;\
                         margin:0 !important;\
                         padding:4px 8px 6px 8px;\
                         border-left:#fff 1px solid;\
