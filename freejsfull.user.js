@@ -359,13 +359,10 @@
              * @return {Boolean} true if user has PRO account
              */
             this.isPRO = function(){
-
                 if (typeof this._protecteds['ispro'] == 'undefined'){
                     var userbar = $('.b-userbar .b-userbar__pro:has(a[href="/payed/"])');
-                    if (userbar.text()) {
-                        this._protecteds['ispro'] = userbar.html().indexOf('Купить')>-1;
-                    } else {
-                        this._protecteds['ispro'] = false;
+                    if (userbar.text()){
+                        this._protecteds['ispro'] = userbar.text().indexOf('Купить') != 0;
                     }
                 }
                 return this._protecteds['ispro'];
