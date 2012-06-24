@@ -617,7 +617,7 @@
                 return result;
             }
 
-            var scriptVersion = '2.1.1';
+            var scriptVersion = '2.1.2';
             var clientLastVersion = '2.0';
 
             /* Init */
