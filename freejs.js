@@ -631,7 +631,8 @@ if (typeof jQuery != 'undefined') {
                 visualAnchors: 'Маркировка комментариев в блогах',
                 highlightGuests: 'Подсветка посетителей в статистике',
                 noPRO: 'Вкладка "Не для PRO" для неPRO пользователей',
-                customStyle: 'Изменение стиля'
+                customStyle: 'Изменение стиля',
+                portfolioAnchors: 'Ссылки на разделы портфолио'
             });
             config.onError = function(message){
                 log.trace(message);
@@ -2798,7 +2799,8 @@ if (typeof jQuery != 'undefined') {
 
                 portfolioAnchors.condition = function()
                 {
-                    return location.href.match(/users/) &&
+                    return config.get('portfolioAnchors', true) &&
+                        location.href.match(/users/) &&
                         !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
                         !location.href.match(/viewproj\.php/) &&
                         ($('.b-menu__item:first-child span span').text() == 'Портфолио' || $('.b-menu__item:first-child span span').text() == 'Услуги');
