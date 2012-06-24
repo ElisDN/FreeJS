@@ -421,13 +421,16 @@ if (typeof jQuery != 'undefined') {
                         display:inline-block;\
                         float:left;\
                         margin:0 !important;\
-                        padding:6px 10px;\
+                        padding:4px 8px 6px 8px;\
                         border-left:#fff 1px solid;\
                         font-size:8pt;\
                         color:#fff;\
                         background:#6a6;\
                         text-align:center;\
                         cursor:pointer;\
+                        height:13px;\
+                        position:relative;\
+                        overflow:hidden;\
                         }\
                     .fj_menuPanel p {\
                         margin:0;\
@@ -1174,6 +1177,33 @@ if (typeof jQuery != 'undefined') {
                 };
 
                 manager.add(modifyUserbar);
+
+                /* #########################################################
+                 * Кнопка «Вверх»
+                 */
+
+                var goUp = new Module();
+
+                goUp.condition = function()
+                {
+                    return true;
+                };
+
+                goUp.action = function()
+                {
+                    menu.add(new MenuElement({
+                        id: 'fjGoUp',
+                        content: '<p style="color:#000;">Вверх &uarr;<p>',
+                        background: '#eee'
+                    }));
+
+                    $('#fjGoUp').live('click', function()
+                    {
+                        $("html:not(:animated),body:not(:animated)").animate({ scrollTop: 0}, 0);
+                    });
+                };
+
+                manager.add(goUp);
 
                 /* #########################################################
                  * Добавочный CSS для сайта
@@ -2236,7 +2266,7 @@ if (typeof jQuery != 'undefined') {
                             linkindex++;
 
                             var image = $(this).find('img');
-                            var title = $(this).attr('title').split("'").join('"');
+                            var title = $(this).attr('title') ? $(this).attr('title').split("'").join('"') : '';
                             var preview = '';
 
                             if (image.attr('src')){
@@ -2732,7 +2762,7 @@ if (typeof jQuery != 'undefined') {
                 manager.add(highlightGuests);
 
                 /* #########################################################
-                 * Преобразование ленты проектов «Только для PRO« в «Не для PRO»
+                 * Преобразование ленты проектов «Только для PRO» в «Не для PRO»
                  */
 
                 var noPRO = new Module();
@@ -2769,6 +2799,80 @@ if (typeof jQuery != 'undefined') {
                 };
 
                 manager.add(noPRO);
+
+                /* #########################################################
+                 * Быстрые ссылки на разделы портфолио
+                 */
+
+                var portfolioAnchors = new Module();
+
+                portfolioAnchors.condition = function()
+                {
+                    return location.href.match(/users/) &&
+                        !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
+                        !location.href.match(/viewproj\.php/) &&
+                        ($('.b-menu__item:first-child span span').text() == 'Портфолио' || $('.b-menu__item:first-child span span').text() == 'Услуги');
+                };
+
+                portfolioAnchors.anchor_css = "\
+                    .fj_partLinks {\
+                        padding:0 !important;\
+                        margin:0 !important;\
+                        clear:both;\
+                    }\
+                    .change .fj_partLinks {\
+                        float:left;\
+                        text-align:left;\
+                        padding:0 0 0 20px !important;\
+                    }\
+                    .fj_partLinks a {\
+                        text-decoration:none;\
+                        color:#333 !important;\
+                        border-bottom:#333 1px dotted;\
+                        display:block;\
+                        float:left;\
+                        margin:0 20px 0 0 !important;\
+                    }\
+                ";
+
+                portfolioAnchors.action = function()
+                {
+                    this.registerCss(this.anchor_css);
+
+                    var links = $('<p class="fj_partLinks"></p>');
+
+                    $('.stripe .stripe-l h4, td[style="width:45%;padding:8px 16px 8px 0px;vertical-align:top;"]').each(function()
+                    {
+                        var anchor = $(this).find('a:eq(0)').attr('name');
+
+                        if (parseInt(anchor) > 0){
+                            var fullTitle = $(this).find('a:eq(2) strong').text();
+
+                            var title = fullTitle.split('/ ').pop();
+
+                            var link = $('<a></a>');
+                            link.attr('href', '#' + anchor);
+                            link.attr('title', fullTitle.split('"').join(''));
+                            link.data('elem', anchor);
+                            link.text(title);
+
+                            links.append(link);
+                        }
+
+                    });
+
+                    $('.blog-tabs .prtfl, .blog-tabs .change').append(links);
+
+                    $('.fj_partLinks a').click(function(){
+                        var destination = $('a[name=' + $(this).data('elem') + ']').offset().top;
+                        $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination-20}, (destination-20)/2 );
+                        window.location.href = $(this).attr("href");
+                        return false;
+                    });
+
+                };
+
+                manager.add(portfolioAnchors);
 
                 manager.execAll();
             }
