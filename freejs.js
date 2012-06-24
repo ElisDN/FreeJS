@@ -163,19 +163,6 @@ if (typeof jQuery != 'undefined') {
             this.onError = function(message){};
 
             /**
-             * Define parameters if empty
-             * @method init
-             */
-            this.init = function(){
-                if (!this.get('hash')){
-                    for (var p in this._options){
-                        this.set(p, true);
-                    }
-                    this.set('hash', Math.floor(Math.random()*1000000));
-                }
-            };
-
-            /**
              * Return label of parameter
              * @method getOptionLabel
              * @param {String} key of parameter
@@ -189,10 +176,14 @@ if (typeof jQuery != 'undefined') {
              * Read parameter from permanent storage
              * @method get
              * @param {String} key of parameter
+             * @param {String} def value of parameter
              * @return {Object} value
              */
-            this.get = function(key){
+            this.get = function(key, def){
                 if (key){
+                    if (!this._storage.has('config_'+key) && typeof def != 'undefined'){
+                        this._storage.set('config_'+key, def);
+                    }
                     return this._storage.get('config_'+key);
                 } else {
                     this.onError('Storage key for Config::get() is empty');
@@ -218,10 +209,14 @@ if (typeof jQuery != 'undefined') {
              * Read parameter from session storage
              * @method getOnce
              * @param {String} key of parameter
+             * @param {String} def value of parameter
              * @return {Object} value
              */
-            this.getOnce = function(key){
+            this.getOnce = function(key, def){
                 if (key){
+                    if (!this._storage.hasOnce('config_'+key) && typeof def != 'undefined'){
+                        this._storage.setOnce('config_'+key, def);
+                    }
                     return this._storage.getOnce('config_'+key);
                 } else {
                     this.onError('Storage key for Config::get() is empty');
@@ -251,8 +246,6 @@ if (typeof jQuery != 'undefined') {
             this.getOptions = function(){
                 return this._options;
             };
-
-            this.init();
         };
 
         /**
