@@ -920,7 +920,6 @@ if (typeof jQuery != 'undefined') {
                 };
                 manager.add(controlPanel);
 
-
                 /* #########################################################
                  * Модификация панели пользователя
                  */
@@ -1175,6 +1174,77 @@ if (typeof jQuery != 'undefined') {
                 };
 
                 manager.add(modifyUserbar);
+
+                /* #########################################################
+                 * Добавочный CSS для сайта
+                 */
+
+                var stylize = new Module();
+
+                stylize.condition = function()
+                {
+                    return true;
+                };
+
+                stylize.css = "\
+                    .n-hr {\
+                        margin-bottom:10px;\
+                        height:28px;\
+                        position:relative;\
+                        overflow:hidden;\
+                        border-bottom:#ddd 1px solid;\
+                        }\
+                    .n-hr .n-hr-in a {\
+                        font-size:13px;\
+                        }\
+                    .main-stat {\
+                        font-size:13px;\
+                        }\
+                    .mp-toggler {\
+                        margin-top:-10px;\
+                        }\
+                    .btn-300-rubbles, .n-fast, .t-dc, div.mtb, .n-h-promo {\
+                        display:none !important;\
+                        }\
+                    .n-hr-in .eff {\
+                        display:none !important;\
+                        }\
+                    .n-hr-r {\
+                        margin-right:0 !important;\
+                        }\
+                    .left-payed .lp-inf-txt {\
+                        line-height:1.1;\
+                        font-size:11px;\
+                        }\
+                    .left-payed .lp-inf-txt strong {\
+                        font-weight:normal;\
+                        color:#999;\
+                        }\
+                    .left-payed .lp-user {\
+                        margin:0 !important;\
+                        padding:10px 0 !important;\
+                        }\
+                    .top-payed2 h2 {\
+                        display:none;\
+                        }\
+                    .b-banner {\
+                        display:none !important; \
+                    }\
+                ";
+
+                stylize.action = function()
+                {
+                    this.registerCss(this.css);
+
+                    if (location.href.match(/users/)) {
+
+                        $('.profile-advert').hide();
+                        $('.page-profile').css('width','100% !important');
+
+                    }
+                };
+
+                manager.add(stylize);
 
                 /* #########################################################
                  * Скрытие блогов
@@ -2699,77 +2769,6 @@ if (typeof jQuery != 'undefined') {
                 };
 
                 manager.add(noPRO);
-
-                /* #########################################################
-                 * Добавочный CSS для сайта
-                 */
-
-                var stylize = new Module();
-
-                stylize.condition = function()
-                {
-                    return true;
-                };
-
-                stylize.css = "\
-                    .n-hr {\
-                        margin-bottom:10px;\
-                        height:28px;\
-                        position:relative;\
-                        overflow:hidden;\
-                        border-bottom:#ddd 1px solid;\
-                        }\
-                    .n-hr .n-hr-in a {\
-                        font-size:13px;\
-                        }\
-                    .main-stat {\
-                        font-size:13px;\
-                        }\
-                    .mp-toggler {\
-                        margin-top:-10px;\
-                        }\
-                    .btn-300-rubbles, .n-fast, .t-dc, div.mtb, .n-h-promo {\
-                        display:none !important;\
-                        }\
-                    .n-hr-in .eff {\
-                        display:none !important;\
-                        }\
-                    .n-hr-r {\
-                        margin-right:0 !important;\
-                        }\
-                    .left-payed .lp-inf-txt {\
-                        line-height:1.1;\
-                        font-size:11px;\
-                        }\
-                    .left-payed .lp-inf-txt strong {\
-                        font-weight:normal;\
-                        color:#999;\
-                        }\
-                    .left-payed .lp-user {\
-                        margin:0 !important;\
-                        padding:10px 0 !important;\
-                        }\
-                    .top-payed2 h2 {\
-                        display:none;\
-                        }\
-                    .b-banner {\
-                        display:none !important; \
-                    }\
-                ";
-
-                stylize.action = function()
-                {
-                    this.registerCss(this.css);
-
-                    if (location.href.match(/users/)) {
-
-                        $('.profile-advert').hide();
-                        $('.page-profile').css('width','100% !important');
-
-                    }
-                };
-
-                manager.add(stylize);
 
                 manager.execAll();
             }
