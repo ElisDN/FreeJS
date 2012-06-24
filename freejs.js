@@ -848,7 +848,7 @@ if (typeof jQuery != 'undefined') {
                             optionlist.push({
                                 'id': key,
                                 'label': config.getOptionLabel(key),
-                                'classname': config.get(key) ? 'on' : ''
+                                'classname': config.get(key, true) ? 'on' : ''
                             });
                         }
                     }
@@ -922,7 +922,7 @@ if (typeof jQuery != 'undefined') {
 
                 modifyUserbar.condition = function()
                 {
-                    return config.get('modifyUserbar') && user.isLogged();
+                    return config.get('modifyUserbar', true) && user.isLogged();
                 };
 
                 modifyUserbar.userbar_css = "\
@@ -1110,7 +1110,7 @@ if (typeof jQuery != 'undefined') {
                 ";
 
                 modifyUserbar.condition = function() {
-                    return config.get('modifyUserbar');
+                    return config.get('modifyUserbar', true);
                 };
 
                 modifyUserbar.action = function()
@@ -1143,8 +1143,7 @@ if (typeof jQuery != 'undefined') {
                     if (location.href.match(/articles/))
                         resizable += ', .box2 p, .box2 div';
 
-                    var fontsize = config.get('fontsize');
-                    if (!fontsize) fontsize = 8;
+                    var fontsize = config.get('fontsize', 8);
 
                     $('.personal_fontsize select').val(fontsize);
                     if (fontsize != 8){
@@ -1204,7 +1203,7 @@ if (typeof jQuery != 'undefined') {
 
                 stylize.condition = function()
                 {
-                    return config.get('customStyle');
+                    return config.get('customStyle', true);
                 };
 
                 stylize.css = "\
@@ -1275,7 +1274,7 @@ if (typeof jQuery != 'undefined') {
 
                 hideBlogs.condition = function()
                 {
-                    return config.get('hideBlogs') && location.href.match(/blogs/);
+                    return config.get('hideBlogs', true) && location.href.match(/blogs/);
                 };
 
                 hideBlogs.slider_tpl = "\
@@ -1604,7 +1603,7 @@ if (typeof jQuery != 'undefined') {
 
                 answerTemplates.condition = function()
                 {
-                    return config.get('answerTemplates') && location.href.match(/projects\/\d+\/.*/);
+                    return config.get('answerTemplates', true) && location.href.match(/projects\/\d+\/.*/);
                 };
 
                 answerTemplates.action = function()
@@ -1634,7 +1633,7 @@ if (typeof jQuery != 'undefined') {
 
                 highlightContacts.condition = function()
                 {
-                    return config.get('nonReadedHighlight') && location.href.match(/contacts/);
+                    return config.get('nonReadedHighlight', true) && location.href.match(/contacts/);
                 };
 
                 highlightContacts.css = "\
@@ -1699,7 +1698,7 @@ if (typeof jQuery != 'undefined') {
 
                 highlightProjects.condition = function()
                 {
-                    return config.get('nonReadedHighlight') && location.href.match(/projects/);
+                    return config.get('nonReadedHighlight', true) && location.href.match(/projects/);
                 };
 
                 highlightProjects.pr_css = "\
@@ -1759,7 +1758,7 @@ if (typeof jQuery != 'undefined') {
 
                 bbCodeBar.condition = function()
                 {
-                    return config.get('BBCodeBar') && (
+                    return config.get('BBCodeBar', true) && (
                         location.href.match(/\/contacts\/\?from\=/) ||
                             location.href.match(/\/blogs\//) ||
                             location.href.match(/\/defile\//) ||
@@ -2042,7 +2041,7 @@ if (typeof jQuery != 'undefined') {
 
                 blogSmiles.condition = function()
                 {
-                    return config.get('Smiles') && location.href.match(/blogs/);
+                    return config.get('Smiles', true) && location.href.match(/blogs/);
                 };
 
                 blogSmiles.css = "\
@@ -2083,7 +2082,7 @@ if (typeof jQuery != 'undefined') {
 
                 profileGallery.condition = function()
                 {
-                    return config.get('profileGallery') &&
+                    return config.get('profileGallery', true) &&
                         location.href.match(/users/) &&
                         !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
                         !location.href.match(/viewproj\.php/) &&
@@ -2314,7 +2313,7 @@ if (typeof jQuery != 'undefined') {
 
                 checkMessages.condition = function()
                 {
-                    return config.get('checkMessages');
+                    return config.get('checkMessages', true);
                 };
 
                 checkMessages.action = function()
@@ -2550,8 +2549,8 @@ if (typeof jQuery != 'undefined') {
                     {
                         var txt = $(this).find('.blog-one-cnt');
                         $(this).prepend($.tmpl(module.buttons_tpl, {
-                            visualAnchorsButton:config.get('visualAnchors'),
-                            highlightCodeButton:config.get('highlightCode')
+                            visualAnchorsButton:config.get('visualAnchors', true),
+                            highlightCodeButton:config.get('highlightCode', true)
                         }));
                         var source = txt.html();
                         $(this).append("<div style='display:none' class='fj_commentStorage' title='code'>"+source+"</div>");
@@ -2568,7 +2567,7 @@ if (typeof jQuery != 'undefined') {
                         }
                     );
 
-                    if (config.get('visualAnchors')) {
+                    if (config.get('visualAnchors', true)) {
 
                         var lightlist = config.get('ligthing_comments');
                         if (lightlist) lightlist = lightlist.split(',');
@@ -2634,7 +2633,7 @@ if (typeof jQuery != 'undefined') {
                         });
                     }
 
-                    if (config.get('highlightCode')) {
+                    if (config.get('highlightCode', true)) {
                         $('.fj_codehighlight').click(function()
                         {
                             var st = $(this).parent().parent().find('.fj_commentStorage');
@@ -2686,7 +2685,7 @@ if (typeof jQuery != 'undefined') {
 
                 highlightGuests.condition = function()
                 {
-                    return config.get('highlightGuests') && location.href.match(/promotion\/\?bm\=1/);
+                    return config.get('highlightGuests', true) && location.href.match(/promotion\/\?bm\=1/);
                 };
 
                 highlightGuests.userpic_css = "\
@@ -2760,7 +2759,7 @@ if (typeof jQuery != 'undefined') {
 
                 noPRO.condition = function()
                 {
-                    return config.get('noPRO') && (
+                    return config.get('noPRO', true) && (
                         location.href.match(/\.ru\/?$/) ||
                             location.href.match(/\.ru\/\?kind\=\d+/) ||
                             location.href.match(/\.ru\/\?page\=\d+/)
