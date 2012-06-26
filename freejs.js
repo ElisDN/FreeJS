@@ -2855,13 +2855,6 @@ if (typeof jQuery != 'undefined') {
 
                     $('.blog-tabs .prtfl, .blog-tabs .change').append(links);
 
-                    $('.fj_partLinks a').click(function(){
-                        var destination = $('a[name=' + $(this).data('elem') + ']').offset().top;
-                        $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination-20}, (destination-20)/2 );
-                        window.location.href = $(this).attr("href");
-                        return false;
-                    });
-
                 };
 
                 manager.add(portfolioAnchors);
