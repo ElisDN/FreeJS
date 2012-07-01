@@ -2319,7 +2319,6 @@ if (typeof jQuery != 'undefined') {
 
                 checkMessages.action = function()
                 {
-                    var messTitle = [$('#userbar_message').text(), '****************'];
                     var index=0;
                     var showed = false;
 
@@ -2331,17 +2330,16 @@ if (typeof jQuery != 'undefined') {
                     }));
 
                     function checkMessage(){
-
-                        if ($('#userbar_message').text() && $('#userbar_message').text() !== 'Мои контакты') {
-
+                        var labelText = $('#userbar_message').text();
+                        if (labelText && labelText !== 'Мои контакты'){
+                            var messTitle = [labelText, '****************'];
                             index = index ? 0 : 1;
                             $('title').html(messTitle[index]);
                             if (!showed) {
-                                $('#showMessageButton a').text($('#userbar_message').text());
+                                $('#showMessageButton a').text(labelText);
                                 $('#showMessageButton').show();
                                 showed = true;
                             }
-
                         } else {
                             if (showed) {
                                 $('title').html('Удаленная работа (фриланс) на Free-lance.ru');
