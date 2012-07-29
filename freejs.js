@@ -2810,11 +2810,6 @@ if (typeof jQuery != 'undefined') {
                         margin:0 !important;\
                         clear:both;\
                     }\
-                    .change .fj_partLinks {\
-                        float:left;\
-                        text-align:left;\
-                        padding:0 0 0 20px !important;\
-                    }\
                     .fj_partLinks a {\
                         text-decoration:none;\
                         color:#333 !important;\
@@ -2851,7 +2846,7 @@ if (typeof jQuery != 'undefined') {
 
                     });
 
-                    $('.blog-tabs .prtfl, .blog-tabs .change').append(links);
+                    $('.blog-tabs .prtfl').append(links);
 
                 };
 
