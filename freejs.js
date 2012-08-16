@@ -412,7 +412,7 @@ if (typeof jQuery != 'undefined') {
                         margin:0 !important;\
                         padding:6px 8px 7px 8px;\
                         border-left:#ccc 1px solid;\
-                        font-familt:tahoma;\
+                        font-family:tahoma;\
                         font-size:8pt;\
                         color:#fff;\
                         background:#6a6;\
