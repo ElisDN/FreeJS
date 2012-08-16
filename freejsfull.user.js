@@ -388,7 +388,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
         };
 
         Module.prototype.exec = function(){
-            if (this.condition()){
+            if (!!this.condition()){
                 this.action();
                 this.renderStyles();
             }

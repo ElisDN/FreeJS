@@ -366,7 +366,7 @@ if (typeof jQuery != 'undefined') {
         };
 
         Module.prototype.exec = function(){
-            if (this.condition()){
+            if (!!this.condition()){
                 this.action();
                 this.renderStyles();
             }
