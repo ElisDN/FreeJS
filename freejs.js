@@ -2147,15 +2147,17 @@ if (typeof jQuery != 'undefined') {
                         font-weight:normal !important;\
                         }\
                     .fj_commlight {\
-                        border:#2E97BE 1px solid !important;\
-                        background:#E4F2F8;\
-                        background:-moz-linear-gradient(#E4F2F8, #D1EBF5);\
-                        background:-webkit-linear-gradient(#E4F2F8, #D1EBF5);\
-                        background:-o-linear-gradient(#E4F2F8, #D1EBF5);\
-                        background:-ms-linear-gradient(#E4F2F8, #D1EBF5);\
+                        border-top:#c4e7ff 1px solid !important;\
+                        background:#c4e7ff;\
+                        background:-moz-linear-gradient(#e0f4ff, #c4e7ff);\
+                        background:-webkit-linear-gradient(#e0f4ff, #c4e7ff);\
+                        background:-o-linear-gradient(#e0f4ff, #c4e7ff);\
+                        background:-ms-linear-gradient(#e0f4ff, #c4e7ff);\
                         width:954px !important;\
-                        margin:-16px -1px -1px -1px !important;\
-                        padding:15px 0 0 0 !important;\
+                        margin-top:-15px !important;\
+                    }\
+                    .fj_commlight>tbody>tr:first-child>td {\
+                        padding-top:19px !important;\
                     }\
                 ";
 
