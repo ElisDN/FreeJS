@@ -2075,8 +2075,94 @@ if (typeof jQuery != 'undefined') {
                     checkMessages();
                 };
 
-
                 manager.add(checkMessages);
+
+                /* #########################################################
+                 * Размер шрифта в блогах
+                 */
+
+                var fontSelector = new Module();
+
+                fontSelector.condition = function()
+                {
+                    return location.href.match(/blogs/);
+                };
+
+                fontSelector.font_tpl = "\
+                    <td class='personal_fontsize'>\
+                        <select name='myfont' title='Размер шрифта в блогах'>\
+                            <option value='8'>8pt</option>\
+                            <option value='9'>9pt</option>\
+                            <option value='10'>10pt</option>>\
+                            <option value='11'>11pt</option>\
+                            <option value='12'>12pt</option>\
+                        </select>\
+                    </td>\
+                ";
+
+                fontSelector.font_css = "\
+                    .personal_fontsize {\
+                        padding:0 6px 0 4px !important;\
+                        vertical-align:middle !important;\
+                    }\
+                    .personal_fontsize select {\
+                        padding:3px 0; \
+                        width:50px;\
+                        font-size:13px;\
+                    }\
+                    .font8pt {font-size: 8pt !important}\
+                    .font8pt div {font-size: 8pt}\
+                    .font9pt {font-size: 9pt !important}\
+                    .font9pt div {font-size: 9pt}\
+                    .font10pt {font-size: 10pt !important}\
+                    .font10pt div {font-size: 10pt}\
+                    .font11pt {font-size: 11pt !important}\
+                    .font11pt div {font-size: 11pt}\
+                    .font12pt {font-size: 12pt !important}\
+                    .font12pt div {font-size: 12pt}\
+                ";
+
+                fontSelector.condition = function() {
+                    return config.get('fontSelector', true);
+                };
+
+                fontSelector.action = function()
+                {
+                    var module = this;
+
+                    $('.b-search__table tr').append(this.font_tpl);
+                    this.registerCss(this.font_css);
+
+                    var resizable = '.blog-one-cnt';
+                    var skip = '.bl';
+
+                    if (location.href.match(/articles/))
+                        resizable += ', .box2 p, .box2 div';
+
+                    var fontsize = config.get('fontsize', 8);
+
+                    $('.personal_fontsize select').val(fontsize);
+                    if (fontsize != 8){
+                        $(resizable).addClass('font' + fontsize + 'pt');
+                        $(skip).css({
+                            'font-size': '14pt !important'
+                        });
+                    }
+
+                    $('.personal_fontsize select').change(function(){
+                        for (i = 8; i<13; i++){
+                            $(resizable).removeClass('font' + i + 'pt');
+                        }
+                        $(resizable).addClass('font' + $(this).val() + 'pt');
+                        $(skip).css({
+                            'font-size': '14pt !important'
+                        });
+                        config.set('fontsize', $(this).val());
+                    });
+
+                };
+
+                manager.add(fontSelector);
 
                 /* #########################################################
                  * Цитирование комментариев в блогах
