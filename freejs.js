@@ -630,7 +630,7 @@ if (typeof jQuery != 'undefined') {
                 visualAnchors: 'Маркировка комментариев в блогах',
                 highlightGuests: 'Подсветка посетителей в статистике',
                 noPRO: 'Вкладка "Не для PRO" для неPRO пользователей',
-                customStyle: 'Изменение стиля',
+                customStyle: 'Изменение стиля (встроенные CSS)',
                 portfolioAnchors: 'Ссылки на разделы портфолио'
             });
             config.onError = function(message){
