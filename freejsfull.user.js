@@ -2045,9 +2045,10 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                         display: false
                     }));
 
-                    function checkMessage(){
-                        var labelText = $('#userbar_message').text();
-                        if (labelText && labelText !== 'Мои контакты'){
+                    function checkMessages(){
+                        var labelTag = $('#b-bar__mess .b-tooltip__txt');
+                        var labelText = labelTag ? labelTag.text() : '';
+                        if (labelText){
                             var messTitle = [labelText, '****************'];
                             index = index ? 0 : 1;
                             $('title').html(messTitle[index]);
@@ -2064,10 +2065,10 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                             }
                         }
 
-                        setTimeout(checkMessage, 400);
+                        setTimeout(checkMessages, 400);
                     }
 
-                    checkMessage();
+                    checkMessages();
                 };
 
                 manager.add(checkMessages);

@@ -2034,9 +2034,10 @@ if (typeof jQuery != 'undefined') {
                         display: false
                     }));
 
-                    function checkMessage(){
-                        var labelText = $('#userbar_message').text();
-                        if (labelText && labelText !== 'Мои контакты'){
+                    function checkMessages(){
+                        var labelTag = $('#b-bar__mess .b-tooltip__txt');
+                        var labelText = labelTag ? labelTag.text() : '';
+                        if (labelText){
                             var messTitle = [labelText, '****************'];
                             index = index ? 0 : 1;
                             $('title').html(messTitle[index]);
@@ -2053,10 +2054,10 @@ if (typeof jQuery != 'undefined') {
                             }
                         }
 
-                        setTimeout(checkMessage, 400);
+                        setTimeout(checkMessages, 400);
                     }
 
-                    checkMessage();
+                    checkMessages();
                 };
 
 
