@@ -311,11 +311,10 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
              * @return {Boolean} true if logged
              */
             this.isLogged = function(){
-
                 if (typeof this._protecteds['islogged'] == 'undefined'){
-                    var userbar = $('.b-userbar');
-                    if (userbar) {
-                        this._protecteds['islogged'] = userbar.html() ? true : false;
+                    var userbar = $('.b-bar__name');
+                    if (userbar.html()) {
+                        this._protecteds['islogged'] = !!userbar.html();
                     } else {
                         this._protecteds['islogged'] = false;
                     }
@@ -330,9 +329,9 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
              */
             this.isPRO = function(){
                 if (typeof this._protecteds['ispro'] == 'undefined'){
-                    var userbar = $('.b-userbar .b-userbar__pro:has(a[href="/payed/"])');
+                    var userbar = $('#b-bar__pro-btn');
                     if (userbar.text()){
-                        this._protecteds['ispro'] = userbar.text().indexOf('Купить') != 0;
+                        this._protecteds['ispro'] = !!userbar.text().match(' до.+');
                     }
                 }
                 return this._protecteds['ispro'];
