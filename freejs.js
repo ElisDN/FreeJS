@@ -411,8 +411,9 @@ if (typeof jQuery != 'undefined') {
                         display:inline-block;\
                         float:right;\
                         margin:0 !important;\
-                        padding:4px 8px 6px 8px;\
-                        border-left:#fff 1px solid;\
+                        padding:8px 10px 9px 10px;\
+                        border-left:#ccc 1px solid;\
+                        font-familt:tahoma;\
                         font-size:8pt;\
                         color:#fff;\
                         background:#6a6;\
