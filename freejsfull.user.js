@@ -664,13 +664,13 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                 };
 
                 controlPanel.css = "\
-                    a {\
+                                        a {\
                         outline:none !important\
                         }\
                     .freejsblock {\
                         position:absolute;\
                         overflow:hidden;\
-                        z-index:100;\
+                        z-index:101;\
                         left:0;\
                         top:0;\
                         width:385px;\
@@ -774,10 +774,10 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                         color:#09c !important;\
                         }\
                     .freejslink {\
-                        position:absolute;\
-                        z-index:101;\
+                        position:fixed;\
+                        z-index:102;\
                         left:20px;\
-                        top:0;\
+                        top:-1px;\
                         cursor:pointer;\
                         width:90px;\
                         height:30px;\
