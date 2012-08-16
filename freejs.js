@@ -1411,28 +1411,28 @@ if (typeof jQuery != 'undefined') {
                     .project_nonreaded {\
                         border:#2E97BE 2px solid;\
                         background:#E4F2F8;\
-                        background:-moz-linear-gradient(100% 100% 90deg, #D1EBF5, #E4F2F8);\
-                        background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#D1EBF5), to(#E4F2F8));\
+                        background:-moz-linear-gradient(#E4F2F8, #D1EBF5);\
                         background:-webkit-linear-gradient(#E4F2F8, #D1EBF5);\
                         background:-o-linear-gradient(#E4F2F8, #D1EBF5);\
+                        background:-ms-linear-gradient(#E4F2F8, #D1EBF5);\
                         margin:10px 0\
                     }\
                     .project_success {\
                         border:#6BBB40 2px solid;\
                         background:#E0F8D3;\
-                        background:-moz-linear-gradient(100% 100% 90deg, #C7FDAA, #E0F8D3);\
-                        background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#C7FDAA), to(#E0F8D3));\
+                        background:-moz-linear-gradient(#E0F8D3, #C7FDAA);\
                         background:-webkit-linear-gradient(#E0F8D3, #C7FDAA);\
                         background:-o-linear-gradient(#E0F8D3, #C7FDAA);\
+                        background:-ms-linear-gradient(#E0F8D3, #C7FDAA);\
                         margin:10px 0\
                     }\
                     .project_nosuccess {\
                         border:#f00 2px solid;\
                         background:#fff0f1;\
-                        background:-moz-linear-gradient(100% 100% 90deg, #ffe7e1, #fff0f1);\
-                        background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffe7e1), to(#fff0f1));\
+                        background:-moz-linear-gradient(#fff0f1, #ffe7e1);\
                         background:-webkit-linear-gradient(#fff0f1, #ffe7e1);\
                         background:-o-linear-gradient(#fff0f1, #ffe7e1);\
+                        background:-ms-linear-gradient(#fff0f1, #ffe7e1);\
                         margin:10px 0\
                     }\
                 ";
@@ -1524,10 +1524,10 @@ if (typeof jQuery != 'undefined') {
                         border-bottom:#bbb 1px solid;\
                         border-left:#ddd 1px solid;\
                         background:#eee;\
-                        background:-moz-linear-gradient(100% 100% 90deg, #ddd, #fff);\
-                        background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#ddd), to(#fff));\
+                        background:-moz-linear-gradient(#fff, #ddd);\
                         background:-webkit-linear-gradient(#fff, #ddd);\
                         background:-o-linear-gradient(#fff, #ddd);\
+                        background:-ms-linear-gradient(#fff, #ddd);\
                     }\
                     .b-textarea {\
                         overflow:auto !important;\
@@ -2149,10 +2149,10 @@ if (typeof jQuery != 'undefined') {
                     .fj_commlight {\
                         border:#2E97BE 1px solid !important;\
                         background:#E4F2F8;\
-                        background:-moz-linear-gradient(100% 100% 90deg, #D1EBF5, #E4F2F8);\
-                        background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#D1EBF5), to(#E4F2F8));\
+                        background:-moz-linear-gradient(#E4F2F8, #D1EBF5);\
                         background:-webkit-linear-gradient(#E4F2F8, #D1EBF5);\
                         background:-o-linear-gradient(#E4F2F8, #D1EBF5);\
+                        background:-ms-linear-gradient(#E4F2F8, #D1EBF5);\
                         width:954px !important;\
                         margin:-16px -1px -1px -1px !important;\
                         padding:15px 0 0 0 !important;\
