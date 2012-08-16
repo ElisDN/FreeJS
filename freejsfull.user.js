@@ -407,11 +407,11 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
             $('head').append("\
                 <style type='text/css'>\
-                    .fj_menuPanel {\
+                    html .fj_menuPanel {\
                         position:fixed;\
-                        right:0;\
-                        top:30px;\
-                        z-index:500;\
+                        right:0 !important;\
+                        top:30px !important;\
+                        z-index:50 !important;\
                         cursor:pointer;\
                         margin:0;\
                         padding:0\
@@ -663,15 +663,15 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                 };
 
                 controlPanel.css = "\
-                                        a {\
+                    a {\
                         outline:none !important\
                         }\
-                    .freejsblock {\
-                        position:absolute;\
+                    html .freejsblock {\
+                        position:fixed;\
                         overflow:hidden;\
-                        z-index:101;\
-                        left:0;\
-                        top:0;\
+                        z-index:50 !important;\
+                        left:0 !important;\
+                        top:32px !important;\
                         width:385px;\
                         border-right:#aaa 1px solid;\
                         border-bottom:#aaa 1px solid;\
@@ -772,11 +772,11 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                     .freejsblock h2 a:hover {\
                         color:#09c !important;\
                         }\
-                    .freejslink {\
+                    html .freejslink {\
                         position:fixed;\
-                        z-index:102;\
-                        left:20px;\
-                        top:-1px;\
+                        z-index:51 !important;\
+                        left:10px !important;\
+                        top:31px !important;\
                         cursor:pointer;\
                         width:90px;\
                         height:30px;\
