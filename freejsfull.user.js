@@ -410,7 +410,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                     .fj_menuPanel {\
                         position:fixed;\
                         right:0;\
-                        top:0;\
+                        top:30px;\
                         z-index:500;\
                         cursor:pointer;\
                         margin:0;\
@@ -421,7 +421,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                         display:inline-block;\
                         float:right;\
                         margin:0 !important;\
-                        padding:8px 10px 9px 10px;\
+                        padding:6px 8px 7px 8px;\
                         border-left:#ccc 1px solid;\
                         font-familt:tahoma;\
                         font-size:8pt;\
