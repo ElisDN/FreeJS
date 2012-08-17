@@ -433,7 +433,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                         float:right;\
                         margin:0 !important;\
                         padding:6px 8px 7px 8px;\
-                        border-left:#ccc 1px solid;\
+                        border-left:#fff 1px solid;\
                         font-family:tahoma;\
                         font-size:8pt;\
                         color:#fff;\
