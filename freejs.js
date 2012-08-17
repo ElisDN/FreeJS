@@ -2122,10 +2122,6 @@ if (typeof jQuery != 'undefined') {
                     .font12pt div {font-size: 12pt}\
                 ";
 
-                fontSelector.condition = function() {
-                    return config.get('fontSelector', true);
-                };
-
                 fontSelector.action = function()
                 {
                     var module = this;
