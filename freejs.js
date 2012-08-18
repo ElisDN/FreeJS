@@ -977,7 +977,7 @@ if (typeof jQuery != 'undefined') {
                 {
                     this.registerCss(this.css);
 
-                    if (location.href.match(/users/)) {
+                    if (location.href.match(/users\//)) {
 
                         $('.profile-advert').hide();
                         $('.page-profile').css('width','100% !important');
@@ -995,7 +995,7 @@ if (typeof jQuery != 'undefined') {
 
                 hideBlogs.condition = function()
                 {
-                    return config.get('hideBlogs', true) && location.href.match(/blogs/);
+                    return config.get('hideBlogs', true) && location.href.match(/blogs\//);
                 };
 
                 hideBlogs.slider_tpl = "\
@@ -1354,7 +1354,7 @@ if (typeof jQuery != 'undefined') {
 
                 highlightContacts.condition = function()
                 {
-                    return config.get('nonReadedHighlight', true) && location.href.match(/contacts/);
+                    return config.get('nonReadedHighlight', true) && location.href.match(/contacts\//);
                 };
 
                 highlightContacts.css = "\
@@ -1419,7 +1419,7 @@ if (typeof jQuery != 'undefined') {
 
                 highlightProjects.condition = function()
                 {
-                    return config.get('nonReadedHighlight', true) && location.href.match(/projects/);
+                    return config.get('nonReadedHighlight', true) && location.href.match(/projects\//);
                 };
 
                 highlightProjects.pr_css = "\
@@ -1762,7 +1762,7 @@ if (typeof jQuery != 'undefined') {
 
                 blogSmiles.condition = function()
                 {
-                    return config.get('Smiles', true) && location.href.match(/blogs/);
+                    return config.get('Smiles', true) && location.href.match(/blogs\//);
                 };
 
                 blogSmiles.css = "\
@@ -2085,7 +2085,7 @@ if (typeof jQuery != 'undefined') {
 
                 fontSelector.condition = function()
                 {
-                    return location.href.match(/blogs/);
+                    return location.href.match(/blogs\//);
                 };
 
                 fontSelector.font_tpl = "\
@@ -2132,9 +2132,6 @@ if (typeof jQuery != 'undefined') {
                     var resizable = '.blog-one-cnt';
                     var skip = '.bl';
 
-                    if (location.href.match(/articles/))
-                        resizable += ', .box2 p, .box2 div';
-
                     var fontsize = config.get('fontsize', 8);
 
                     $('.personal_fontsize select').val(fontsize);
@@ -2168,7 +2165,7 @@ if (typeof jQuery != 'undefined') {
 
                 citeBlogs.condition = function()
                 {
-                    return location.href.match(/blogs/);
+                    return location.href.match(/blogs\//);
                 };
 
                 citeBlogs.action = function()
@@ -2208,7 +2205,7 @@ if (typeof jQuery != 'undefined') {
 
                 codeHighlight.condition = function()
                 {
-                    return location.href.match(/blogs/);
+                    return location.href.match(/blogs\//);
                 };
 
                 codeHighlight.parser_css = "\
@@ -2603,7 +2600,7 @@ if (typeof jQuery != 'undefined') {
                 portfolioAnchors.condition = function()
                 {
                     return config.get('portfolioAnchors', true) &&
-                        location.href.match(/users/) &&
+                        location.href.match(/users\//) &&
                         !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
                         !location.href.match(/viewproj\.php/) &&
                         ($('.b-menu__item:first-child span span').text() == 'Портфолио' || $('.b-menu__item:first-child span span').text() == 'Услуги');

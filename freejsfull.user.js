@@ -999,7 +999,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                 {
                     this.registerCss(this.css);
 
-                    if (location.href.match(/users/)) {
+                    if (location.href.match(/users\//)) {
 
                         $('.profile-advert').hide();
                         $('.page-profile').css('width','100% !important');
@@ -1017,7 +1017,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 hideBlogs.condition = function()
                 {
-                    return config.get('hideBlogs', true) && location.href.match(/blogs/);
+                    return config.get('hideBlogs', true) && location.href.match(/blogs\//);
                 };
 
                 hideBlogs.slider_tpl = "\
@@ -1376,7 +1376,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 highlightContacts.condition = function()
                 {
-                    return config.get('nonReadedHighlight', true) && location.href.match(/contacts/);
+                    return config.get('nonReadedHighlight', true) && location.href.match(/contacts\//);
                 };
 
                 highlightContacts.css = "\
@@ -1441,7 +1441,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 highlightProjects.condition = function()
                 {
-                    return config.get('nonReadedHighlight', true) && location.href.match(/projects/);
+                    return config.get('nonReadedHighlight', true) && location.href.match(/projects\//);
                 };
 
                 highlightProjects.pr_css = "\
@@ -1784,7 +1784,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 blogSmiles.condition = function()
                 {
-                    return config.get('Smiles', true) && location.href.match(/blogs/);
+                    return config.get('Smiles', true) && location.href.match(/blogs\//);
                 };
 
                 blogSmiles.css = "\
@@ -1826,7 +1826,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                 profileGallery.condition = function()
                 {
                     return config.get('profileGallery', true) &&
-                        location.href.match(/users/) &&
+                        location.href.match(/users\//) &&
                         !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
                         !location.href.match(/viewproj\.php/) &&
                         ($('.b-menu__item:first-child span span').text() == 'Портфолио' || $('.b-menu__item:first-child span span').text() == 'Услуги');
@@ -2107,7 +2107,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 fontSelector.condition = function()
                 {
-                    return location.href.match(/blogs/);
+                    return location.href.match(/blogs\//);
                 };
 
                 fontSelector.font_tpl = "\
@@ -2154,9 +2154,6 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                     var resizable = '.blog-one-cnt';
                     var skip = '.bl';
 
-                    if (location.href.match(/articles/))
-                        resizable += ', .box2 p, .box2 div';
-
                     var fontsize = config.get('fontsize', 8);
 
                     $('.personal_fontsize select').val(fontsize);
@@ -2190,7 +2187,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 citeBlogs.condition = function()
                 {
-                    return location.href.match(/blogs/);
+                    return location.href.match(/blogs\//);
                 };
 
                 citeBlogs.action = function()
@@ -2230,7 +2227,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 codeHighlight.condition = function()
                 {
-                    return location.href.match(/blogs/);
+                    return location.href.match(/blogs\//);
                 };
 
                 codeHighlight.parser_css = "\
@@ -2625,7 +2622,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                 portfolioAnchors.condition = function()
                 {
                     return config.get('portfolioAnchors', true) &&
-                        location.href.match(/users/) &&
+                        location.href.match(/users\//) &&
                         !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
                         !location.href.match(/viewproj\.php/) &&
                         ($('.b-menu__item:first-child span span').text() == 'Портфолио' || $('.b-menu__item:first-child span span').text() == 'Услуги');
