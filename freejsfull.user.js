@@ -1466,7 +1466,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                     .project_nosuccess {\
                         border:#f00 2px solid;\
                         background:#fff0f1;\
-                        background:-moz-linear-gradient( #fff0f1, #ffe7e1);\
+                        background:-moz-linear-gradient(#fff0f1, #ffe7e1);\
                         background:-webkit-linear-gradient(#fff0f1, #ffe7e1);\
                         background:-o-linear-gradient(#fff0f1, #ffe7e1);\
                         background:-ms-linear-gradient(#fff0f1, #ffe7e1);\

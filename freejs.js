@@ -1804,7 +1804,7 @@ if (typeof jQuery != 'undefined') {
                 profileGallery.condition = function()
                 {
                     return config.get('profileGallery', true) &&
-                        location.href.match(/users/) &&
+                        location.href.match(/users\//) &&
                         !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
                         !location.href.match(/viewproj\.php/) &&
                         ($('.b-menu__item:first-child span span').text() == 'Портфолио' || $('.b-menu__item:first-child span span').text() == 'Услуги');
