@@ -6,10 +6,10 @@
 // @copyright      2010+, ElisDN (http://www.elisdn.ru)
 // @licence        Summary: Free for personal non-commercial use;
 // @website        http://freejs.elisdn.ru
-// @include        http://www.free-lance.ru/*
-// @exclude        http://www.free-lance.ru/iframe*
-// @exclude        http://www.free-lance.ru/upload*
-// @exclude        http://www.free-lance.ru/share.php*
+// @include        https://www.free-lance.ru/*
+// @exclude        https://www.free-lance.ru/iframe*
+// @exclude        https://www.free-lance.ru/upload*
+// @exclude        https://www.free-lance.ru/share.php*
 // ==/UserScript==
 
 (function(window) {
