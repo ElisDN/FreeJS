@@ -30,7 +30,10 @@
 
     if (!(
         location.href.match(/^https?:\/\/www.free\-lance\.ru/) &&
-        !location.href.match(/inframe/)
+        !location.href.match(/inframe/) &&
+        !location.href.match(/iframe/) &&
+        !location.href.match(/upload\.php/) &&
+        !location.href.match(/share\.php/)
     )) return;
 
     var FreeJS = function(config){

@@ -30,7 +30,10 @@ var fj_config = {
 
     if (!(
         location.href.match(/^https?:\/\/www.free\-lance\.ru/) &&
-        !location.href.match(/inframe/)
+        !location.href.match(/inframe/) &&
+        !location.href.match(/iframe/) &&
+        !location.href.match(/upload\.php/) &&
+        !location.href.match(/share\.php/)
     )) return;
 
 /*! jQuery v1.7.2 jquery.com | jquery.org/license */
