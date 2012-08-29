@@ -1482,8 +1482,6 @@ if (typeof jQuery != 'undefined') {
                     return config.get('BBCodeBar', true) && (
                         location.href.match(/\/contacts\/\?from\=/) ||
                             location.href.match(/\/blogs\//) ||
-                            location.href.match(/\/defile\//) ||
-                            location.href.match(/\/projects\//) ||
                             location.href.match(/\/setup\/portfolio/)
                         );
                 };

@@ -1515,8 +1515,6 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                     return config.get('BBCodeBar', true) && (
                         location.href.match(/\/contacts\/\?from\=/) ||
                             location.href.match(/\/blogs\//) ||
-                            location.href.match(/\/defile\//) ||
-                            location.href.match(/\/projects\//) ||
                             location.href.match(/\/setup\/portfolio/)
                         );
                 };
