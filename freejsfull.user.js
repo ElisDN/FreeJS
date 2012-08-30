@@ -990,19 +990,19 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                         display:none !important; \
                     }\
                     .b-banner, .b-banner_top_0, .b-banner_margtop_30, .b-banner_layout_horiz{\
-                        display:none!important;\
+                        display:none !important;\
                     }\
                     .b-page__page, .b-page__page_padtop_130 {\
-                        padding-top:40px!important;\
+                        padding-top:40px !important;\
                     }\
                     .b-carusel, .b-carusel_width_full{\
-                        top:170px!important;\
+                        top:170px !important;\
                     }\
                     .b-menu__banner{\
-                        display:none!important;\
+                        display:none !important;\
                     }\
                     .banner_240x400{\
-                        display:none!important;\
+                        display:none !important;\
                     }\
                 ";
 
