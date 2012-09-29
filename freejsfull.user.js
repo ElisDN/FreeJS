@@ -16,12 +16,12 @@
 
 //####################### <Personal settings BEGIN> ######################
 
-var fj_config = {
-    answerTemplates:
-        "Готов выполнить за шоколадку.||" +
-        "Email: mail@elisdn.ru||" +
-        "Обращайтесь.|C уважением, Дмитрий!"
-};
+    var fj_config = {
+        answerTemplates:
+            "Готов выполнить за шоколадку.||" +
+            "Email: mail@elisdn.ru||" +
+            "Обращайтесь.|C уважением, Дмитрий!"
+    };
 
 //######################## <Personal settings END> #######################
 
