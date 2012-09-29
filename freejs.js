@@ -435,7 +435,7 @@ if (typeof jQuery != 'undefined') {
 
             /**
              * Add element
-             * @param elem (MenuElement)
+             * @param {MenuElement} elem
              */
             this.add = function(elem){
                 var li = $('<li>');
