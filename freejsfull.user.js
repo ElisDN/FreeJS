@@ -1858,7 +1858,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                         location.href.match(/users\//) &&
                         !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
                         !location.href.match(/viewproj\.php/) &&
-                        ($('.b-menu__item:first-child span span').text() == 'Портфолио' || $('.b-menu__item:first-child span span').text() == 'Услуги');
+                        ($('.b-menu__item:first-child span').text() == 'Портфолио' || $('.b-menu__item:first-child span').text() == 'Услуги');
                 };
 
                 profileGallery.gallery_tpl = "\
@@ -2519,10 +2519,10 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 hideShareInBlogs.action = function()
                 {
-                    $('.b-share').hide();
+                    $('.b-free-share__body').hide();
                     $('.footer .commline').prepend('<a class="showshare" href="#" title="FreeJS Share Toggler">Поделиться</a>&nbsp;|');
                     $('.showshare').click(function(){
-                        $('.b-share').toggle();
+                        $('.b-free-share__body').toggle();
                         return false;
                     });
                 };
@@ -2654,7 +2654,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                         location.href.match(/users\//) &&
                         !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
                         !location.href.match(/viewproj\.php/) &&
-                        ($('.b-menu__item:first-child span span').text() == 'Портфолио' || $('.b-menu__item:first-child span span').text() == 'Услуги');
+                        ($('.b-menu__item:first-child span').text() == 'Портфолио' || $('.b-menu__item:first-child span').text() == 'Услуги');
                 };
 
                 portfolioAnchors.anchor_css = "\
