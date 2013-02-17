@@ -611,7 +611,7 @@ if (typeof jQuery != 'undefined') {
                 return result;
             }
 
-            var scriptVersion = '2.3.2';
+            var scriptVersion = '2.3.3';
             var clientLastVersion = '2.0';
 
             /* Init */
