@@ -752,7 +752,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                 return result;
             }
 
-            var scriptVersion = '2.3.3';
+            var scriptVersion = '2.3.4';
             var clientLastVersion = '2.0';
 
             /* Init */
