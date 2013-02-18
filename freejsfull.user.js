@@ -498,6 +498,114 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
         };
 
         /**
+         * Url handler
+         * @class UrlManager
+         */
+        var UrlManager = function()
+        {
+            /**
+             * @return {Boolean}
+             */
+            this.isSelfPromotion = function(){
+                return location.href.match(/promotion\//);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isSelfPromotionVisitors = function(){
+                return location.href.match(/promotion\/\?bm=1/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isSelfProjectsList = function(){
+                return location.href.match(/projects\/\?p=list/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isSelfContactsList = function(){
+                return location.href.match(/contacts\//) && !this.isSelfContact();
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isSelfContact = function(){
+                return location.href.match(/\/contacts\/\?from=/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isSelfSetupPortfolio = function(){
+                return location.href.match(/\/setup\/portfolio/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isUserHome = function(){
+                return location.href.match(/users\/[a-zA-Z0-9_\-]*/) && !location.href.match(/users\/[a-zA-Z0-9_\-]+\/[a-zA-Z]+/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isUserPortfolio = function(){
+                if (!this.isUserHome()) {
+                    return false;
+                }
+                var tab = $('.b-menu__item:first-child span');
+                if (!tab) {
+                    return false;
+                }
+                var label = tab.text();
+                return (label == 'Портфолио' || label == 'Услуги');
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isUserWork = function(){
+                return location.href.match(/viewproj\.php/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isBlogsList = function(){
+                return location.href.match(/blogs\//) && !this.isBlog();
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isBlog = function(){
+                return location.href.match(/blogs\/[^\/]+\/\d+\/.*/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isProjectsList = function(){
+                return location.href.match(/\.ru\/?$/) ||
+                    location.href.match(/\.ru\/\?kind=\d+/) ||
+                    location.href.match(/\.ru\/\?page=\d+/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isProject = function(){
+                return location.href.match(/projects\/\d+\/.*/) || location.href.match(/projects\/\?pid=\d+/);
+            };
+        };
+
+        /**
          * Smiles collection
          * @class Smiles
          */
@@ -672,6 +780,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
             var user = new User(client_params);
             var menu = new Menu();
             var manager = new ModuleManager();
+            var urlManager = new UrlManager();
 
             /* Run */
 
@@ -1028,7 +1137,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 showVisitorsCount.condition = function()
                 {
-                    return location.href.match(/promotion\//);
+                    return urlManager.isSelfPromotion();
                 };
 
                 showVisitorsCount.css = ".promotion .z-s{font-size:9px !important}";
@@ -1048,7 +1157,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 hideBlogs.condition = function()
                 {
-                    return config.get('hideBlogs', true) && location.href.match(/blogs\//);
+                    return config.get('hideBlogs', true) && urlManager.isBlogsList();
                 };
 
                 hideBlogs.slider_tpl = "\
@@ -1377,7 +1486,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 answerTemplates.condition = function()
                 {
-                    return config.get('answerTemplates', true) && location.href.match(/projects\/\d+\/.*/);
+                    return config.get('answerTemplates', true) && urlManager.isProject();
                 };
 
                 answerTemplates.action = function()
@@ -1407,7 +1516,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 highlightContacts.condition = function()
                 {
-                    return config.get('nonReadedHighlight', true) && location.href.match(/contacts\//);
+                    return config.get('nonReadedHighlight', true) && urlManager.isSelfContactsList();
                 };
 
                 highlightContacts.css = "\
@@ -1472,7 +1581,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 highlightProjects.condition = function()
                 {
-                    return config.get('nonReadedHighlight', true) && location.href.match(/projects\//);
+                    return config.get('nonReadedHighlight', true) && urlManager.isSelfProjectsList();
                 };
 
                 highlightProjects.pr_css = "\
@@ -1533,9 +1642,10 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                 bbCodeBar.condition = function()
                 {
                     return config.get('BBCodeBar', true) && (
-                        location.href.match(/\/contacts\/\?from\=/) ||
-                            location.href.match(/\/blogs\//) ||
-                            location.href.match(/\/setup\/portfolio/)
+                        urlManager.isSelfContact() ||
+                            urlManager.isBlogsList() ||
+                            urlManager.isBlog() ||
+                            urlManager.isSelfSetupPortfolio()
                         );
                 };
 
@@ -1813,7 +1923,10 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 blogSmiles.condition = function()
                 {
-                    return config.get('Smiles', true) && location.href.match(/blogs\//);
+                    return config.get('Smiles', true) && (
+                        urlManager.isBlogsList() ||
+                            urlManager.isBlog()
+                        );
                 };
 
                 blogSmiles.css = "\
@@ -1854,11 +1967,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 profileGallery.condition = function()
                 {
-                    return config.get('profileGallery', true) &&
-                        location.href.match(/users\//) &&
-                        !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
-                        !location.href.match(/viewproj\.php/) &&
-                        ($('.b-menu__item:first-child span').text() == 'Портфолио' || $('.b-menu__item:first-child span').text() == 'Услуги');
+                    return config.get('profileGallery', true) && urlManager.isUserPortfolio();
                 };
 
                 profileGallery.gallery_tpl = "\
@@ -2136,7 +2245,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 fontSelector.condition = function()
                 {
-                    return location.href.match(/blogs\//);
+                    return urlManager.isBlogsList() || urlManager.isBlog();
                 };
 
                 fontSelector.font_tpl = "\
@@ -2216,7 +2325,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 citeBlogs.condition = function()
                 {
-                    return location.href.match(/blogs\//);
+                    return urlManager.isBlog();
                 };
 
                 citeBlogs.action = function()
@@ -2256,7 +2365,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 codeHighlight.condition = function()
                 {
-                    return location.href.match(/blogs\//);
+                    return urlManager.isBlog();
                 };
 
                 codeHighlight.parser_css = "\
@@ -2514,7 +2623,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 hideShareInBlogs.condition = function()
                 {
-                    return location.href.match(/blogs\/[^\/]+\/\d+\/.*/);
+                    return urlManager.isBlog();
                 };
 
                 hideShareInBlogs.action = function()
@@ -2537,7 +2646,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 highlightGuests.condition = function()
                 {
-                    return config.get('highlightGuests', true) && location.href.match(/promotion\/\?bm\=1/);
+                    return config.get('highlightGuests', true) && urlManager.isSelfPromotionVisitors();
                 };
 
                 highlightGuests.userpic_css = "\
@@ -2611,11 +2720,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 noPRO.condition = function()
                 {
-                    return config.get('noPRO', true) && (
-                        location.href.match(/\.ru\/?$/) ||
-                            location.href.match(/\.ru\/\?kind\=\d+/) ||
-                            location.href.match(/\.ru\/\?page\=\d+/)
-                        );
+                    return config.get('noPRO', true) && urlManager.isProjectsList();
                 };
 
                 noPRO.action = function()
@@ -2650,11 +2755,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                 portfolioAnchors.condition = function()
                 {
-                    return config.get('portfolioAnchors', true) &&
-                        location.href.match(/users\//) &&
-                        !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
-                        !location.href.match(/viewproj\.php/) &&
-                        ($('.b-menu__item:first-child span').text() == 'Портфолио' || $('.b-menu__item:first-child span').text() == 'Услуги');
+                    return config.get('portfolioAnchors', true) && urlManager.isUserPortfolio()
                 };
 
                 portfolioAnchors.anchor_css = "\
@@ -2715,5 +2816,6 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
     })(jQuery);
 
 //######################## <USERSCRIPT CONTENT> #######################
+
 
 })(window);

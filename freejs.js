@@ -465,6 +465,114 @@ if (typeof jQuery != 'undefined') {
         };
 
         /**
+         * Url handler
+         * @class UrlManager
+         */
+        var UrlManager = function()
+        {
+            /**
+             * @return {Boolean}
+             */
+            this.isSelfPromotion = function(){
+                return location.href.match(/promotion\//);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isSelfPromotionVisitors = function(){
+                return location.href.match(/promotion\/\?bm=1/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isSelfProjectsList = function(){
+                return location.href.match(/projects\/\?p=list/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isSelfContactsList = function(){
+                return location.href.match(/contacts\//) && !this.isSelfContact();
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isSelfContact = function(){
+                return location.href.match(/\/contacts\/\?from=/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isSelfSetupPortfolio = function(){
+                return location.href.match(/\/setup\/portfolio/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isUserHome = function(){
+                return location.href.match(/users\/[a-zA-Z0-9_\-]*/) && !location.href.match(/users\/[a-zA-Z0-9_\-]+\/[a-zA-Z]+/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isUserPortfolio = function(){
+                if (!this.isUserHome()) {
+                    return false;
+                }
+                var tab = $('.b-menu__item:first-child span');
+                if (!tab) {
+                    return false;
+                }
+                var label = tab.text();
+                return (label == 'Портфолио' || label == 'Услуги');
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isUserWork = function(){
+                return location.href.match(/viewproj\.php/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isBlogsList = function(){
+                return location.href.match(/blogs\//) && !this.isBlog();
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isBlog = function(){
+                return location.href.match(/blogs\/[^\/]+\/\d+\/.*/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isProjectsList = function(){
+                return location.href.match(/\.ru\/?$/) ||
+                    location.href.match(/\.ru\/\?kind=\d+/) ||
+                    location.href.match(/\.ru\/\?page=\d+/);
+            };
+
+            /**
+             * @return {Boolean}
+             */
+            this.isProject = function(){
+                return location.href.match(/projects\/\d+\/.*/) || location.href.match(/projects\/\?pid=\d+/);
+            };
+        };
+
+        /**
          * Smiles collection
          * @class Smiles
          */
@@ -639,6 +747,7 @@ if (typeof jQuery != 'undefined') {
             var user = new User(client_params);
             var menu = new Menu();
             var manager = new ModuleManager();
+            var urlManager = new UrlManager();
 
             /* Run */
 
@@ -995,7 +1104,7 @@ if (typeof jQuery != 'undefined') {
 
                 showVisitorsCount.condition = function()
                 {
-                    return location.href.match(/promotion\//);
+                    return urlManager.isSelfPromotion();
                 };
 
                 showVisitorsCount.css = ".promotion .z-s{font-size:9px !important}";
@@ -1015,7 +1124,7 @@ if (typeof jQuery != 'undefined') {
 
                 hideBlogs.condition = function()
                 {
-                    return config.get('hideBlogs', true) && location.href.match(/blogs\//);
+                    return config.get('hideBlogs', true) && urlManager.isBlogsList();
                 };
 
                 hideBlogs.slider_tpl = "\
@@ -1344,7 +1453,7 @@ if (typeof jQuery != 'undefined') {
 
                 answerTemplates.condition = function()
                 {
-                    return config.get('answerTemplates', true) && location.href.match(/projects\/\d+\/.*/);
+                    return config.get('answerTemplates', true) && urlManager.isProject();
                 };
 
                 answerTemplates.action = function()
@@ -1374,7 +1483,7 @@ if (typeof jQuery != 'undefined') {
 
                 highlightContacts.condition = function()
                 {
-                    return config.get('nonReadedHighlight', true) && location.href.match(/contacts\//);
+                    return config.get('nonReadedHighlight', true) && urlManager.isSelfContactsList();
                 };
 
                 highlightContacts.css = "\
@@ -1439,7 +1548,7 @@ if (typeof jQuery != 'undefined') {
 
                 highlightProjects.condition = function()
                 {
-                    return config.get('nonReadedHighlight', true) && location.href.match(/projects\//);
+                    return config.get('nonReadedHighlight', true) && urlManager.isSelfProjectsList();
                 };
 
                 highlightProjects.pr_css = "\
@@ -1500,10 +1609,11 @@ if (typeof jQuery != 'undefined') {
                 bbCodeBar.condition = function()
                 {
                     return config.get('BBCodeBar', true) && (
-                        location.href.match(/\/contacts\/\?from\=/) ||
-                            location.href.match(/\/blogs\//) ||
-                            location.href.match(/\/setup\/portfolio/)
-                        );
+                        urlManager.isSelfContact() ||
+                        urlManager.isBlogsList() ||
+                        urlManager.isBlog() ||
+                        urlManager.isSelfSetupPortfolio()
+                    );
                 };
 
                 bbCodeBar.panel_tpl = "\
@@ -1780,7 +1890,10 @@ if (typeof jQuery != 'undefined') {
 
                 blogSmiles.condition = function()
                 {
-                    return config.get('Smiles', true) && location.href.match(/blogs\//);
+                    return config.get('Smiles', true) && (
+                        urlManager.isBlogsList() ||
+                        urlManager.isBlog()
+                    );
                 };
 
                 blogSmiles.css = "\
@@ -1821,11 +1934,7 @@ if (typeof jQuery != 'undefined') {
 
                 profileGallery.condition = function()
                 {
-                    return config.get('profileGallery', true) &&
-                        location.href.match(/users\//) &&
-                        !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
-                        !location.href.match(/viewproj\.php/) &&
-                        ($('.b-menu__item:first-child span').text() == 'Портфолио' || $('.b-menu__item:first-child span').text() == 'Услуги');
+                    return config.get('profileGallery', true) && urlManager.isUserPortfolio();
                 };
 
                 profileGallery.gallery_tpl = "\
@@ -2103,7 +2212,7 @@ if (typeof jQuery != 'undefined') {
 
                 fontSelector.condition = function()
                 {
-                    return location.href.match(/blogs\//);
+                    return urlManager.isBlogsList() || urlManager.isBlog();
                 };
 
                 fontSelector.font_tpl = "\
@@ -2183,7 +2292,7 @@ if (typeof jQuery != 'undefined') {
 
                 citeBlogs.condition = function()
                 {
-                    return location.href.match(/blogs\//);
+                    return urlManager.isBlog();
                 };
 
                 citeBlogs.action = function()
@@ -2223,7 +2332,7 @@ if (typeof jQuery != 'undefined') {
 
                 codeHighlight.condition = function()
                 {
-                    return location.href.match(/blogs\//);
+                    return urlManager.isBlog();
                 };
 
                 codeHighlight.parser_css = "\
@@ -2481,7 +2590,7 @@ if (typeof jQuery != 'undefined') {
 
                 hideShareInBlogs.condition = function()
                 {
-                    return location.href.match(/blogs\/[^\/]+\/\d+\/.*/);
+                    return urlManager.isBlog();
                 };
 
                 hideShareInBlogs.action = function()
@@ -2504,7 +2613,7 @@ if (typeof jQuery != 'undefined') {
 
                 highlightGuests.condition = function()
                 {
-                    return config.get('highlightGuests', true) && location.href.match(/promotion\/\?bm\=1/);
+                    return config.get('highlightGuests', true) && urlManager.isSelfPromotionVisitors();
                 };
 
                 highlightGuests.userpic_css = "\
@@ -2578,11 +2687,7 @@ if (typeof jQuery != 'undefined') {
 
                 noPRO.condition = function()
                 {
-                    return config.get('noPRO', true) && (
-                        location.href.match(/\.ru\/?$/) ||
-                            location.href.match(/\.ru\/\?kind\=\d+/) ||
-                            location.href.match(/\.ru\/\?page\=\d+/)
-                        );
+                    return config.get('noPRO', true) && urlManager.isProjectsList();
                 };
 
                 noPRO.action = function()
@@ -2617,11 +2722,7 @@ if (typeof jQuery != 'undefined') {
 
                 portfolioAnchors.condition = function()
                 {
-                    return config.get('portfolioAnchors', true) &&
-                        location.href.match(/users\//) &&
-                        !location.href.match(/users\/[a-zA-Z0-9_\-]*\/.*?\//) &&
-                        !location.href.match(/viewproj\.php/) &&
-                        ($('.b-menu__item:first-child span').text() == 'Портфолио' || $('.b-menu__item:first-child span').text() == 'Услуги');
+                    return config.get('portfolioAnchors', true) && urlManager.isUserPortfolio()
                 };
 
                 portfolioAnchors.anchor_css = "\
