@@ -1004,15 +1004,16 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                     $('body').prepend(panel);
 
+                    var freeJsBlock = $('.freejsblock');
+
                     $('.freejslink').click(function(){
-                        ($('.freejsblock').css('display') == 'none') ? $('.freejsblock').fadeIn(400) : $('.freejsblock').fadeOut(400);
+                        (freeJsBlock.css('display') == 'none') ? freeJsBlock.fadeIn(400) : freeJsBlock.fadeOut(400);
                     });
 
-                    $('.freejsblock').mouseenter(function(){$(this).show();});
-                    $('.freejsblock').mouseleave(function(){$(this).fadeOut(1000);});
+                    freeJsBlock.mouseenter(function(){$(this).show();});
+                    freeJsBlock.mouseleave(function(){$(this).fadeOut(1000);});
 
                     $('.fj_sel li').click(function(){
-
                         var id = $(this).attr('id');
                         if (!config.get(id)){
                             $(this).addClass('on');
@@ -1021,7 +1022,6 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                             $(this).removeClass('on');
                             config.set(id, false);
                         }
-
                     });
 
                     var hideoptions = config.get('hideoptions');
@@ -1364,8 +1364,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                         $('.flt-tgl-lnk2').text('Развернуть');
                     }
 
-                    $('.flt-tgl-lnk2').unbind('click');
-                    $('.flt-tgl-lnk2').click(function()
+                    $('.flt-tgl-lnk2').unbind('click').click(function()
                     {
                         var collapse = config.get('collapse_slider');
                         collapse = !collapse;
@@ -1779,28 +1778,18 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                     function initBBPanel()
                     {
-                        $('textarea').unbind('change');
-                        $('textarea').change(function(){
-                            getSelect(this);
-                        });
+                        var textAreas = $('textarea');
 
-                        $('textarea').unbind('click');
-                        $('textarea').click(function(){
+                        var selectFunction = function(){
                             getSelect(this);
-                        });
+                        };
 
-                        $('textarea').unbind('keyup');
-                        $('textarea').keyup(function(){
-                            getSelect(this);
-                        });
+                        textAreas.unbind('change').change(selectFunction);
+                        textAreas.unbind('click').click(selectFunction);
+                        textAreas.unbind('keyup').keyup(selectFunction);
+                        textAreas.unbind('select').select(selectFunction);
 
-                        $('textarea').unbind('select');
-                        $('textarea').select(function(){
-                            getSelect(this);
-                        });
-
-                        $('.fj_bbcode input').unbind('click');
-                        $('.fj_bbcode input').click(function(){
+                        $('.fj_bbcode input').unbind('click').click(function(){
 
                             var text = clearnl($(textfield).val());
                             var s1 = text.substring(0,selStart);
@@ -1815,9 +1804,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                                 case String.fromCharCode(9786):
 
                                     $('.fj_smilePanel').toggle();
-                                    $('.fj_smileButton').unbind('click');
-
-                                    $('.fj_smileButton').click(function(){
+                                    $('.fj_smileButton').unbind('click').click(function(){
 
                                         $('.fj_smilePanel').hide();
 
@@ -2274,7 +2261,9 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
                     var fontsize = config.get('fontsize', 8);
 
-                    $('.personal_fontsize select').val(fontsize);
+                    var fontSelectors = $('.personal_fontsize select');
+
+                    fontSelectors.val(fontsize);
                     if (fontsize != 8){
                         $(resizable).addClass('font' + fontsize + 'pt');
                         $(skip).css({
@@ -2282,7 +2271,7 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                         });
                     }
 
-                    $('.personal_fontsize select').change(function(){
+                    fontSelectors.change(function(){
                         for (i = 8; i<13; i++){
                             $(resizable).removeClass('font' + i + 'pt');
                         }
@@ -2498,9 +2487,11 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                         txt.html('<div class="fj_pre">'+parseCode(source, false)+'</pre>');
                     });
 
-                    $('.fj_codeButtons img').fadeTo(1, 0.1);
+                    var icon = $('.fj_codeButtons img');
 
-                    $('.fj_codeButtons img').hover(
+                    icon.fadeTo(1, 0.1);
+
+                    icon.hover(
                         function(){
                             $(this).fadeTo(200, 1);
                         }, function(){
