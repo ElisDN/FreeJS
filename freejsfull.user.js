@@ -1130,26 +1130,6 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
                 manager.add(stylize);
 
                 /* #########################################################
-                 * Отображение числа посетителей в гистограмме статистики
-                 */
-
-                var showVisitorsCount = new Module();
-
-                showVisitorsCount.condition = function()
-                {
-                    return urlManager.isSelfPromotion();
-                };
-
-                showVisitorsCount.css = ".promotion .z-s{font-size:9px !important}";
-
-                showVisitorsCount.action = function()
-                {
-                    this.registerCss(this.css);
-                };
-
-                manager.add(showVisitorsCount);
-
-                /* #########################################################
                  * Скрытие блогов
                  */
 

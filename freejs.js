@@ -1097,26 +1097,6 @@ if (typeof jQuery != 'undefined') {
                 manager.add(stylize);
 
                 /* #########################################################
-                 * Отображение числа посетителей в гистограмме статистики
-                 */
-
-                var showVisitorsCount = new Module();
-
-                showVisitorsCount.condition = function()
-                {
-                    return urlManager.isSelfPromotion();
-                };
-
-                showVisitorsCount.css = ".promotion .z-s{font-size:9px !important}";
-
-                showVisitorsCount.action = function()
-                {
-                    this.registerCss(this.css);
-                };
-
-                manager.add(showVisitorsCount);
-
-                /* #########################################################
                  * Скрытие блогов
                  */
 
