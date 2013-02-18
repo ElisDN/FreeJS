@@ -2694,19 +2694,17 @@ if (typeof jQuery != 'undefined') {
                 {
                     if (user.isLogged() && !user.isPRO()) {
 
-                        $('.b-page__filter ul.b-menu__list li').eq(0).html('<a class="b-menu__link" href="/"><span class="b-menu__b1">Все проекты</span></a>');
-                        $('.b-page__filter ul.b-menu__list li').eq(1).html('<a class="b-menu__link" href="/?kind=5"><span class="b-menu__b1">Не для <img class="b-menu__pro b-menu__pro_margbot_-1" src="/images/icons/f-pro.png" alt="" width="26" height="11"/></span></a>');
+                        var tabs = $('.b-page__filter ul.b-menu__list li');
 
-                        if (location.href.match(/\.ru\/\?kind\=5/)) {
+                        tabs.eq(0).html('<a class="b-menu__link" href="/"><span class="b-menu__b1">Все проекты</span></a>');
+                        tabs.eq(1).html('<a class="b-menu__link" href="/?kind=5"><span class="b-menu__b1">Не для <img class="b-menu__pro b-menu__pro_margbot_-1" src="/images/icons/f-pro.png" alt="" width="26" height="11"/></span></a>');
 
-                            $('#cat_comment').text('В данной категории выводятся все проекты не для PRO скриптом FreeJS');
+                        if (location.href.match(/\.ru\/\?kind=5/)) {
 
-                            $('.tabs:has(.pc-desc) ul.clear .tab2').addClass('active');
+                            $('.b-post:has(.b-icon__pro)').hide();
 
-                            $('.b-post:has(.b-post__fpro)').hide();
-
-                            $('.b-page__filter ul.b-menu__list li').eq(0).removeClass('b-menu__item_active');
-                            $('.b-page__filter ul.b-menu__list li').eq(1).addClass('b-menu__item_active');
+                            tabs.eq(0).removeClass('b-menu__item_active');
+                            tabs.eq(1).addClass('b-menu__item_active');
 
                         }
                     }
